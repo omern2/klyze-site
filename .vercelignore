@@ -1,0 +1,6 @@
+indir/
+assets-src/
+supabase-setup.sql
+app.py
+*.log
+.opencode/

@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Talep — Klyze.gg</title>
+  <meta name="description" content="Klyze.gg destek talebi detayı." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="assets/klyze-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/klyze-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=34" />
+</head>
+<body class="detail-page">
+  <div id="loader" aria-hidden="true">
+    <div class="load-box">
+      <img src="assets/logo.png" alt="" width="72" height="72" />
+      <div class="load-bar"><i id="loadFill"></i></div>
+    </div>
+  </div>
+  <a class="skip" href="#icerik">İçeriğe atla</a>
+  <header class="topbar">
+    <a class="brand" href="index.html#indir" aria-label="Klyze ana sayfa"><img src="assets/logo.png" alt="Klyze logo" width="28" height="28" /><span>KLYZE</span></a>
+    <nav class="topnav" aria-label="Ana gezinme">
+      <a href="index.html#ozellikler">Özellikler</a>
+      <a href="index.html#liderlik">Liderlik</a>
+      <a href="index.html#yorumlar">Yorumlar</a>
+      <a href="destek.html">Destek</a>
+      <a href="index.html#nasil">Kurulum</a>
+    </nav>
+    <div class="top-actions">
+      <a class="btn btn-ghost btn-small" id="loginLink" href="login.html">Giriş yap</a>
+      <div class="top-bell" id="topBell" hidden>
+        <button class="bell-btn" id="bellBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Bildirimler"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="bell-sayi" id="bellSayi" hidden></span></button>
+        <div class="pp-menu bell-menu" id="bellMenu" role="menu" hidden><div id="bellListe"></div></div>
+      </div>
+      <div class="top-profile" id="topProfile" hidden>
+        <button class="pp-btn" id="ppBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Hesap menüsü"><img id="ppImg" src="assets/logo.png" alt="" width="32" height="32" /></button>
+        <div class="pp-menu" id="ppMenu" role="menu" hidden>
+          <div class="pp-head"><img id="ppMenuImg" src="assets/logo.png" alt="" width="40" height="40" /><div><strong id="ppName"></strong><span id="ppRol"></span><span id="ppEmail"></span></div></div>
+          <button class="pp-item pp-danger" id="ppLogout" role="menuitem" type="button">Çıkış yap</button>
+        </div>
+      </div>
+      <a class="btn btn-primary btn-small" href="index.html#indir">Hemen indir</a>
+    </div>
+  </header>
+
+  <main id="icerik">
+    <section class="support-wrap talep-wrap">
+      <a class="feat-back" href="admin.html">← Havuza dön</a>
+      <div class="support-login" id="talepLogin" hidden>
+        <p>Bu talebi görmek için giriş yapmalısın.</p>
+        <a class="btn btn-white" href="login.html">Google ile giriş yap</a>
+      </div>
+      <p class="mono rev-empty" id="talepDenied" hidden></p>
+      <div id="talepApp" hidden>
+        <div class="talep-head">
+          <div class="talep-head-ust">
+            <span class="durum" id="talepDurum"></span>
+            <span class="onc" id="talepOnc" hidden></span>
+            <span class="mono talep-id" id="talepId"></span>
+          </div>
+          <h1 id="talepKonu">Yükleniyor...</h1>
+          <p class="mono talep-meta" id="talepMeta"></p>
+        </div>
+        <div class="talep-grid">
+          <div class="talep-orta">
+            <div class="talep-aciklama" id="talepAciklama"></div>
+            <div class="file-row" id="talepDosya"></div>
+            <div class="msg-list talep-akis" id="talepAkis"></div>
+            <div class="talep-kilit" id="talepKilit" hidden>
+              <strong>Yazışma kilitli</strong>
+              <span>Bu talebi başka bir yetkili üstlenmiş. Yazmak için önce üstlenmelisin.</span>
+              <button class="btn btn-white btn-small" type="button" id="kilitUstlen">Talebi Üstlen</button>
+            </div>
+            <div class="composer" id="composer">
+              <div class="label-row"><label for="talepMesaj">Yanıt yaz</label></div>
+              <textarea class="input" id="talepMesaj" rows="3" maxlength="1000" placeholder="Kullanıcıya yanıtın..."></textarea>
+              <div class="composer-alt">
+                <select class="input" id="talepDurumSec" aria-label="Durum">
+                  <option value="incelemede">İnceleniyor</option>
+                  <option value="beklemede">Beklemede</option>
+                  <option value="yanitlandi">Yanıtlandı</option>
+                </select>
+                <p class="form-err" id="talepErr" role="alert" hidden></p>
+                <button class="btn btn-white btn-small" type="button" id="talepGonder">Gönder</button>
+              </div>
+            </div>
+          </div>
+          <aside class="talep-yan">
+            <div class="yan-kart">
+              <h3>Üstlenme</h3>
+              <div class="yan-ustlenen" id="yanUstlenen"></div>
+              <button class="btn btn-white btn-small btn-full" type="button" id="yanUstlen">Talebi Üstlen</button>
+              <button class="btn btn-subtle btn-small btn-full" type="button" id="yanBirak" hidden>Bırak</button>
+              <div class="devret-box" id="devretBox" hidden>
+                <div class="label-row"><label for="devretSec">Devret <span class="mono">sadece sahip</span></label></div>
+                <div class="devret-row">
+                  <select class="input" id="devretSec"></select>
+                  <button class="btn btn-subtle btn-small" type="button" id="devretBtn">Devret</button>
+                </div>
+              </div>
+            </div>
+            <div class="yan-kart">
+              <h3>Öncelik</h3>
+              <select class="input" id="yanOnc">
+                <option value="dusuk">Düşük</option>
+                <option value="normal">Normal</option>
+                <option value="yuksek">Yüksek</option>
+                <option value="kritik">Kritik</option>
+              </select>
+            </div>
+            <div class="yan-kart yan-coz">
+              <h3>Çözüm</h3>
+              <p>Sorun çözüldüyse etiketi ver ve ayrıl. Talep havuzdan düşer, kullanıcıya düşer.</p>
+              <button class="btn btn-white btn-small btn-full" type="button" id="yanCoz">Çözüldü olarak işaretle ve ayrıl</button>
+            </div>
+            <div class="yan-kart">
+              <h3>İç not <span class="mono">sadece ekip</span></h3>
+              <div class="not-list" id="yanNotlar"></div>
+              <div class="not-add">
+                <input class="input" id="yanNotInput" maxlength="1000" placeholder="Ekibe not..." />
+                <button class="btn btn-subtle btn-small" type="button" id="yanNotEkle">Ekle</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="mono bottom">© 2026 Klyze.gg • destek</p>
+  </footer>
+
+  <script src="js/loader.js?v=1" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js" defer></script>
+  <script src="js/auth.js?v=6" defer></script>
+  <script src="js/bildirim.js?v=3" defer></script>
+  <script src="js/talep.js?v=5" defer></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

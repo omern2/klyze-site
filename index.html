@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Klyze.gg — Valorant Analiz Platformu</title>
+  <meta name="description" content="Klyze.gg: Valorant için maç analizi, canlı overlay ve liderlik tablosu." />
+  <link rel="icon" type="image/png" href="assets/klyze-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/klyze-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0c0c0c" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Klyze.gg — Profesyonel Valorant Analiz Platformu" />
+  <meta property="og:description" content="Rank takibi, maç analizi ve canlı overlay tek uygulamada. Riot ID'ni bağla, son 20 maçın önüne gelsin." />
+  <meta property="og:image" content="assets/app-analiz.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <noscript><style>#loader{display:none!important}.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=34" />
+</head>
+<body class="home">
+  <div id="loader" aria-hidden="true">
+    <div class="load-box">
+      <img src="assets/logo.png" alt="" width="72" height="72" />
+      <div class="load-bar"><i id="loadFill"></i></div>
+    </div>
+  </div>
+  <a class="skip" href="#icerik">İçeriğe atla</a>
+
+  <header class="topbar">
+    <a class="brand" href="#indir" aria-label="Klyze ana sayfa"><img src="assets/logo.png" alt="Klyze logo" width="28" height="28" /><span>KLYZE</span></a>
+    <nav class="topnav" aria-label="Ana gezinme">
+      <a href="#ozellikler" data-tr="Özellikler" data-en="Features">Özellikler</a>
+      <a href="#liderlik" data-tr="Liderlik" data-en="Leaderboard">Liderlik</a>
+      <a href="#yorumlar" data-tr="Yorumlar" data-en="Reviews">Yorumlar</a>
+      <a href="destek.html" data-tr="Destek" data-en="Support">Destek</a>
+      <a href="#nasil" data-tr="Kurulum" data-en="Setup">Kurulum</a>
+    </nav>
+    <div class="top-actions">
+      <a class="btn btn-ghost btn-small" id="loginLink" href="login.html" data-tr="Giriş yap" data-en="Log in">Giriş yap</a>
+      <div class="top-bell" id="topBell" hidden>
+        <button class="bell-btn" id="bellBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Bildirimler"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" /><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" /></svg><span class="bell-sayi" id="bellSayi" hidden></span></button>
+        <div class="pp-menu bell-menu" id="bellMenu" role="menu" hidden><div id="bellListe"></div></div>
+      </div>
+      <div class="top-profile" id="topProfile" hidden>
+        <button class="pp-btn" id="ppBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Hesap menüsü"><img id="ppImg" src="assets/logo.png" alt="" width="32" height="32" /></button>
+        <div class="pp-menu" id="ppMenu" role="menu" hidden>
+          <div class="pp-head"><img id="ppMenuImg" src="assets/logo.png" alt="" width="40" height="40" /><div><strong id="ppName"></strong><span id="ppRol"></span><span id="ppEmail"></span></div></div>
+          <button class="pp-item pp-danger" id="ppLogout" role="menuitem" type="button">Çıkış yap</button>
+        </div>
+      </div>
+      <a class="btn btn-primary btn-small" href="#indir" data-tr="Hemen indir" data-en="Download">Hemen indir</a>
+      <div class="lang-switch" role="group" aria-label="Dil seçimi">
+        <button type="button" data-lang="tr" class="active">TR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="icerik">
+    <section class="page-1" id="indir" aria-label="Tanıtım">
+      <div class="page1-copy">
+        <h1 class="page1-title"><span data-tr="Profesyonel" data-en="Professional">Profesyonel</span> <img class="title-valo-word" src="assets/valorant-yazi.png" alt="Valorant" /><br /><span class="rot-box" aria-label="Analiz, Grup, Canlı Maç, Sıralama"><span class="rot-track" aria-hidden="true"><span>Analiz</span><span>Grup</span><span>Canlı Maç</span><span>Sıralama</span><span>Analiz</span></span></span> <span data-tr="Platformu" data-en="Platform">Platformu</span></h1>
+        <p class="page1-sub" data-tr="Rank takibi, maç analizi ve canlı overlay tek uygulamada. Riot ID'ni bağla; son 20 maçın harita ve ajan kırılımıyla önüne gelsin, hangi haritada nerede düştüğünü net gör." data-en="Rank tracking, match analysis and live overlay in one app. Connect your Riot ID; your last 20 matches arrive with map and agent breakdowns, so you see exactly where you drop on each map.">Rank takibi, maç analizi ve canlı overlay tek uygulamada. Riot ID'ni bağla; son 20 maçın harita ve ajan kırılımıyla önüne gelsin, hangi haritada nerede düştüğünü net gör.</p>
+        <div class="dl-row">
+          <a class="btn btn-black dl-btn" href="https://github.com/omern2/klyze-releases/releases/download/v5.28.3/Klyze-Setup-5.28.3.exe" download="Klyze-Setup-5.28.3.exe"><i class="dl-fill"></i><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 5.6l8-1.1v7.5H3zM12 4.4L21 3v9H12zM3 12.5h8v7.5l-8-1.1zM12 12.5h9V21l-9-1.2z" /></svg><span class="dl-label" data-tr="Hemen indir — Windows" data-en="Download — Windows">Hemen indir — Windows</span></a>
+          <a class="btn btn-outline" href="#surum"><span data-tr="Sürüm notları" data-en="Changelog">Sürüm notları</span></a>
+          <a class="btn btn-outline btn-soon" href="https://discord.gg/klyze" target="_blank" rel="noopener" aria-disabled="true"><span data-tr="Android yakında" data-en="Android soon">Android yakında</span></a>
+        </div>
+        <p class="dl-meta mono" data-tr="v5.28.3 • Windows 10/11 64-bit • ~122 MB • Ücretsiz" data-en="v5.28.3 • Windows 10/11 64-bit • ~122 MB • Free">v5.28.3 • Windows 10/11 64-bit • ~122 MB • Ücretsiz</p>
+      </div>
+      <div class="page1-visual">
+        <img class="page1-app" id="appTilt" src="assets/app-analiz.png" alt="Klyze analiz ekranı" fetchpriority="high" />
+      </div>
+    </section>
+    <section class="page-2" id="ozellikler" aria-labelledby="ozellikler-title">
+      <div class="feat-head">
+        <p class="feat-badge mono" data-tr="Özellikler" data-en="Features">Özellikler</p>
+        <h2 id="ozellikler-title"><span data-tr="Neler yapar?" data-en="What does it do?">Neler yapar?</span> <span class="dim" data-tr="Hepsi tek uygulamada." data-en="All in one app.">Hepsi tek uygulamada.</span></h2>
+        <p class="sec-desc" data-tr="Sekiz özellik, tek uygulama. Detay için karta dokun." data-en="Eight features, one app. Tap a card for details.">Sekiz özellik, tek uygulama. Detay için karta dokun.</p>
+      </div>
+      <div class="feat-grid">
+        <a href="ozellik.html?id=analiz" class="feat-cell reveal" style="--d:0s">
+          <span class="feat-num" aria-hidden="true">01</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2" /></svg>
+          <h3 data-tr="Maç Analizi" data-en="Match Analysis">Maç Analizi</h3>
+          <p data-tr="Son 20 maç, RR grafiği, harita ve ajan kırılımı. K/D, ADR, HS%, clutch ve sezon karşılaştırma." data-en="Last 20 matches, RR graph, map and agent breakdowns. K/D, ADR, HS%, clutch and season comparison.">Son 20 maç, RR grafiği, harita ve ajan kırılımı. K/D, ADR, HS%, clutch ve sezon karşılaştırma.</p>
+        </a>
+        <a href="ozellik.html?id=overlay" class="feat-cell reveal" style="--d:.1s">
+          <span class="feat-num" aria-hidden="true">02</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2" /><line x1="8" x2="16" y1="21" y2="21" /><line x1="12" x2="12" y1="17" y2="21" /></svg>
+          <h3 data-tr="Canlı Overlay" data-en="Live Overlay">Canlı Overlay</h3>
+          <p data-tr="Ctrl+K ile oyun üstünde şeffaf panel. Takımlar, ajanlar, ekonomi ve smurf tespiti anlık önünde." data-en="Transparent in-game panel with Ctrl+K. Teams, agents, economy and smurf detection live in front of you.">Ctrl+K ile oyun üstünde şeffaf panel. Takımlar, ajanlar, ekonomi ve smurf tespiti anlık önünde.</p>
+        </a>
+        <a href="ozellik.html?id=grup" class="feat-cell reveal" style="--d:.2s">
+          <span class="feat-num" aria-hidden="true">03</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+          <h3 data-tr="Grup Bul" data-en="Find Group">Grup Bul</h3>
+          <p data-tr="Harita, mod ve role göre lobi aç veya katıl. Anlık sohbet, hazır durumu ve davet linki." data-en="Open or join lobbies by map, mode and role. Real-time chat, ready status and invite links.">Harita, mod ve role göre lobi aç veya katıl. Anlık sohbet, hazır durumu ve davet linki.</p>
+        </a>
+        <a href="ozellik.html?id=ai" class="feat-cell reveal" style="--d:.3s">
+          <span class="feat-num" aria-hidden="true">04</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>
+          <h3 data-tr="Klyze AI" data-en="Klyze AI">Klyze AI</h3>
+          <p data-tr="Maçlarını soran yapay zekâ koçu. Web aramalı güncel cevaplar ve sohbet geçmişi." data-en="An AI coach you can ask about your matches. Up-to-date answers with web search and chat history.">Maçlarını soran yapay zekâ koçu. Web aramalı güncel cevaplar ve sohbet geçmişi.</p>
+        </a>
+        <a href="ozellik.html?id=akis" class="feat-cell reveal" style="--d:.4s">
+          <span class="feat-num" aria-hidden="true">05</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9" /><path d="M4 4a16 16 0 0 1 16 16" /><circle cx="5" cy="19" r="1" /></svg>
+          <h3 data-tr="Akış" data-en="Feed">Akış</h3>
+          <p data-tr="Topluluk gönderileri, beğeni ve yorumlar. Gündemi sonsuz kaydırmayla takip et." data-en="Community posts, likes and comments. Follow the agenda with infinite scroll.">Topluluk gönderileri, beğeni ve yorumlar. Gündemi sonsuz kaydırmayla takip et.</p>
+        </a>
+        <a href="ozellik.html?id=liderlik" class="feat-cell reveal" style="--d:.5s">
+          <span class="feat-num" aria-hidden="true">06</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /><path d="M4 22h16" /><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" /><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" /><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" /></svg>
+          <h3 data-tr="Liderlik" data-en="Leaderboard">Liderlik</h3>
+          <p data-tr="Rank, RR ve winrate sıralaması. Kendi seviyendekilerle kendini kıyasla." data-en="Rank, RR and winrate standings. Compare yourself with players at your level.">Rank, RR ve winrate sıralaması. Kendi seviyendekilerle kendini kıyasla.</p>
+        </a>
+        <a href="ozellik.html?id=profil" class="feat-cell reveal" style="--d:.6s">
+          <span class="feat-num" aria-hidden="true">07</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20a6 6 0 0 0-12 0" /><circle cx="12" cy="10" r="4" /><circle cx="12" cy="12" r="10" /></svg>
+          <h3 data-tr="Profilim" data-en="My Profile">Profilim</h3>
+          <p data-tr="Riot ID, rank, RR ve seviyen tek ekranda. Son 5 maçın ve en çok oynadığın ajanlar." data-en="Your Riot ID, rank, RR and level on one screen. Your last 5 matches and most played agents.">Riot ID, rank, RR ve seviyen tek ekranda. Son 5 maçın ve en çok oynadığın ajanlar.</p>
+        </a>
+        <a href="ozellik.html?id=asistan" class="feat-cell reveal" style="--d:.7s">
+          <span class="feat-num" aria-hidden="true">08</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /><line x1="22" x2="18" y1="12" y2="12" /><line x1="6" x2="2" y1="12" y2="12" /><line x1="12" x2="12" y1="6" y2="2" /><line x1="12" x2="12" y1="22" y2="18" /></svg>
+          <h3 data-tr="Oyun İçi Asistan" data-en="In-Game Assistant">Oyun İçi Asistan</h3>
+          <p data-tr="Valorant açıkken yanında. Canlı maç verisiyle akıllı durum takibi." data-en="Beside you while Valorant is open. Smart state tracking with live match data.">Valorant açıkken yanında. Canlı maç verisiyle akıllı durum takibi.</p>
+        </a>
+      </div>
+    </section>
+    <section class="page-3" id="liderlik" aria-labelledby="liderlik-title">
+      <div class="lb-head">
+        <div>
+          <p class="feat-badge mono feat-badge-dark" data-tr="Liderlik" data-en="Leaderboard">Liderlik</p>
+          <h2 id="liderlik-title"><span data-tr="Oyuncu Sıralamaları" data-en="Player Rankings">Oyuncu Sıralamaları</span></h2>
+          <p class="sec-desc" data-tr="Sezonun en iyileri. Veriler her gün güncellenir." data-en="The season's best. Data updates daily.">Sezonun en iyileri. Veriler her gün güncellenir.</p>
+        </div>
+      </div>
+      <p class="mono lb-count" id="lbCount">7 oyuncu</p>
+      <div class="lb-toolbar">
+        <label class="lb-search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><line x1="21" x2="16.5" y1="21" y2="16.5" /></svg>
+          <input type="search" id="lbSearch" placeholder="Oyuncu ara..." data-tr-ph="Oyuncu ara..." data-en-ph="Search players..." aria-label="Oyuncu ara" />
+        </label>
+        <select id="lbFilter" aria-label="Rank filtresi">
+          <option value="all" data-tr="Tümü" data-en="All">Tümü</option>
+          <option value="radiant">Radiant</option>
+          <option value="immortal">Immortal</option>
+          <option value="ascendant">Ascendant</option>
+          <option value="diamond">Diamond</option>
+          <option value="plat">Platin</option>
+          <option value="gold">Altın</option>
+        </select>
+      </div>
+      <div class="lb-cols">
+        <div class="lpanel">
+          <div class="lhead" aria-hidden="true"><span>SIRA</span><span>OYUNCU</span><span>RANK</span><span></span><span>ELO</span></div>
+          <div class="lrows" id="lrows">
+            <div class="lrow" data-name="bbl lar0k" data-rank="radiant"><span class="medal m1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.562 3.266a.5.5 0 0 1 .876 0L15.39 8.87a1 1 0 0 0 1.516.294L21.183 5.5a.5.5 0 0 1 .798.519l-2.834 10.246a1 1 0 0 1-.956.734H5.81a1 1 0 0 1-.957-.734L2.02 6.02a.5.5 0 0 1 .798-.519l4.276 3.664a1 1 0 0 0 1.516-.294z" /><path d="M5 21h14" /></svg></span><span class="lplayer"><span class="avatar">B<i>23</i></span><span class="lwho"><strong>BBL Lar0k</strong><small>Seviye 23 • %68</small></span></span><span class="pill radiant"><img src="assets/rank-radiant.png" alt="" loading="lazy" />Radiant</span><span class="trend tup">▲ 2</span><span class="elo">2.712</span></div>
+            <div class="lrow" data-name="cgz meiy" data-rank="radiant"><span class="medal m2">2</span><span class="lplayer"><span class="avatar">C<i>27</i></span><span class="lwho"><strong>CGZ Meiy</strong><small>Seviye 27 • %66</small></span></span><span class="pill pale"><img src="assets/rank-radiant.png" alt="" loading="lazy" />Radiant</span><span class="trend tdown">▼ 1</span><span class="elo">2.690</span></div>
+            <div class="lrow" data-name="mexa" data-rank="ascendant"><span class="medal m3">3</span><span class="lplayer"><span class="avatar">M<i>31</i></span><span class="lwho"><strong>Mexa</strong><small>Seviye 31 • %61</small></span></span><span class="pill ascendant"><img src="assets/rank-ascendant.png" alt="" loading="lazy" />Ascendant 1</span><span class="trend tup">▲ 3</span><span class="elo">2.100</span></div>
+            <div class="lrow" data-name="s h a d o w" data-rank="diamond"><span class="medal">4</span><span class="lplayer"><span class="avatar">S<i>17</i></span><span class="lwho"><strong>S h a d o W</strong><small>Seviye 17 • %58</small></span></span><span class="pill diamond"><img src="assets/rank-diamond.png" alt="" loading="lazy" />Diamond 2</span><span class="trend flat">–</span><span class="elo">1.945</span></div>
+            <div class="lrow" data-name="shadowback" data-rank="diamond"><span class="medal">5</span><span class="lplayer"><span class="avatar">S<i>16</i></span><span class="lwho"><strong>ShadowBack</strong><small>Seviye 16 • %57</small></span></span><span class="pill diamond"><img src="assets/rank-diamond.png" alt="" loading="lazy" />Diamond 2</span><span class="trend tup">▲ 1</span><span class="elo">1.912</span></div>
+            <div class="lrow" data-name="martin odegaard" data-rank="diamond"><span class="medal">6</span><span class="lplayer"><span class="avatar">M<i>16</i></span><span class="lwho"><strong>Martin Ødegaard</strong><small>Seviye 16 • %57</small></span></span><span class="pill diamond"><img src="assets/rank-diamond.png" alt="" loading="lazy" />Diamond 2</span><span class="trend tdown">▼ 2</span><span class="elo">1.900</span></div>
+            <div class="lrow" data-name="kashiesmerjett" data-rank="diamond"><span class="medal">7</span><span class="lplayer"><span class="avatar">K<i>16</i></span><span class="lwho"><strong>KashiEsmerJett</strong><small>Seviye 16 • %55</small></span></span><span class="pill diamond"><img src="assets/rank-diamond.png" alt="" loading="lazy" />Diamond 1</span><span class="trend tup">▲ 5</span><span class="elo">1.897</span></div>
+          </div>
+        </div>
+        <aside class="chart-panel" aria-label="Rank dağılımı">
+          <p class="rank-head mono" data-tr="RANK DAĞILIMI" data-en="RANK DISTRIBUTION">RANK DAĞILIMI</p>
+          <div class="hbars" id="hbars">
+            <div class="hbar" style="--w:100%;--c:#ffffff"><img src="assets/rank-gold.png" alt="Altın" loading="lazy" /><span>Altın</span><span class="htrack"><i></i></span><span class="hpct mono">%22</span></div>
+            <div class="hbar" style="--w:92.3%;--c:#e8e8e8"><img src="assets/rank-silver.png" alt="Gümüş" loading="lazy" /><span>Gümüş</span><span class="htrack"><i></i></span><span class="hpct mono">%20,3</span></div>
+            <div class="hbar" style="--w:76.8%;--c:#c9c9c9"><img src="assets/rank-plat.png" alt="Platin" loading="lazy" /><span>Platin</span><span class="htrack"><i></i></span><span class="hpct mono">%16,9</span></div>
+            <div class="hbar" style="--w:75%;--c:#bdbdbd"><img src="assets/rank-bronze.png" alt="Bronz" loading="lazy" /><span>Bronz</span><span class="htrack"><i></i></span><span class="hpct mono">%16,5</span></div>
+            <div class="hbar" style="--w:49.5%;--c:#8f8f8f"><img src="assets/rank-diamond.png" alt="Elmas" loading="lazy" /><span>Elmas</span><span class="htrack"><i></i></span><span class="hpct mono">%10,9</span></div>
+            <div class="hbar" style="--w:23.2%;--c:#6a6a6a"><img src="assets/rank-ascendant.png" alt="Yücelik" loading="lazy" /><span>Yücelik</span><span class="htrack"><i></i></span><span class="hpct mono">%5,1</span></div>
+            <div class="hbar" style="--w:22.7%;--c:#5a5a5a"><img src="assets/rank-iron.png" alt="Demir" loading="lazy" /><span>Demir</span><span class="htrack"><i></i></span><span class="hpct mono">%5</span></div>
+            <div class="hbar" style="--w:5.5%;--c:#4a4a4a"><img src="assets/rank-immortal.png" alt="Immortal" loading="lazy" /><span>Immortal</span><span class="htrack"><i></i></span><span class="hpct mono">%1,2</span></div>
+            <div class="hbar" style="--w:3%;--c:#ffffff"><img src="assets/rank-radiant.png" alt="Radiant" loading="lazy" /><span>Radiant</span><span class="htrack"><i></i></span><span class="hpct mono">%0,1</span></div>
+          </div>
+        </aside>
+      </div>
+      <p class="mono lb-empty" id="lbEmpty" hidden data-tr="Sonuç bulunamadı." data-en="No results found.">Sonuç bulunamadı.</p>
+    </section>
+    <section class="page-4" id="nasil" aria-labelledby="nasil-title">
+      <div class="feat-head">
+        <p class="feat-badge mono" data-tr="Kurulum" data-en="Setup">Kurulum</p>
+        <h2 id="nasil-title"><span data-tr="3 adımda oyuna hazır" data-en="Ready in 3 steps">3 adımda oyuna hazır</span></h2>
+        <p class="sec-desc" data-tr="Kurulum sihirbazı yok, kayıt derdi yok." data-en="No setup wizard, no signup hassle.">Kurulum sihirbazı yok, kayıt derdi yok.</p>
+      </div>
+      <div class="hiw-grid">
+        <div class="hiw-step reveal" style="--d:0s">
+          <span class="hiw-num mono" aria-hidden="true">01</span>
+          <h3 data-tr="İndir" data-en="Download">İndir</h3>
+          <p data-tr="Windows 10 veya 11 için Klyze.exe'yi indir. Tek dosya, kurulum gerektirmez." data-en="Download Klyze.exe for Windows 10 or 11. Single file, no installation needed.">Windows 10 veya 11 için Klyze.exe'yi indir. Tek dosya, kurulum gerektirmez.</p>
+        </div>
+        <div class="hiw-step reveal" style="--d:.1s">
+          <span class="hiw-num mono" aria-hidden="true">02</span>
+          <h3 data-tr="Çalıştır" data-en="Run it">Çalıştır</h3>
+          <p data-tr="Dosyaya çift tıkla. İlk açılıştaki kısa karşılama adımlarını tamamla." data-en="Double-click the file. Complete the short welcome steps on first launch.">Dosyaya çift tıkla. İlk açılıştaki kısa karşılama adımlarını tamamla.</p>
+        </div>
+        <div class="hiw-step reveal" style="--d:.2s">
+          <span class="hiw-num mono" aria-hidden="true">03</span>
+          <h3 data-tr="Bağlan ve oyna" data-en="Connect and play">Bağlan ve oyna</h3>
+          <p data-tr="Riot ID'ni bağla. Maçların otomatik gelsin, analizin hazır olsun." data-en="Connect your Riot ID. Your matches arrive automatically, analysis ready.">Riot ID'ni bağla. Maçların otomatik gelsin, analizin hazır olsun.</p>
+        </div>
+      </div>
+      <div class="hiw-cta">
+        <a class="btn btn-white btn-big" href="https://github.com/omern2/klyze-releases/releases/download/v5.28.3/Klyze-Setup-5.28.3.exe" download="Klyze-Setup-5.28.3.exe"><span data-tr="Hemen indir →" data-en="Download now →">Hemen indir →</span></a>
+      </div>
+      <p class="dl-note mono" data-tr="Kurulum sihirbazlı • ~122 MB • Ücretsiz" data-en="Setup wizard • ~122 MB • Free">Kurulum sihirbazlı • ~122 MB • Ücretsiz</p>
+
+      <div class="rev-block" id="yorumlar">
+        <p class="feat-badge mono" data-tr="Yorumlar" data-en="Reviews">Yorumlar</p>
+        <h2><span data-tr="Oyuncular ne diyor?" data-en="What do players say?">Oyuncular ne diyor?</span></h2>
+        <div class="score-panel" id="scorePanel">
+          <strong id="scoreNum">0,0</strong>
+          <div class="score-stars" id="scoreStars" aria-hidden="true"></div>
+          <p class="mono" id="scoreCount">0 değerlendirme</p>
+        </div>
+        <div class="rev-grid" id="revGrid"></div>
+        <form class="rev-form" id="revForm">
+          <h3 data-tr="Değerlendir" data-en="Write a review">Değerlendir</h3>
+          <p class="form-err" id="revAuthErr" hidden></p>
+          <div class="star-pick" id="starPick" role="radiogroup" aria-label="Yıldız">
+            <button type="button" data-v="1" aria-label="1">★</button><button type="button" data-v="2" aria-label="2">★</button><button type="button" data-v="3" aria-label="3">★</button><button type="button" data-v="4" aria-label="4">★</button><button type="button" data-v="5" aria-label="5">★</button>
+          </div>
+          <textarea class="input" id="revText" rows="3" maxlength="400" placeholder="Görüşün..." data-tr-ph="Görüşün..." data-en-ph="Your review..."></textarea>
+          <button class="btn btn-white" type="submit" data-tr="Gönder" data-en="Submit">Gönder</button>
+        </form>
+      </div>
+    </section>
+    <section class="page-5" id="surum" aria-labelledby="surum-title">
+      <div class="feat-head">
+        <p class="feat-badge mono" data-tr="Sürüm Notları" data-en="Changelog">Sürüm Notları</p>
+        <h2 id="surum-title"><span data-tr="Neler yeni?" data-en="What's new?">Neler yeni?</span></h2>
+        <p class="sec-desc" data-tr="Her sürümde daha hızlı, daha kararlı." data-en="Faster and more stable every release.">Her sürümde daha hızlı, daha kararlı.</p>
+      </div>
+      <div class="ver-list">
+        <article class="ver-card">
+          <p class="mono ver-tag">v4.27.0 • güncel</p>
+          <ul>
+            <li data-tr="Analiz sayfası iki kat hızlandı." data-en="Analysis page is twice as fast.">Analiz sayfası iki kat hızlandı.</li>
+            <li data-tr="Canlı overlay'e smurf tespiti eklendi." data-en="Smurf detection added to the live overlay.">Canlı overlay'e smurf tespiti eklendi.</li>
+            <li data-tr="Klyze AI artık web araması yapıyor." data-en="Klyze AI now searches the web.">Klyze AI artık web araması yapıyor.</li>
+          </ul>
+        </article>
+        <article class="ver-card">
+          <p class="mono ver-tag">v4.26.0</p>
+          <ul>
+            <li data-tr="Grup bulma filtreleri yenilendi." data-en="Group finder filters renewed.">Grup bulma filtreleri yenilendi.</li>
+            <li data-tr="Akışa sonsuz kaydırma geldi." data-en="Infinite scroll came to the feed.">Akışa sonsuz kaydırma geldi.</li>
+          </ul>
+        </article>
+        <article class="ver-card">
+          <p class="mono ver-tag">v4.25.0</p>
+          <ul>
+            <li data-tr="Liderlik tablosu eklendi." data-en="Leaderboard added.">Liderlik tablosu eklendi.</li>
+            <li data-tr="Kritik çökme düzeltmeleri." data-en="Critical crash fixes.">Kritik çökme düzeltmeleri.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#indir"><img src="assets/logo.png" alt="Klyze logo" width="28" height="28" loading="lazy" /><span>KLYZE</span></a>
+        <p data-tr="Valorant oyuncuları için profesyonel analiz platformu." data-en="Professional analysis platform for Valorant players.">Valorant oyuncuları için profesyonel analiz platformu.</p>
+      </div>
+      <nav aria-label="Uygulama"><strong data-tr="Uygulama" data-en="Product">Uygulama</strong><a href="#ozellikler" data-tr="Özellikler" data-en="Features">Özellikler</a><a href="#liderlik" data-tr="Liderlik" data-en="Leaderboard">Liderlik</a><a href="#nasil" data-tr="Kurulum" data-en="Setup">Kurulum</a><a href="destek.html" data-tr="Destek" data-en="Support">Destek</a><a href="#surum" data-tr="Sürüm Notları" data-en="Changelog">Sürüm Notları</a></nav>
+      <nav aria-label="Yasal"><strong data-tr="Yasal" data-en="Legal">Yasal</strong><a href="hakkinda.html" data-tr="Hakkında" data-en="About">Hakkında</a><a href="sss.html" data-tr="S.S.S." data-en="FAQ">S.S.S.</a><a href="kullanim-sartlari.html" data-tr="Kullanım Şartları" data-en="Terms of Use">Kullanım Şartları</a><a href="gizlilik.html" data-tr="Gizlilik Politikası" data-en="Privacy Policy">Gizlilik Politikası</a></nav>
+      <nav aria-label="Topluluk"><strong data-tr="Topluluk" data-en="Community">Topluluk</strong><span class="socials"><a href="https://discord.gg/klyze" target="_blank" rel="noopener" aria-label="Discord">Discord</a><a href="https://x.com/klyzegg" target="_blank" rel="noopener" aria-label="X">X</a><a href="https://youtube.com/@klyzegg" target="_blank" rel="noopener" aria-label="YouTube">YouTube</a><a href="https://instagram.com/klyze.gg" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a></span></nav>
+    </div>
+    <p class="riot-disclaimer" data-tr="Klyze.gg, resmi Riot Games API kullanılarak geliştirilmiştir. Riot Games tarafından desteklenmemektedir; Riot Games'in görüş veya onayını yansıtmaz. Valorant ve tüm oyun içi görseller Riot Games, Inc.'in ticari markalarıdır." data-en="Klyze.gg is built using the official Riot Games API. It is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games. Valorant and all in-game assets are trademarks of Riot Games, Inc.">Klyze.gg, resmi Riot Games API kullanılarak geliştirilmiştir. Riot Games tarafından desteklenmemektedir; Riot Games'in görüş veya onayını yansıtmaz. Valorant ve tüm oyun içi görseller Riot Games, Inc.'in ticari markalarıdır.</p>
+    <p class="mono bottom">© 2026 Klyze.gg • v4.27</p>
+  </footer>
+
+  <script src="js/loader.js?v=1" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js" defer></script>
+  <script src="js/db.js?v=3" defer></script>
+  <script src="js/auth.js?v=6" defer></script>
+  <script src="js/bildirim.js?v=3" defer></script>
+  <script src="js/main.js?v=13" defer></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

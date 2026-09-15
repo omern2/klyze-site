@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Özellik — Klyze.gg</title>
+  <meta name="description" content="Klyze.gg özellik detayı." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/klyze-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/klyze-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="css/style.css?v=34" />
+</head>
+<body class="detail-page">
+  <div id="loader" aria-hidden="true">
+    <div class="load-box">
+      <img src="assets/logo.png" alt="" width="72" height="72" />
+      <div class="load-bar"><i id="loadFill"></i></div>
+    </div>
+  </div>
+  <a class="skip" href="#icerik">İçeriğe atla</a>
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Klyze ana sayfa"><img src="assets/logo.png" alt="Klyze logo" width="28" height="28" /><span>KLYZE</span></a>
+    <nav class="topnav" aria-label="Ana gezinme">
+      <a href="index.html#ozellikler" data-tr="Özellikler" data-en="Features">Özellikler</a>
+      <a href="index.html#liderlik" data-tr="Liderlik" data-en="Leaderboard">Liderlik</a>
+      <a href="index.html#yorumlar" data-tr="Yorumlar" data-en="Reviews">Yorumlar</a>
+      <a href="destek.html" data-tr="Destek" data-en="Support">Destek</a>
+      <a href="index.html#nasil" data-tr="Kurulum" data-en="Setup">Kurulum</a>
+    </nav>
+    <div class="top-actions">
+      <div class="lang-switch" role="group" aria-label="Dil seçimi">
+        <button type="button" data-lang="tr" class="active">TR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a class="btn btn-ghost btn-small" id="loginLink" href="login.html" data-tr="Giriş yap" data-en="Log in">Giriş yap</a>
+      <div class="top-profile" id="topProfile" hidden>
+        <button class="pp-btn" id="ppBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Hesap menüsü"><img id="ppImg" src="assets/logo.png" alt="" width="32" height="32" /></button>
+        <div class="pp-menu" id="ppMenu" role="menu" hidden>
+          <div class="pp-head"><img id="ppMenuImg" src="assets/logo.png" alt="" width="40" height="40" /><div><strong id="ppName"></strong><span id="ppRol"></span><span id="ppEmail"></span></div></div>
+          <button class="pp-item pp-danger" id="ppLogout" role="menuitem" type="button">Çıkış yap</button>
+        </div>
+      </div>
+      <a class="btn btn-primary btn-small" href="index.html" data-tr="Hemen indir" data-en="Download">Hemen indir</a>
+    </div>
+  </header>
+
+  <main id="icerik">
+    <section class="feat-detail">
+      <a class="feat-back" href="index.html#ozellikler" data-tr="← Tüm özellikler" data-en="← All features">← Tüm özellikler</a>
+      <p class="mono feat-eyebrow" id="dNum">ÖZELLİK / 01</p>
+      <h1 id="dTitle">Maç Analizi</h1>
+      <p class="feat-desc" id="dDesc"></p>
+      <ul class="feat-list" id="dList"></ul>
+      <div class="feat-cta">
+        <a class="btn btn-white" href="index.html" data-tr="Hemen indir" data-en="Download">Hemen indir</a>
+        <a class="btn btn-ghost btn-ghost-light" href="index.html#ozellikler" data-tr="Tüm özellikler" data-en="All features">Tüm özellikler</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var FEATURES = {
+        analiz: { n: "01",
+          tr: { t: "Maç Analizi", d: "Her maçın röntgeni. Oynadıkça biriken verin, nerede düştüğünü net gösterir.",
+            b: [["Son 20 maç", "Tarih, harita, mod, skor, K/D/A ve RR değişimi tek listede."], ["RR grafiği", "Rank atlama ve düşme noktalarıyla zaman çizelgesi."], ["Harita ve ajan kırılımı", "ADR, HS oranı, giriş skorları ve en çok oynananlar."], ["Sezon karşılaştırma", "Bu sezon ve önceki sezon yan yana."]] },
+          en: { t: "Match Analysis", d: "An x-ray of every match. Your accumulating data clearly shows where you drop.",
+            b: [["Last 20 matches", "Date, map, mode, score, K/D/A and RR change in one list."], ["RR graph", "Timeline with rank-up and rank-down points."], ["Map and agent breakdown", "ADR, HS rate, entry scores and most played."], ["Season comparison", "This season and last season side by side."]] } },
+        overlay: { n: "02",
+          tr: { t: "Canlı Overlay", d: "Oyun üstünde şeffaf panel. Maç anında ihtiyacın olan her şey gözünün önünde.",
+            b: [["Ctrl+K kısayolu", "Tek tuşla açılır, tıklamalar oyuna geçer."], ["Takımlar ve ajanlar", "Kadrolar, rank ve RR bilgileri anlık."], ["Ekonomi takibi", "Full, eco, half ve force alımları renkli."], ["Smurf tespiti", "Düşük rank + yüksek performans analizi."]] },
+          en: { t: "Live Overlay", d: "Transparent in-game panel. Everything you need mid-match, right in front of you.",
+            b: [["Ctrl+K hotkey", "Opens with one key, clicks pass through to the game."], ["Teams and agents", "Lineups, rank and RR info live."], ["Economy tracking", "Full, eco, half and force buys in color."], ["Smurf detection", "Low rank + high performance analysis."]] } },
+        grup: { n: "03",
+          tr: { t: "Grup Bul", d: "Tek başına kuyruğa girme. Seviyene uygun takımı dakikalar içinde kur.",
+            b: [["Lobi aç veya katıl", "Harita, mod ve role göre filtrele."], ["Anlık sohbet", "Lobi içi mesajlaşma gecikmesiz."], ["Hazır durumu", "Kim hazır, kim değil anında gör."], ["Davet linki", "Tek tıkla kopyala, arkadaşını çağır."]] },
+          en: { t: "Find Group", d: "Stop queuing solo. Build a team at your level in minutes.",
+            b: [["Open or join lobbies", "Filter by map, mode and role."], ["Real-time chat", "In-lobby messaging without delay."], ["Ready status", "See instantly who is ready."], ["Invite link", "Copy in one click, invite your friend."]] } },
+        ai: { n: "04",
+          tr: { t: "Klyze AI", d: "Maçlarını bilen yapay zekâ koçu. Sor, analiz etsin, yol göstersin.",
+            b: [["Sohbetle sor", "Performansını, haritalarını, ajanlarını sor."], ["Web aramalı cevaplar", "Güncel meta ve yama bilgileri dahil."], ["Sohbet geçmişi", "Eski konuşmaların kayıtlı kalır."]] },
+          en: { t: "Klyze AI", d: "An AI coach that knows your matches. Ask, and it analyses and guides.",
+            b: [["Ask in chat", "Ask about your performance, maps and agents."], ["Web-backed answers", "Includes current meta and patch info."], ["Chat history", "Your past conversations stay saved."]] } },
+        akis: { n: "05",
+          tr: { t: "Akış", d: "Topluluğun nabzı. Gündemi kaçırma.",
+            b: [["Gönderiler", "Avatar, isim, rank ve tarihle birlikte."], ["Beğeni ve yorum", "Etkileşim anında yansır."], ["Sonsuz kaydırma", "Aşağı indikçe yenileri yüklenir."]] },
+          en: { t: "Feed", d: "The pulse of the community. Never miss a thing.",
+            b: [["Posts", "With avatar, name, rank and date."], ["Likes and comments", "Interactions reflect instantly."], ["Infinite scroll", "More loads as you scroll down."]] } },
+        liderlik: { n: "06",
+          tr: { t: "Liderlik", d: "Zirve yarışı. Yerini gör, hedefini koy.",
+            b: [["Sıralama", "Rank, RR, winrate ve K/D'ye göre."], ["Filtreler", "Rank aralığı, bölge ve arama."], ["Oyuncu analizi", "Karta tıkla, o oyuncunun verisine git."]] },
+          en: { t: "Leaderboard", d: "The race to the top. See your place, set your goal.",
+            b: [["Standings", "By rank, RR, winrate and K/D."], ["Filters", "Rank range, region and search."], ["Player analysis", "Click a card to open that player's data."]] } },
+        profil: { n: "07",
+          tr: { t: "Profilim", d: "Kimliğin tek ekranda.",
+            b: [["Hesap özeti", "Riot ID, tag, rank ikonu, RR ve level."], ["Oyun içi kart", "Kart görselinle birlikte."], ["Son 5 maç", "Harita, skor, K/D ve RR özetleri."], ["Ajanlar", "En çok oynadıkların listeli."]] },
+          en: { t: "My Profile", d: "Your identity on one screen.",
+            b: [["Account summary", "Riot ID, tag, rank icon, RR and level."], ["Player card", "With your in-game card art."], ["Last 5 matches", "Map, score, K/D and RR summaries."], ["Agents", "Your most played, listed."]] } },
+        asistan: { n: "08",
+          tr: { t: "Oyun İçi Asistan", d: "Valorant açıkken yanında duran akıllı takip.",
+            b: [["Otomatik algılama", "Oyun açılınca devreye girer."], ["Canlı maç verisi", "Anlık skor ve olay takibi."], ["Durum takibi", "Maçın akışına göre akıllı görünüm."]] },
+          en: { t: "In-Game Assistant", d: "Smart tracking that stays with you while Valorant is open.",
+            b: [["Auto detection", "Kicks in when the game opens."], ["Live match data", "Real-time score and event tracking."], ["State tracking", "Smart view following the match flow."]] } }
+      };
+      function lang() {
+        try { return localStorage.getItem("klyze-lang") === "en" ? "en" : "tr"; }
+        catch (e) { return "tr"; }
+      }
+      function render() {
+        var id = new URLSearchParams(location.search).get("id");
+        var f = FEATURES[id];
+        if (!f) { location.replace("index.html#ozellikler"); return; }
+        var L = lang();
+        var c = f[L];
+        document.documentElement.lang = L;
+        document.title = c.t + " — Klyze.gg";
+        document.getElementById("dNum").textContent = (L === "en" ? "FEATURE / " : "ÖZELLİK / ") + f.n;
+        document.getElementById("dTitle").textContent = c.t;
+        document.getElementById("dDesc").textContent = c.d;
+        var ul = document.getElementById("dList");
+        ul.innerHTML = "";
+        c.b.forEach(function (row) {
+          var li = document.createElement("li");
+          var s = document.createElement("strong");
+          s.textContent = row[0];
+          li.appendChild(s);
+          li.appendChild(document.createTextNode(" — " + row[1]));
+          ul.appendChild(li);
+        });
+        document.querySelectorAll("[data-tr]").forEach(function (el) {
+          el.textContent = L === "en" ? el.getAttribute("data-en") : el.getAttribute("data-tr");
+        });
+        document.querySelectorAll(".lang-switch button").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-lang") === L);
+        });
+      }
+      document.querySelectorAll(".lang-switch button").forEach(function (b) {
+        b.addEventListener("click", function () {
+          try { localStorage.setItem("klyze-lang", b.getAttribute("data-lang")); } catch (e) {}
+          render();
+        });
+      });
+      render();
+    })();
+  </script>
+  <script src="js/loader.js?v=1" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js" defer></script>
+  <script src="js/auth.js?v=6" defer></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

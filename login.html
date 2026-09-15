@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giriş yap — Klyze.gg</title>
+  <meta name="description" content="Klyze.gg hesabına giriş yap." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/klyze-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/klyze-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="css/style.css?v=34" />
+</head>
+<body class="auth-page">
+  <div id="loader" aria-hidden="true">
+    <div class="load-box">
+      <img src="assets/logo.png" alt="" width="72" height="72" />
+      <div class="load-bar"><i id="loadFill"></i></div>
+    </div>
+  </div>
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Klyze ana sayfa"><img src="assets/logo.png" alt="Klyze logo" width="28" height="28" /><span>KLYZE</span></a>
+    <nav class="topnav" aria-label="Ana gezinme">
+      <a href="index.html#ozellikler">Özellikler</a>
+      <a href="index.html#liderlik">Liderlik</a>
+      <a href="index.html#yorumlar">Yorumlar</a>
+      <a href="destek.html">Destek</a>
+      <a href="index.html#nasil">Kurulum</a>
+    </nav>
+    <div class="top-actions">
+      <a class="btn btn-ghost btn-small" id="loginLink" href="login.html" aria-current="page">Giriş yap</a>
+      <div class="top-bell" id="topBell" hidden>
+        <button class="bell-btn" id="bellBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Bildirimler"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="bell-sayi" id="bellSayi" hidden></span></button>
+        <div class="pp-menu bell-menu" id="bellMenu" role="menu" hidden><div id="bellListe"></div></div>
+      </div>
+      <div class="top-profile" id="topProfile" hidden>
+        <button class="pp-btn" id="ppBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Hesap menüsü"><img id="ppImg" src="assets/logo.png" alt="" width="32" height="32" /></button>
+        <div class="pp-menu" id="ppMenu" role="menu" hidden>
+          <div class="pp-head"><img id="ppMenuImg" src="assets/logo.png" alt="" width="40" height="40" /><div><strong id="ppName"></strong><span id="ppRol"></span><span id="ppEmail"></span></div></div>
+          <button class="pp-item pp-danger" id="ppLogout" role="menuitem" type="button">Çıkış yap</button>
+        </div>
+      </div>
+      <a class="btn btn-primary btn-small" href="index.html#indir">Hemen indir</a>
+    </div>
+  </header>
+
+  <main class="auth-full">
+    <div class="login16">
+      <div class="login16-head">
+        <img src="assets/logo.png" alt="Klyze" width="72" height="72" />
+        <h1>Tekrar hoş geldin</h1>
+        <p>Klyze hesabına giriş yap</p>
+      </div>
+
+      <div class="login16-social">
+        <button type="button" class="social-btn" id="googleBtn">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTYgMjYyIj48cGF0aCBmaWxsPSIjNDI4NWY0IiBkPSJNMjU1Ljg4OCAxMzMuNDUxYzAtMTAuNzM0LS44NzEtMTguNTY3LTIuNzU2LTI2LjY5SDEzMC41NXY0OC40NDhoNzEuOTQ3Yy0xLjQ1IDEyLjA0LTkuMjgzIDMwLjE3Mi0yNi42OSA0Mi4zNTZsLS4yNDQgMS42MjJsMzguNzU1IDMwLjAyM2wyLjY4NS4yNjhjMjQuNjU5LTIyLjc3NCAzOC44NzUtNTYuMjgyIDM4Ljg3NS05Ni4wMjciLz48cGF0aCBmaWxsPSIjMzRhODUzIiBkPSJNMTMwLjU1IDI2MS4xYzM1LjI0OCAwIDY0LjgzOS0xMS42MDUgODYuNDUzLTMxLjYyMmwtNDEuMTk2LTMxLjkxM2MtMTEuMDI0IDcuNjg4LTI1LjgyIDEzLjA1NS00NS4yNTcgMTMuMDU1Yy0zNC41MjMgMC02My44MjQtMjIuNzczLTc0LjI2OS01NC4yNWwtMS41MzEuMTNsLTQwLjI5OCAzMS4xODdsLS41MjcgMS40NjVDMzUuMzkzIDIzMS43OTggNzkuNDkgMjYxLjEgMTMwLjU1IDI2MS4xIi8+PHBhdGggZmlsbD0iI2ZiYmMwNSIgZD0iTTU2LjI4MSAxNTYuMzdjLTIuNzU2LTguMTIzLTQuMzUxLTE2LjgyNy00LjM1MS0yNS44MmMwLTguOTk0IDEuNTk1LTE3LjY5NyA0LjIwNi0yNS44MmwtLjA3My0xLjczTDE1LjI2IDcxLjMxMmwtMS4zMzUuNjM1QzUuMDc3IDg5LjY0NCAwIDEwOS41MTcgMCAxMzAuNTVzNS4wNzcgNDAuOTA1IDEzLjkyNSA1OC42MDJ6Ii8+PHBhdGggZmlsbD0iI2ViNDMzNSIgZD0iTTEzMC41NSA1MC40NzljMjQuNTE0IDAgNDEuMDUgMTAuNTg5IDUwLjQ3OSAxOS40MzhsMzYuODQ0LTM1Ljk3NEMxOTUuMjQ1IDEyLjkxIDE2NS43OTggMCAxMzAuNTUgMEM3OS40OSAwIDM1LjM5MyAyOS4zMDEgMTMuOTI1IDcxLjk0N2w0Mi4yMTEgMzIuNzgzYzEwLjU5LTMxLjQ3NyAzOS44OTEtNTQuMjUxIDc0LjQxNC01NC4yNTEiLz48L3N2Zz4=" alt="Google" width="16" height="16" />
+          <span id="googleBtnLabel">Google ile devam et</span>
+        </button>
+      </div>
+
+      <div class="login16-profile" id="loginProfile" hidden>
+        <img id="pfAvatar" alt="" width="56" height="56" />
+        <strong id="pfName"></strong>
+        <span id="pfRol"></span>
+        <span id="pfEmail" class="mono"></span>
+        <button type="button" class="btn btn-ghost btn-full" id="logoutBtn">Çıkış yap</button>
+      </div>
+
+      <p class="form-err" id="authErr" role="alert" hidden></p>
+
+      <p class="mono fineprint" role="status" aria-live="polite">Giriş yaparak <a href="kullanim-sartlari.html">Kullanım Şartları</a>'nı ve <a href="gizlilik.html">Gizlilik Politikası</a>'nı kabul edersin.</p>
+    </div>
+  </main>
+
+  <script src="js/loader.js?v=1" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js" defer></script>
+  <script src="js/auth.js?v=6" defer></script>
+  <script src="js/bildirim.js?v=3" defer></script>
+  <script>
+    (function () {
+      var SUPABASE_URL = "https://wshbwkgujaspnflnwnwx.supabase.co";
+      var SUPABASE_ANON = "sb_publishable_1_eY31wnWDkYY6DQ6masNw_IQZpm5Gi";
+      var btn = document.getElementById("googleBtn");
+      var btnLabel = document.getElementById("googleBtnLabel");
+      var err = document.getElementById("authErr");
+      var profile = document.getElementById("loginProfile");
+      var sbClient = null;
+      var redirected = false;
+      function showErr(msg) {
+        err.textContent = msg;
+        err.hidden = !msg;
+      }
+      function hedef() {
+        try {
+          var q = new URLSearchParams(location.search).get("next") || "";
+          if (/^[a-z0-9_-]+\.html$/i.test(q) && q !== "login.html") return q;
+        } catch (e) {}
+        try {
+          if (document.referrer && new URL(document.referrer).origin === location.origin) {
+            var p = new URL(document.referrer).pathname.split("/").pop();
+            if (/^[a-z0-9_-]+\.html$/i.test(p) && p !== "login.html") return p;
+          }
+        } catch (e) {}
+        return "index.html";
+      }
+      function goHome() {
+        if (redirected) return;
+        redirected = true;
+        var h = hedef();
+        setTimeout(function () { location.href = h; }, 900);
+      }
+      function render(user) {
+        var logged = !!user;
+        btn.hidden = logged;
+        profile.hidden = !logged;
+        if (!logged) return;
+        document.getElementById("pfName").textContent = user.name;
+        document.getElementById("pfEmail").textContent = user.email || "";
+        document.getElementById("pfRol").innerHTML = window.klyzeRozet
+          ? window.klyzeRozet((window.KlyzeAuth && window.KlyzeAuth.rol) || null) : "";
+        var av = document.getElementById("pfAvatar");
+        av.src = user.avatar;
+        av.alt = "";
+      }
+      function waitAuth(fn) {
+        var n = 0;
+        var iv = setInterval(function () {
+          if (window.KlyzeAuth) { clearInterval(iv); fn(); }
+          else if (++n > 60) { clearInterval(iv); showErr("Bağlantı kütüphanesi yüklenemedi — internetini kontrol edip tekrar dene."); }
+        }, 100);
+      }
+      function init() {
+        if (location.protocol === "file:") {
+          showErr("Bu sayfa dosya olarak açılmış — Google girişi için siteyi sunucudan aç (python app.py, sonra http://127.0.0.1:8000/login.html).");
+          btn.disabled = true;
+          return;
+        }
+        waitAuth(function () {
+          try { sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON); }
+          catch (e) { showErr("Bağlantı kurulamadı — biraz sonra tekrar dene."); return; }
+          var A = window.KlyzeAuth;
+          A.ready.then(function () {
+            render(A.user);
+            if (A.user) goHome();
+          });
+          var first = true;
+          A.onChange(function (u) {
+            render(u);
+            if (u && !first) goHome();
+            first = false;
+          });
+          btn.addEventListener("click", function () {
+            showErr("");
+            btn.disabled = true;
+            if (btnLabel) btnLabel.textContent = "Google'a yönlendiriliyor...";
+            sbClient.auth.signInWithOAuth({
+              provider: "google",
+              options: { redirectTo: location.href.split("#")[0] }
+            }).then(function (res) {
+              if (res && res.error) {
+                btn.disabled = false;
+                if (btnLabel) btnLabel.textContent = "Google ile devam et";
+                showErr("Google girişi açılamadı: " + (res.error.message || "bilinmeyen hata"));
+              }
+            });
+          });
+          document.getElementById("logoutBtn").addEventListener("click", function () {
+            A.signOut();
+          });
+        });
+      }
+      if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+      else init();
+    })();
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

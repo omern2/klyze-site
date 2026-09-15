@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Klyze.gg</title>
+  <meta name="description" content="Klyze.gg destek yönetimi." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/png" href="assets/klyze-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/klyze-logo-icon.png" />
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css?v=34" />
+</head>
+<body class="detail-page">
+  <div id="loader" aria-hidden="true">
+    <div class="load-box">
+      <img src="assets/logo.png" alt="" width="72" height="72" />
+      <div class="load-bar"><i id="loadFill"></i></div>
+    </div>
+  </div>
+  <a class="skip" href="#icerik">İçeriğe atla</a>
+  <header class="topbar">
+    <a class="brand" href="index.html#indir" aria-label="Klyze ana sayfa"><img src="assets/logo.png" alt="Klyze logo" width="28" height="28" /><span>KLYZE</span></a>
+    <nav class="topnav" aria-label="Ana gezinme">
+      <a href="index.html#ozellikler">Özellikler</a>
+      <a href="index.html#liderlik">Liderlik</a>
+      <a href="index.html#yorumlar">Yorumlar</a>
+      <a href="destek.html">Destek</a>
+      <a href="index.html#nasil">Kurulum</a>
+    </nav>
+    <div class="top-actions">
+      <a class="btn btn-ghost btn-small" id="loginLink" href="login.html">Giriş yap</a>
+      <div class="top-bell" id="topBell" hidden>
+        <button class="bell-btn" id="bellBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Bildirimler"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="bell-sayi" id="bellSayi" hidden></span></button>
+        <div class="pp-menu bell-menu" id="bellMenu" role="menu" hidden><div id="bellListe"></div></div>
+      </div>      <div class="top-profile" id="topProfile" hidden>
+        <button class="pp-btn" id="ppBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Hesap menüsü"><img id="ppImg" src="assets/logo.png" alt="" width="32" height="32" /></button>
+        <div class="pp-menu" id="ppMenu" role="menu" hidden>
+          <div class="pp-head"><img id="ppMenuImg" src="assets/logo.png" alt="" width="40" height="40" /><div><strong id="ppName"></strong><span id="ppRol"></span><span id="ppEmail"></span></div></div>
+          <button class="pp-item pp-danger" id="ppLogout" role="menuitem" type="button">Çıkış yap</button>
+        </div>
+      </div>
+      <a class="btn btn-primary btn-small" href="index.html#indir">Hemen indir</a>
+    </div>
+  </header>
+
+  <main id="icerik">
+    <section class="support-wrap">
+      <p class="mono feat-eyebrow">ADMİN</p>
+      <h1>Destek talepleri</h1>
+
+      <div class="support-login" id="adminLogin" hidden>
+        <p>Bu sayfa için giriş yapmalısın.</p>
+        <a class="btn btn-white" href="login.html?next=admin.html">Google ile giriş yap</a>
+      </div>
+
+      <p class="mono rev-empty" id="adminDenied" hidden>Yetkin yok — bu sayfa yalnızca ekip içindir.</p>
+
+      <div id="adminApp" hidden>
+        <div class="stat-grid stat-grid-4" id="adminStats"></div>
+        <div class="admin-toolbar">
+          <label class="mono">Görünüm:
+            <select class="input admin-filter" id="havuzSekmeSec" aria-label="Havuz görünümü">
+              <option value="havuz">Havuz</option>
+              <option value="benim">Üstlendiğim</option>
+              <option value="cozulen">Çözülen</option>
+            </select>
+          </label>
+          <label class="mono">Kategori:
+            <select class="input admin-filter" id="adminKat">
+              <option value="hepsi">Tümü</option>
+              <option value="teknik">Teknik</option>
+              <option value="hesap">Hesap</option>
+              <option value="oneri">Öneri</option>
+              <option value="diger">Diğer</option>
+            </select>
+          </label>
+          <input class="input admin-search" id="adminAra" type="search" placeholder="Ara: konu, isim, e-posta" />
+          <button class="btn btn-subtle btn-small" id="adminRefresh" type="button">Yenile</button>
+        </div>
+        <p class="form-err" id="havuzErr" role="alert" hidden></p>
+        <div class="ticket-list" id="adminList"></div>
+        <div id="rolYonetimi" hidden>
+          <h2 class="support-sub">Kullanıcı yönetimi <span class="rozet rozet-sahip">sahip + yönetici</span></h2>
+          <div class="ticket-list" id="rolListe"></div>
+          <form class="rev-form" id="davetForm">
+            <h3>Yetkili davet et</h3>
+            <div class="admin-row">
+              <input class="input" id="davetEmail" type="email" maxlength="120" placeholder="ornek@gmail.com" />
+              <select class="input" id="davetRol">
+                <option value="yonetici">Yönetici</option>
+                <option value="yetkili">Yetkili</option>
+                <option value="destek" selected>Destek</option>
+                <option value="rehber">Rehber</option>
+                <option value="stajyer">Stajyer</option>
+                <option value="sahip">Sahip</option>
+              </select>
+              <button class="btn btn-white btn-small" type="submit">Davet gönder</button>
+            </div>
+            <p class="form-err" id="davetErr" hidden></p>
+            <p class="mono fineprint">Davetli kişi Google ile giriş yapınca yetkisi otomatik açılır.</p>
+          </form>
+          <h3 class="support-sub" style="font-size:18px">Atama geçmişi</h3>
+          <div class="ticket-list" id="rolLog"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p class="mono bottom">© 2026 Klyze.gg • admin</p>
+  </footer>
+
+  <script src="js/loader.js?v=1" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js" defer></script>
+  <script src="js/auth.js?v=6" defer></script>
+  <script src="js/bildirim.js?v=3" defer></script>
+  <script src="js/admin.js?v=11" defer></script>
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
