@@ -2,3 +2,5 @@ indir/
 assets-src/
 *.log
 .opencode/
+
+.wrangler/
