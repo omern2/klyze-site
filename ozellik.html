@@ -24,20 +24,20 @@
   <a class="skip" href="#icerik">İçeriğe atla</a>
 
   <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Klyze ana sayfa"><img src="assets/logo.png" alt="Klyze logo" width="28" height="28" /><span>KLYZE</span></a>
+    <a class="brand" href="/" aria-label="Klyze ana sayfa"><img src="assets/logo.png" alt="Klyze logo" width="28" height="28" /><span>KLYZE</span></a>
     <nav class="topnav" aria-label="Ana gezinme">
-      <a href="index.html#ozellikler" data-tr="Özellikler" data-en="Features">Özellikler</a>
-      <a href="index.html#liderlik" data-tr="Liderlik" data-en="Leaderboard">Liderlik</a>
-      <a href="index.html#yorumlar" data-tr="Yorumlar" data-en="Reviews">Yorumlar</a>
-      <a href="destek.html" data-tr="Destek" data-en="Support">Destek</a>
-      <a href="index.html#nasil" data-tr="Kurulum" data-en="Setup">Kurulum</a>
+      <a href="/#ozellikler" data-tr="Özellikler" data-en="Features">Özellikler</a>
+      <a href="/#liderlik" data-tr="Liderlik" data-en="Leaderboard">Liderlik</a>
+      <a href="/#yorumlar" data-tr="Yorumlar" data-en="Reviews">Yorumlar</a>
+      <a href="/destek" data-tr="Destek" data-en="Support">Destek</a>
+      <a href="/#nasil" data-tr="Kurulum" data-en="Setup">Kurulum</a>
     </nav>
     <div class="top-actions">
       <div class="lang-switch" role="group" aria-label="Dil seçimi">
         <button type="button" data-lang="tr" class="active">TR</button>
         <button type="button" data-lang="en">EN</button>
       </div>
-      <a class="btn btn-ghost btn-small" id="loginLink" href="login.html" data-tr="Giriş yap" data-en="Log in">Giriş yap</a>
+      <a class="btn btn-ghost btn-small" id="loginLink" href="/login" data-tr="Giriş yap" data-en="Log in">Giriş yap</a>
       <div class="top-profile" id="topProfile" hidden>
         <button class="pp-btn" id="ppBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Hesap menüsü"><img id="ppImg" src="assets/logo.png" alt="" width="32" height="32" /></button>
         <div class="pp-menu" id="ppMenu" role="menu" hidden>
@@ -45,20 +45,20 @@
           <button class="pp-item pp-danger" id="ppLogout" role="menuitem" type="button">Çıkış yap</button>
         </div>
       </div>
-      <a class="btn btn-primary btn-small" href="index.html" data-tr="Hemen indir" data-en="Download">Hemen indir</a>
+      <a class="btn btn-primary btn-small" href="/" data-tr="Hemen indir" data-en="Download">Hemen indir</a>
     </div>
   </header>
 
   <main id="icerik">
     <section class="feat-detail">
-      <a class="feat-back" href="index.html#ozellikler" data-tr="← Tüm özellikler" data-en="← All features">← Tüm özellikler</a>
+      <a class="feat-back" href="/#ozellikler" data-tr="← Tüm özellikler" data-en="← All features">← Tüm özellikler</a>
       <p class="mono feat-eyebrow" id="dNum">ÖZELLİK / 01</p>
       <h1 id="dTitle">Maç Analizi</h1>
       <p class="feat-desc" id="dDesc"></p>
       <ul class="feat-list" id="dList"></ul>
       <div class="feat-cta">
-        <a class="btn btn-white" href="index.html" data-tr="Hemen indir" data-en="Download">Hemen indir</a>
-        <a class="btn btn-ghost btn-ghost-light" href="index.html#ozellikler" data-tr="Tüm özellikler" data-en="All features">Tüm özellikler</a>
+        <a class="btn btn-white" href="/" data-tr="Hemen indir" data-en="Download">Hemen indir</a>
+        <a class="btn btn-ghost btn-ghost-light" href="/#ozellikler" data-tr="Tüm özellikler" data-en="All features">Tüm özellikler</a>
       </div>
     </section>
   </main>
@@ -114,7 +114,7 @@
       function render() {
         var id = new URLSearchParams(location.search).get("id");
         var f = FEATURES[id];
-        if (!f) { location.replace("index.html#ozellikler"); return; }
+        if (!f) { location.replace("/#ozellikler"); return; }
         var L = lang();
         var c = f[L];
         document.documentElement.lang = L;

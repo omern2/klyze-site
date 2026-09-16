@@ -17,6 +17,19 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0")
         super().end_headers()
 
+    # Temiz URL destegi (Vercel cleanUrls ile ayni): /destek -> destek.html
+    def send_head(self):
+        yol = self.path.split("?", 1)[0].split("#", 1)[0]
+        if yol != "/" and "." not in yol.rsplit("/", 1)[-1]:
+            aday = yol.rstrip("/") + ".html"
+            gercek = os.path.join(self.directory, aday.lstrip("/"))
+            if os.path.isfile(gercek):
+                if "?" in self.path:
+                    self.path = aday + "?" + self.path.split("?", 1)[1]
+                else:
+                    self.path = aday
+        return super().send_head()
+
 
 def main():
     ap = argparse.ArgumentParser()

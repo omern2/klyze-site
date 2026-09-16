@@ -333,7 +333,7 @@
             var en0 = document.documentElement.lang === "en";
             ee.appendChild(document.createTextNode(en0 ? "Please " : "Yanıt için "));
             var aa = document.createElement("a");
-            aa.href = "login.html";
+            aa.href = "/login";
             aa.textContent = en0 ? "log in" : "giriş yap";
             ee.appendChild(aa);
             f0.appendChild(ee);
@@ -442,7 +442,7 @@
           var en = document.documentElement.lang === "en";
           ae.appendChild(document.createTextNode(en ? "Please " : "Yorum yazmak için "));
           var a = document.createElement("a");
-          a.href = "login.html";
+          a.href = "/login";
           a.textContent = en ? "log in to review" : "giriş yapmalısın";
           a.style.color = "#fff";
           ae.appendChild(a);
@@ -455,6 +455,17 @@
       var nm = au.name;
       var tx = document.getElementById("revText").value.trim();
       if (!tx) return;
+      // hCaptcha: cozulmus token sart (gercek dogrulama verify-captcha edge fonksiyonunda)
+      if (window.hcaptcha) {
+        var ctok = "";
+        try { ctok = window.hcaptcha.getResponse(); } catch (e) {}
+        if (!ctok) {
+          var ce0 = document.getElementById("revAuthErr");
+          if (ce0) { ce0.textContent = "Göndermeden önce robot olmadığını doğrula."; ce0.hidden = false; }
+          return;
+        }
+        window.__hcaptcha = ctok;
+      }
       var s = revStore();
       var entry = {
         id: "u" + Date.now(), name: String(nm).slice(0, 24), avatar: au.avatar, stars: pickVal,
@@ -463,6 +474,7 @@
       };
       var bridge2 = window.KlyzeSiteBridge;
       var bitir = function () {
+        try { if (window.hcaptcha) window.hcaptcha.reset(); window.__hcaptcha = null; } catch (e) {}
         document.getElementById("revText").value = "";
         renderReviews();
         document.getElementById("yorumlar").scrollIntoView();

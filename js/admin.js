@@ -1,5 +1,5 @@
 // Klyze.gg — destek havuzu V2 (Discord mantigi).
-// Havuzda YAZISMA YOK: yetkili onizler -> "Talebi Ustlen" -> talep.html?id=... (yeni sayfa).
+// Havuzda YAZISMA YOK: yetkili onizler -> "Talebi Ustlen" -> /talep?id=... (yeni sayfa).
 // Gizlilik: RLS baskasina atanmisi dondurmez; UI da cift filtre uygular.
 (function () {
   var SUPABASE_URL = "https://wshbwkgujaspnflnwnwx.supabase.co";
@@ -85,16 +85,16 @@
     var dosyaSayi = (t.dosyalar || []).length;
     var aksiyon = "";
     if (t.durum === "cozuldu" || t.durum === "kapali") {
-      aksiyon = '<a class="btn btn-subtle btn-small" href="talep.html?id=' + t.id + '">Görüntüle →</a>';
+      aksiyon = '<a class="btn btn-subtle btn-small" href="/talep?id=' + t.id + '">Görüntüle →</a>';
     } else if (!t.atanan_admin) {
       if (ustlenebilirMi()) {
         aksiyon = '<button class="btn btn-white btn-small" type="button" data-ustlen="' + t.id + '">Talebi Üstlen →</button>'
-          + '<a class="havuz-onizle" href="talep.html?id=' + t.id + '">Önizle</a>';
+          + '<a class="havuz-onizle" href="/talep?id=' + t.id + '">Önizle</a>';
       } else {
-        aksiyon = '<a class="havuz-onizle" href="talep.html?id=' + t.id + '">Salt okunur — Önizle</a>';
+        aksiyon = '<a class="havuz-onizle" href="/talep?id=' + t.id + '">Salt okunur — Önizle</a>';
       }
     } else if (benimMi) {
-      aksiyon = '<a class="btn btn-white btn-small" href="talep.html?id=' + t.id + '">Devam et →</a>';
+      aksiyon = '<a class="btn btn-white btn-small" href="/talep?id=' + t.id + '">Devam et →</a>';
     } else {
       aksiyon = "";
     }
@@ -105,7 +105,7 @@
       + '<span class="havuz-kim">' + esc(t.name) + " • " + esc(t.kategori) + "</span>"
       + '<time class="mono">' + esc(zamanKisa(t.created_at)) + "</time>"
       + "</div>"
-      + '<h3 class="ticket-baslik"><a href="talep.html?id=' + t.id + '">' + esc(t.konu) + "</a></h3>"
+      + '<h3 class="ticket-baslik"><a href="/talep?id=' + t.id + '">' + esc(t.konu) + "</a></h3>"
       + '<p class="ticket-desc">' + esc(ozet) + "</p>"
       + '<div class="havuz-alt">'
       + (dosyaSayi ? '<span class="mono havuz-dosya">' + dosyaSayi + " ek</span>" : "")
@@ -203,14 +203,14 @@
     };
     // Once atomik RPC dene, yoksa dogrudan sartli update
     sb.rpc("talebi_ustlen", { p_talep_id: id }).then(function (res) {
-      if (!res.error && res.data === true) { location.href = "talep.html?id=" + id; return; }
+      if (!res.error && res.data === true) { location.href = "/talep?id=" + id; return; }
       if (!res.error && res.data === false) { bitir(false); return; }
       // RPC yoksa fallback: yalnizca bosken ustlen
       sb.from("destek_talepleri").update({ atanan_admin: u.id, durum: "incelemede", updated_at: new Date().toISOString() })
         .eq("id", id).is("atanan_admin", null)
         .select("id").maybeSingle().then(function (r2) {
           if ((r2 && r2.error) || !(r2 && r2.data)) { bitir(false); return; }
-          location.href = "talep.html?id=" + id;
+          location.href = "/talep?id=" + id;
         });
     }).catch(function () { bitir(false); });
   }

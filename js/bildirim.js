@@ -1,6 +1,6 @@
 // Klyze.gg — bildirim zili V2 (Discord mantigi, siyah-beyaz premium).
-// - Kullanici: kendi taleplerindeki ekip yanitlari -> destek.html#talep-ID
-// - Ekip: atanmamis havuz + bana atanmislar -> talep.html?id=ID (yeni sayfa)
+// - Kullanici: kendi taleplerindeki ekip yanitlari -> /destek#talep-ID
+// - Ekip: atanmamis havuz + bana atanmislar -> /talep?id=ID (yeni sayfa)
 // - Realtime: destek_talepleri + destek_mesajlari degisiminde sessiz guncelleme.
 (function () {
   var SUPABASE_URL = "https://wshbwkgujaspnflnwnwx.supabase.co";
@@ -68,7 +68,7 @@
             var html = rows.slice(0, 5).map(function (t) {
               var yeni = son[t.id] && (!gor[t.id] || son[t.id] > gor[t.id]);
               if (yeni) n++;
-              return '<a class="bell-item" href="destek.html#talep-' + t.id + '">'
+              return '<a class="bell-item" href="/destek#talep-' + t.id + '">'
                 + (yeni ? '<span class="unread-dot"></span>' : '<span class="read-dot"></span>')
                 + "<span><strong>" + esc(t.konu) + "</strong>"
                 + "<small>" + (yeni ? "Yeni yanıt var • " : "") + esc(zamanKisa(t.updated_at)) + "</small></span></a>";
@@ -87,7 +87,7 @@
         var rows = (res && res.data) || [];
         if (!rows.length) { listeBos("Henüz çözülen talep yok."); rozet(0); return; }
         $("bellListe").innerHTML = '<p class="bell-baslik">BİLGİ BANKASI</p>' + rows.map(function (t) {
-          return '<a class="bell-item" href="rehber.html">'
+          return '<a class="bell-item" href="/rehber">'
             + '<span class="read-dot"></span>'
             + "<span><strong>" + esc(t.konu) + "</strong>"
             + "<small>Çözüldü • " + esc(zamanKisa(t.updated_at)) + "</small></span></a>";
@@ -114,7 +114,7 @@
       if (havuz.length) {
         html += '<p class="bell-baslik">HAVUZ • ' + havuz.length + "</p>";
         html += havuz.slice(0, 3).map(function (t) {
-          return '<a class="bell-item" href="talep.html?id=' + t.id + '">'
+          return '<a class="bell-item" href="/talep?id=' + t.id + '">'
             + '<span class="unread-dot"></span>'
             + "<span><strong>" + esc(t.konu) + "</strong>"
             + "<small>Yeni talep • " + esc(zamanKisa(t.created_at)) + " • Üstlen →</small></span></a>";
@@ -123,15 +123,15 @@
       if (benim.length) {
         html += '<p class="bell-baslik">BANA ATANMIŞ • ' + benim.length + "</p>";
         html += benim.slice(0, 3).map(function (t) {
-          return '<a class="bell-item" href="talep.html?id=' + t.id + '">'
+          return '<a class="bell-item" href="/talep?id=' + t.id + '">'
             + '<span class="read-dot"></span>'
             + "<span><strong>" + esc(t.konu) + "</strong>"
             + "<small>Üstlendiğin talep • " + esc(zamanKisa(t.updated_at)) + "</small></span></a>";
         }).join("");
       }
       var kalan = gorunur.length - havuz.slice(0, 3).length - benim.slice(0, 3).length;
-      if (kalan > 0) html += '<a class="bell-item bell-tumu" href="admin.html">Tümünü havuzda gör (' + gorunur.length + ") →</a>";
-      else if (!havuz.length && !benim.length) html += '<a class="bell-item bell-tumu" href="admin.html">Havuzu aç →</a>';
+      if (kalan > 0) html += '<a class="bell-item bell-tumu" href="/admin">Tümünü havuzda gör (' + gorunur.length + ") →</a>";
+      else if (!havuz.length && !benim.length) html += '<a class="bell-item bell-tumu" href="/admin">Havuzu aç →</a>';
       $("bellListe").innerHTML = html;
       rozet(n);
     }).catch(function () {});

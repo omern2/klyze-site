@@ -22,7 +22,7 @@
       var havuz = norm(a.baslik + " " + a.ozet + " " + a.etiket + " " + (a.adimlar || []).join(" "));
       return q.split(/\s+/).every(function (k) { return havuz.indexOf(k) !== -1; });
     });
-    // Ankraj destegi: sss.html#id ile gelindiyse one cikar
+    // Ankraj destegi: /sss#id ile gelindiyse one cikar
     var ankraj = (location.hash || "").replace("#", "");
     goster.sort(function (x, y) {
       if (x.id === ankraj) return -1;
@@ -30,7 +30,7 @@
       return 0;
     });
     if (!goster.length) {
-      box.innerHTML = '<p class="mono rev-empty">Sonuç yok — <a href="destek.html" style="color:#fff">destek talebi aç</a>.</p>';
+      box.innerHTML = '<p class="mono rev-empty">Sonuç yok — <a href="/destek" style="color:#fff">destek talebi aç</a>.</p>';
       return;
     }
     box.innerHTML = goster.map(function (a) {

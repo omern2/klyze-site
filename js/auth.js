@@ -94,10 +94,10 @@ window.KlyzeAuth = (function () {
   // rehber rolu -> yalniz "Rehber".
   function paneller() {
     if (HAVUZ_ROLLER.indexOf(rol) !== -1) return [
-      { id: "destekNavLink", href: "admin.html", ad: "Destek Talepleri" },
-      { id: "rehberNavLink", href: "rehber.html", ad: "Rehber" }
+      { id: "destekNavLink", href: "/admin", ad: "Destek Talepleri" },
+      { id: "rehberNavLink", href: "/rehber", ad: "Rehber" }
     ];
-    if (rol === "rehber") return [{ id: "rehberNavLink", href: "rehber.html", ad: "Rehber" }];
+    if (rol === "rehber") return [{ id: "rehberNavLink", href: "/rehber", ad: "Rehber" }];
     return [];
   }
   function ensureDestekLink() {
@@ -112,7 +112,7 @@ window.KlyzeAuth = (function () {
       if (!liste.length) return;
       var destek = null;
       nav.querySelectorAll("a").forEach(function (x) {
-        if (/destek\.html$/.test(x.getAttribute("href") || "")) destek = x;
+        if (/\/destek(\.html)?$/.test(x.getAttribute("href") || "")) destek = x;
       });
       var onceki = destek && destek.nextSibling ? destek.nextSibling : null;
       liste.forEach(function (p) {

@@ -268,7 +268,7 @@
         sb.from("destek_talepleri").update({ atanan_admin: null, updated_at: new Date().toISOString() }).eq("id", T.id)
           .then(function (r) {
             if (r && r.error) { showErr("Kaydedilemedi: " + r.error.message); b.disabled = false; return; }
-            location.href = "admin.html";
+            location.href = "/admin";
           }).catch(function () { b.disabled = false; });
       });
 
@@ -311,12 +311,12 @@
         b.textContent = "İşaretleniyor...";
         var eski = b.textContent;
         sb.rpc("talebi_coz", { p_talep_id: T.id }).then(function (res) {
-          if (!res.error && res.data === true) { location.href = "admin.html"; return; }
+          if (!res.error && res.data === true) { location.href = "/admin"; return; }
           if (!res.error && res.data === false) { showErr("Bu işlem için yetkin yok."); b.disabled = false; b.textContent = "Çözüldü olarak işaretle ve ayrıl"; return; }
           sb.from("destek_talepleri").update({ durum: "cozuldu", atanan_admin: null, updated_at: new Date().toISOString() }).eq("id", T.id)
             .then(function (r) {
               if (r && r.error) { showErr("Kaydedilemedi: " + r.error.message); b.disabled = false; b.textContent = "Çözüldü olarak işaretle ve ayrıl"; return; }
-              location.href = "admin.html";
+              location.href = "/admin";
             }).catch(function () { b.disabled = false; b.textContent = eski; });
         }).catch(function () { b.disabled = false; b.textContent = "Çözüldü olarak işaretle ve ayrıl"; });
       });

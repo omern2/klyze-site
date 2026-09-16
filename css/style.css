@@ -1316,6 +1316,15 @@ select.input option { background: #141414; color: #fff; }
 .taleplerim-filtre .input { width: auto; height: 42px; font-size: 14px; border-radius: 10px; }
 .taleplerim .ticket-card { animation: kartGiris 0.3s ease-out; }
 
+/* hCaptcha (koyu tema, forma gomulu) */
+.hcaptcha-wrap { padding: 4px 34px 0; }
+.h-captcha { min-height: 78px; }
+.rev-form .h-captcha { margin-top: 4px; }
+@media (max-width: 400px) {
+  .hcaptcha-wrap { padding: 4px 22px 0; overflow: hidden; }
+  .hcaptcha-wrap iframe { transform: scale(0.86); transform-origin: left top; }
+}
+
 /* Devret satiri (talep yan panel, sadece sahip) */
 .devret-box { display: grid; gap: 8px; border-top: 1px solid #232323; padding-top: 12px; }
 .devret-box[hidden] { display: none; }

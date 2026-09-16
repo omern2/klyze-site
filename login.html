@@ -22,16 +22,16 @@
     </div>
   </div>
   <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Klyze ana sayfa"><img src="assets/logo.png" alt="Klyze logo" width="28" height="28" /><span>KLYZE</span></a>
+    <a class="brand" href="/" aria-label="Klyze ana sayfa"><img src="assets/logo.png" alt="Klyze logo" width="28" height="28" /><span>KLYZE</span></a>
     <nav class="topnav" aria-label="Ana gezinme">
-      <a href="index.html#ozellikler">Özellikler</a>
-      <a href="index.html#liderlik">Liderlik</a>
-      <a href="index.html#yorumlar">Yorumlar</a>
-      <a href="destek.html">Destek</a>
-      <a href="index.html#nasil">Kurulum</a>
+      <a href="/#ozellikler">Özellikler</a>
+      <a href="/#liderlik">Liderlik</a>
+      <a href="/#yorumlar">Yorumlar</a>
+      <a href="/destek">Destek</a>
+      <a href="/#nasil">Kurulum</a>
     </nav>
     <div class="top-actions">
-      <a class="btn btn-ghost btn-small" id="loginLink" href="login.html" aria-current="page">Giriş yap</a>
+      <a class="btn btn-ghost btn-small" id="loginLink" href="/login" aria-current="page">Giriş yap</a>
       <div class="top-bell" id="topBell" hidden>
         <button class="bell-btn" id="bellBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Bildirimler"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span class="bell-sayi" id="bellSayi" hidden></span></button>
         <div class="pp-menu bell-menu" id="bellMenu" role="menu" hidden><div id="bellListe"></div></div>
@@ -43,7 +43,7 @@
           <button class="pp-item pp-danger" id="ppLogout" role="menuitem" type="button">Çıkış yap</button>
         </div>
       </div>
-      <a class="btn btn-primary btn-small" href="index.html#indir">Hemen indir</a>
+      <a class="btn btn-primary btn-small" href="/#indir">Hemen indir</a>
     </div>
   </header>
 
@@ -72,7 +72,7 @@
 
       <p class="form-err" id="authErr" role="alert" hidden></p>
 
-      <p class="mono fineprint" role="status" aria-live="polite">Giriş yaparak <a href="kullanim-sartlari.html">Kullanım Şartları</a>'nı ve <a href="gizlilik.html">Gizlilik Politikası</a>'nı kabul edersin.</p>
+      <p class="mono fineprint" role="status" aria-live="polite">Giriş yaparak <a href="/kullanim-sartlari">Kullanım Şartları</a>'nı ve <a href="/gizlilik">Gizlilik Politikası</a>'nı kabul edersin.</p>
     </div>
   </main>
 
@@ -94,18 +94,20 @@
         err.textContent = msg;
         err.hidden = !msg;
       }
+      function temizMi(v) { return /^\/[a-z0-9_-]+$/i.test(v) && v !== "/login"; }
       function hedef() {
         try {
           var q = new URLSearchParams(location.search).get("next") || "";
-          if (/^[a-z0-9_-]+\.html$/i.test(q) && q !== "login.html") return q;
+          if (temizMi(q)) return q;
         } catch (e) {}
         try {
           if (document.referrer && new URL(document.referrer).origin === location.origin) {
-            var p = new URL(document.referrer).pathname.split("/").pop();
-            if (/^[a-z0-9_-]+\.html$/i.test(p) && p !== "login.html") return p;
+            var p = new URL(document.referrer).pathname.replace(/\.html$/, "") || "/";
+            if (p === "/") return "/";
+            if (temizMi(p)) return p;
           }
         } catch (e) {}
-        return "index.html";
+        return "/";
       }
       function goHome() {
         if (redirected) return;
@@ -135,7 +137,7 @@
       }
       function init() {
         if (location.protocol === "file:") {
-          showErr("Bu sayfa dosya olarak açılmış — Google girişi için siteyi sunucudan aç (python app.py, sonra http://127.0.0.1:8000/login.html).");
+          showErr("Bu sayfa dosya olarak açılmış — Google girişi için siteyi sunucudan aç (python app.py, sonra http://127.0.0.1:8000/login).");
           btn.disabled = true;
           return;
         }
