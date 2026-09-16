@@ -19,9 +19,18 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=39" />
+  <link rel="stylesheet" href="css/style.css?v=40" />
 </head>
 <body class="home">
+  <div id="siteGiris" hidden>
+    <div class="giris-kutu">
+      <img src="assets/logo.png" alt="Klyze" width="56" height="56" />
+      <h2>Robot olmadığını doğrula</h2>
+      <p>Siteye girmek için kutuyu işaretle.</p>
+      <div id="girisCap"></div>
+      <p class="form-err" id="girisErr" hidden></p>
+    </div>
+  </div>
   <div id="loader" aria-hidden="true">
     <div class="load-box">
       <img src="assets/logo.png" alt="" width="72" height="72" />
@@ -71,10 +80,6 @@
           <a class="btn btn-outline btn-soon" href="https://discord.gg/klyze" target="_blank" rel="noopener" aria-disabled="true"><span data-tr="Android yakında" data-en="Android soon">Android yakında</span></a>
         </div>
         <p class="dl-meta mono" data-tr="v5.28.3 • Windows 10/11 64-bit • ~122 MB • Ücretsiz" data-en="v5.28.3 • Windows 10/11 64-bit • ~122 MB • Free">v5.28.3 • Windows 10/11 64-bit • ~122 MB • Ücretsiz</p>
-        <div class="dl-cap" id="dlCapWrap" hidden>
-          <p class="mono" data-tr="İndirmeden önce robot olmadığını doğrula" data-en="Verify you're not a robot before downloading">İndirmeden önce robot olmadığını doğrula</p>
-          <div id="dlCap"></div>
-        </div>
         <p class="mono hero-active" id="heroActive" aria-live="polite"></p>
       </div>
       <div class="page1-visual">
@@ -237,7 +242,6 @@
             <button type="button" data-v="1" aria-label="1">★</button><button type="button" data-v="2" aria-label="2">★</button><button type="button" data-v="3" aria-label="3">★</button><button type="button" data-v="4" aria-label="4">★</button><button type="button" data-v="5" aria-label="5">★</button>
           </div>
           <textarea class="input" id="revText" rows="3" maxlength="400" placeholder="Görüşün..." data-tr-ph="Görüşün..." data-en-ph="Your review..."></textarea>
-          <div class="h-captcha" data-sitekey="2a5ee000-3866-4322-9dee-b0f83d2aeae8" data-theme="dark"></div>
           <button class="btn btn-white" type="submit" data-tr="Gönder" data-en="Submit">Gönder</button>
         </form>
       </div>
@@ -291,11 +295,12 @@
 
   <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
   <script src="js/loader.js?v=1" defer></script>
+  <script src="js/gate.js?v=1" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js" defer></script>
   <script src="js/db.js?v=3" defer></script>
   <script src="js/auth.js?v=6" defer></script>
   <script src="js/bildirim.js?v=3" defer></script>
-  <script src="js/main.js?v=17" defer></script>
+  <script src="js/main.js?v=18" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>

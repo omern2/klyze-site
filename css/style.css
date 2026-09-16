@@ -1316,13 +1316,16 @@ select.input option { background: #141414; color: #fff; }
 .taleplerim-filtre .input { width: auto; height: 42px; font-size: 14px; border-radius: 10px; }
 .taleplerim .ticket-card { animation: kartGiris 0.3s ease-out; }
 
-/* Indirme kapisi (hero + kurulum bolumu) */
-.dl-cap { margin-top: 14px; display: grid; gap: 8px; justify-items: start; }
-.dl-cap[hidden] { display: none; }
-.dl-cap p { margin: 0; font-size: 11px; letter-spacing: 0.08em; color: #777; }
-.dl-cap #dlCap { min-height: 78px; }
-/* Login kutusu */
-.login-captcha { display: flex; justify-content: center; margin-bottom: 12px; min-height: 78px; }
+/* Site giris kapisi (tek robot dogrulamasi) */
+#siteGiris { position: fixed; inset: 0; z-index: 200; background: rgba(5, 5, 5, 0.97); display: flex; align-items: center; justify-content: center; padding: 20px; animation: kartGiris 0.3s ease-out; }
+#siteGiris[hidden] { display: none; }
+#siteGiris.giris-tamam { opacity: 0; transition: opacity 0.4s ease; }
+.giris-kutu { text-align: center; display: grid; gap: 12px; justify-items: center; max-width: 360px; }
+.giris-kutu img { width: 56px; height: 56px; object-fit: contain; }
+.giris-kutu h2 { color: #fff; margin: 0; font-size: 24px; }
+.giris-kutu p { color: #888; margin: 0; font-size: 14px; }
+#girisCap { min-height: 78px; }
+#girisErr { color: #fff; }
 /* hCaptcha (koyu tema, forma gomulu) */
 .hcaptcha-wrap { padding: 4px 34px 0; }
 .h-captcha { min-height: 78px; }

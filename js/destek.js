@@ -462,13 +462,6 @@
         var acik = $("dAcik").value.trim();
         if (konu.length < 3) { showErr("Konu en az 3 karakter olmalı."); return; }
         if (acik.length < 10) { showErr("Açıklama en az 10 karakter olmalı."); return; }
-        // hCaptcha: cozulmus token sart (gercek dogrulama verify-captcha edge fonksiyonunda)
-        if (window.hcaptcha) {
-          var capTok = "";
-          try { capTok = window.hcaptcha.getResponse(); } catch (e) {}
-          if (!capTok) { showErr("Göndermeden önce robot olmadığını doğrula."); return; }
-          window.__hcaptcha = capTok;
-        }
         var files = secili.slice(0, MAX_DOSYA);
         showErr("");
         var gonder = $("dGonder");
@@ -517,7 +510,6 @@
             ok.hidden = false;
           }
           if (yeniId) { try { location.hash = "talep-" + yeniId; } catch (e) {} }
-          try { if (window.hcaptcha) window.hcaptcha.reset(); window.__hcaptcha = null; } catch (e2) {}
           yukle(sb);
         }).catch(function (e) {
           gonder.disabled = false;
