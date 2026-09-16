@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=38" />
+  <link rel="stylesheet" href="css/style.css?v=39" />
 </head>
 <body class="home">
   <div id="loader" aria-hidden="true">
@@ -71,6 +71,10 @@
           <a class="btn btn-outline btn-soon" href="https://discord.gg/klyze" target="_blank" rel="noopener" aria-disabled="true"><span data-tr="Android yakında" data-en="Android soon">Android yakında</span></a>
         </div>
         <p class="dl-meta mono" data-tr="v5.28.3 • Windows 10/11 64-bit • ~122 MB • Ücretsiz" data-en="v5.28.3 • Windows 10/11 64-bit • ~122 MB • Free">v5.28.3 • Windows 10/11 64-bit • ~122 MB • Ücretsiz</p>
+        <div class="dl-cap" id="dlCapWrap" hidden>
+          <p class="mono" data-tr="İndirmeden önce robot olmadığını doğrula" data-en="Verify you're not a robot before downloading">İndirmeden önce robot olmadığını doğrula</p>
+          <div id="dlCap"></div>
+        </div>
         <p class="mono hero-active" id="heroActive" aria-live="polite"></p>
       </div>
       <div class="page1-visual">
@@ -291,7 +295,7 @@
   <script src="js/db.js?v=3" defer></script>
   <script src="js/auth.js?v=6" defer></script>
   <script src="js/bildirim.js?v=3" defer></script>
-  <script src="js/main.js?v=16" defer></script>
+  <script src="js/main.js?v=17" defer></script>
   <script defer src="/_vercel/insights/script.js"></script>
   <script defer src="/_vercel/speed-insights/script.js"></script>
 </body>

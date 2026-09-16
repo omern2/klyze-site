@@ -162,6 +162,49 @@
     setInterval(kontrol, 30000);
   })();
 
+  // Indirme korumasi: once hCaptcha, cozunce indirme baslar
+  (function () {
+    var SITEKEY = "2a5ee000-3866-4322-9dee-b0f83d2aeae8";
+    var wrap = document.getElementById("dlCapWrap");
+    if (!wrap) return;
+    var bekleyenUrl = null, wid = null;
+    function baslat() {
+      if (!bekleyenUrl) return;
+      var a = document.createElement("a");
+      a.href = bekleyenUrl;
+      a.setAttribute("download", "");
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      bekleyenUrl = null;
+      wrap.hidden = true;
+    }
+    function kapiyiAc(url, btn) {
+      bekleyenUrl = url;
+      try {
+        btn.parentNode.insertBefore(wrap, btn.nextSibling);
+      } catch (e) {}
+      wrap.hidden = false;
+      try { wrap.scrollIntoView({ block: "nearest" }); } catch (e2) {}
+      if (!window.hcaptcha) { baslat(); return; }
+      try {
+        if (wid === null) {
+          wid = window.hcaptcha.render("dlCap", {
+            sitekey: SITEKEY, theme: "dark", callback: function () { baslat(); }
+          });
+        } else {
+          window.hcaptcha.reset(wid);
+        }
+      } catch (e3) { baslat(); }
+    }
+    document.querySelectorAll('a[href*="releases/download"]').forEach(function (a) {
+      a.addEventListener("click", function (ev) {
+        ev.preventDefault();
+        kapiyiAc(a.href, a);
+      });
+    });
+  })();
+
   // Yatay rank dağılım çubukları — kaydırınca uzama
   var hbars = document.getElementById("hbars");
   if (hbars) {
