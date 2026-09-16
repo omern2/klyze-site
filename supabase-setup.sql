@@ -563,20 +563,6 @@ create trigger trg_mesaj_updated_at
   for each row execute function public.dokun_talep_updated_at();
 
 -- ============================================================
--- 13) TAM GUVENLIK: kullanici yazmalari yalnizca verify-captcha
--- edge fonksiyonu (service_role) yapar. Bot direkt tabloya
--- yazamaz; RLS insert politikalari kaldirildi.
--- SIRA ONEMLI: once fonksiyon deploy + on yuz yayinda olsun,
--- SONRA bunu calistir (yoksa eski istemciler yazamaz).
--- ============================================================
-
-drop policy if exists "destek_insert_own" on public.destek_talepleri;
-drop policy if exists "site_reviews_insert_all" on public.site_reviews;
-drop policy if exists "site_review_replies_insert_all" on public.site_review_replies;
-drop policy if exists "destek_mesaj_insert_kullanici" on public.destek_mesajlari;
-drop policy if exists "destek_puan_insert_own" on public.destek_puan;
-
--- ============================================================
 -- 12) ROL SISTEMI V2: 6 rol
 -- Roller ve yetkiler:
 --   sahip    : hersey (roller, davet, tum talepler, devret, silme)
@@ -592,23 +578,44 @@ drop policy if exists "destek_puan_insert_own" on public.destek_puan;
 update public.site_admins set rol = 'yetkili' where rol = 'admin';
 update public.site_davetler set rol = 'yetkili' where rol = 'admin';
 
--- 12b) Rol kisitlari (6 rol)
-alter table public.site_admins drop constraint if exists site_admins_rol_check;
-alter table public.site_admins add constraint site_admins_rol_check
-  check (rol in ('sahip','yonetici','yetkili','destek','rehber','stajyer'));
+-- 12b) Rol kisitlari (6 rol) + YAKINSAMA BLOKU:
+-- Hangi isimle olursa olsun ilgili tum check kisitlarini temizleyip
+-- kanonik halleriyle yeniden kurar. Yari kalmis kurulumlari onarir,
+-- tekrar calistirmak zararsizdir.
+update public.site_admins set rol = 'yetkili' where rol = 'admin';
+update public.site_davetler set rol = 'yetkili' where rol = 'admin';
+update public.destek_talepleri set durum = 'cozuldu' where durum = 'kapali';
 
 do $$
-declare c text;
+declare r record;
 begin
-  select conname into c from pg_constraint
-    where conrelid = 'public.site_davetler'::regclass and contype = 'c'
-      and pg_get_constraintdef(oid) ilike '%rol%';
-  if c is not null then
-    execute format('alter table public.site_davetler drop constraint %I', c);
+  for r in select conrelid::regclass::text as tbl, conname as ad from pg_constraint
+    where conrelid in ('public.destek_talepleri'::regclass, 'public.ticket_events'::regclass,
+                       'public.site_admins'::regclass, 'public.site_davetler'::regclass)
+      and contype = 'c'
+      and (pg_get_constraintdef(oid) ilike '%durum%'
+        or pg_get_constraintdef(oid) ilike '%event_type%'
+        or pg_get_constraintdef(oid) ilike '%rol%')
+  loop
+    execute format('alter table %s drop constraint %I', r.tbl, r.ad);
+  end loop;
+  if not exists (select 1 from pg_constraint where conname = 'destek_talepleri_durum_check') then
+    alter table public.destek_talepleri add constraint destek_talepleri_durum_check
+      check (durum in ('yeni','beklemede','incelemede','yanitlandi','cozuldu'));
+  end if;
+  if not exists (select 1 from pg_constraint where conname = 'ticket_events_event_type_check') then
+    alter table public.ticket_events add constraint ticket_events_event_type_check
+      check (event_type in ('acildi','durum','oncelik','atama','yanit','puan','kapatildi','not','ustlenme','devretme','cozulme','birakma'));
+  end if;
+  if not exists (select 1 from pg_constraint where conname = 'site_admins_rol_check') then
+    alter table public.site_admins add constraint site_admins_rol_check
+      check (rol in ('sahip','yonetici','yetkili','destek','rehber','stajyer'));
+  end if;
+  if not exists (select 1 from pg_constraint where conname = 'site_davetler_rol_check') then
+    alter table public.site_davetler add constraint site_davetler_rol_check
+      check (rol in ('sahip','yonetici','yetkili','destek','rehber','stajyer'));
   end if;
 end $$;
-alter table public.site_davetler add constraint site_davetler_rol_check
-  check (rol in ('sahip','yonetici','yetkili','destek','rehber','stajyer'));
 
 -- 12c) Rol yardimcilari
 create or replace function public.ekip_rolu()
@@ -783,3 +790,134 @@ drop policy if exists "site_reviews_insert_all" on public.site_reviews;
 drop policy if exists "site_review_replies_insert_all" on public.site_review_replies;
 drop policy if exists "destek_mesaj_insert_kullanici" on public.destek_mesajlari;
 drop policy if exists "destek_puan_insert_own" on public.destek_puan;
+
+-- ============================================================
+-- 14) RPC-ODAKLI SIKILASTIRMA (red-team bulgulari)
+-- - Direkt ticket UPDATE kapatildi: durum/oncelik/birak RPC'lerden gecer.
+-- - Ic notlar: okuma+ekleme ekip, degistirme/silme yonetici+not sahibi.
+-- - Dosya yuklemede klasor=user_id zorunlu.
+-- - Davetler 7 gun gecerli; suresi dolmuslar temizlenir.
+-- - Son yonetici+sahip havuzu korunur (tam kilitlenmeye karsi).
+-- SIRA: once on yuz (RPC'li) yayinda olsun, SONRA bunu calistir.
+-- ============================================================
+
+-- 14a) Direkt ticket UPDATE kapat + RPC'ler
+drop policy if exists "destek_update_admin" on public.destek_talepleri;
+
+create or replace function public.talebi_durum(p_talep_id bigint, p_durum text)
+returns boolean language plpgsql security definer set search_path = public as $$
+begin
+  if p_durum not in ('yeni','beklemede','incelemede','yanitlandi') then
+    raise exception 'gecersiz durum';
+  end if;
+  if public.ekip_rolu() not in ('sahip','yonetici','yetkili','destek','admin') then
+    raise exception 'rolun durumu degistiremez';
+  end if;
+  update public.destek_talepleri
+    set durum = p_durum, updated_at = now()
+    where id = p_talep_id
+      and (atanan_admin = auth.uid() or public.is_yonetici());
+  return found;
+end;
+$$;
+grant execute on function public.talebi_durum(bigint, text) to authenticated;
+
+create or replace function public.talebi_oncelik(p_talep_id bigint, p_oncelik text)
+returns boolean language plpgsql security definer set search_path = public as $$
+begin
+  if p_oncelik not in ('dusuk','normal','yuksek','kritik') then
+    raise exception 'gecersiz oncelik';
+  end if;
+  if public.ekip_rolu() not in ('sahip','yonetici','yetkili','admin') then
+    raise exception 'rolun onceligi degistiremez';
+  end if;
+  update public.destek_talepleri
+    set oncelik = p_oncelik, updated_at = now()
+    where id = p_talep_id
+      and (atanan_admin = auth.uid() or public.is_yonetici());
+  return found;
+end;
+$$;
+grant execute on function public.talebi_oncelik(bigint, text) to authenticated;
+
+create or replace function public.talebi_birak(p_talep_id bigint)
+returns boolean language plpgsql security definer set search_path = public as $$
+begin
+  if public.ekip_rolu() not in ('sahip','yonetici','yetkili','destek','admin') then
+    raise exception 'rolun birakamaz';
+  end if;
+  update public.destek_talepleri
+    set atanan_admin = null, updated_at = now()
+    where id = p_talep_id
+      and (atanan_admin = auth.uid() or public.is_yonetici());
+  return found;
+end;
+$$;
+grant execute on function public.talebi_birak(bigint) to authenticated;
+
+-- 14b) Ic notlar: okuma+ekleme ekip, degistirme/silme yonetici veya not sahibi
+drop policy if exists "destek_not_admin_all" on public.destek_notlar;
+drop policy if exists "destek_not_ekip" on public.destek_notlar;
+create policy "destek_not_select"
+  on public.destek_notlar for select
+  using (public.ekip_rolu() in ('sahip','yonetici','yetkili','destek','stajyer','admin'));
+create policy "destek_not_insert"
+  on public.destek_notlar for insert
+  with check (public.ekip_rolu() in ('sahip','yonetici','yetkili','destek','admin')
+    and admin_id = auth.uid());
+create policy "destek_not_change"
+  on public.destek_notlar for update
+  using (public.is_yonetici() or admin_id = auth.uid())
+  with check (public.is_yonetici() or admin_id = auth.uid());
+create policy "destek_not_delete"
+  on public.destek_notlar for delete
+  using (public.is_yonetici() or admin_id = auth.uid());
+
+-- 14c) Dosya yuklemede klasor=user_id zorunlu (baskasinin klasorune cop yok)
+drop policy if exists "destek_dosya_insert_auth" on storage.objects;
+create policy "destek_dosya_insert_own"
+  on storage.objects for insert
+  with check (bucket_id = 'destek-dosyalari'
+    and auth.role() = 'authenticated'
+    and storage.foldername(name)[1] = auth.uid()::text);
+
+-- 14d) Davetler 7 gun gecerli + suresi dolmuslari temizle
+delete from public.site_davetler where created_at < now() - interval '7 days';
+
+drop policy if exists "site_admins_insert_davet" on public.site_admins;
+drop policy if exists "site_admins_insert_davet_v2" on public.site_admins;
+create policy "site_admins_insert_davet_v3"
+  on public.site_admins for insert
+  with check (user_id = auth.uid() and exists (select 1 from public.site_davetler d
+    where d.email = (auth.jwt() ->> 'email')
+    and d.created_at > now() - interval '7 days'
+    and d.rol in ('sahip','yonetici','yetkili','destek','rehber','stajyer')));
+
+-- 14e) Son yonetici+sahip havuzu korunur (tam kilitlenmeye karsi)
+create or replace function public.koru_son_yonetici()
+returns trigger language plpgsql security definer set search_path = public as $$
+declare
+  v_say int;
+begin
+  if TG_OP = 'DELETE' then
+    if OLD.rol in ('sahip','yonetici') then
+      select count(*) into v_say from public.site_admins
+        where rol in ('sahip','yonetici') and user_id <> OLD.user_id;
+      if v_say = 0 then raise exception 'son yonetici kaldirilamaz'; end if;
+    end if;
+    return OLD;
+  else
+    if OLD.rol in ('sahip','yonetici') and NEW.rol not in ('sahip','yonetici') then
+      select count(*) into v_say from public.site_admins
+        where rol in ('sahip','yonetici') and user_id <> OLD.user_id;
+      if v_say = 0 then raise exception 'son yoneticinin rolu dusurulemez'; end if;
+    end if;
+    return NEW;
+  end if;
+end;
+$$;
+
+drop trigger if exists trg_koru_son_yonetici on public.site_admins;
+create trigger trg_koru_son_yonetici
+  before delete or update of rol on public.site_admins
+  for each row execute function public.koru_son_yonetici();
