@@ -143,6 +143,20 @@
           try { sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON); }
           catch (e) { showErr("Bağlantı kurulamadı — biraz sonra tekrar dene."); return; }
           var A = window.KlyzeAuth;
+          // Google donusundeki hatayi aynen goster (teshis icin)
+          try {
+            var q = new URLSearchParams(location.search);
+            var err = q.get("error"), errDesc = q.get("error_description");
+            if (err) {
+              showErr("Google girişi başarısız (" + err + "): " + (errDesc || "bilinmeyen hata"));
+            } else if (q.get("code")) {
+              setTimeout(function () {
+                if (!window.KlyzeAuth || !window.KlyzeAuth.user) {
+                  showErr("Dönüş alındı ama oturum kurulamadı — gizli sekme/adblocker/yerel depolama engeli olabilir, normal sekmede tekrar dene.");
+                }
+              }, 8000);
+            }
+          } catch (e) {}
           A.ready.then(function () {
             render(A.user);
             if (A.user) goHome();
