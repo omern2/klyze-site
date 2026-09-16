@@ -1,5 +1,7 @@
 indir/
 assets-src/
+js-src/
+supabase/
 supabase-setup.sql
 app.py
 *.log
