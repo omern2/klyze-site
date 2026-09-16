@@ -7,8 +7,30 @@
     try { return sessionStorage.getItem(ANAHTAR) === "1"; }
     catch (e) { return true; }
   }
+  function kilitle(acik) {
+    try {
+      document.documentElement.style.overflow = acik ? "hidden" : "";
+      document.body.style.overflow = acik ? "hidden" : "";
+    } catch (e) {}
+  }
+  // Klavye odagini kapida tut (Tab ile arkaya gecilemesin)
+  function odakKilidi(ev) {
+    var o = document.getElementById("siteGiris");
+    if (!o || o.hidden) return;
+    if (o.contains(ev.target)) return;
+    ev.stopPropagation();
+    try {
+      var kutu = o.querySelector(".giris-kutu");
+      if (kutu) {
+        if (!kutu.hasAttribute("tabindex")) kutu.setAttribute("tabindex", "-1");
+        kutu.focus({ preventScroll: true });
+      }
+    } catch (e) {}
+  }
   function bitir() {
     try { sessionStorage.setItem(ANAHTAR, "1"); } catch (e) {}
+    try { document.removeEventListener("focusin", odakKilidi, true); } catch (e2) {}
+    kilitle(false);
     var o = document.getElementById("siteGiris");
     if (!o) return;
     o.classList.add("giris-tamam");
@@ -28,6 +50,8 @@
       return;
     }
     overlay.hidden = false;
+    kilitle(true);
+    try { document.addEventListener("focusin", odakKilidi, true); } catch (e) {}
     var deneme = 0;
     var iv = setInterval(function () {
       if (window.hcaptcha) {
