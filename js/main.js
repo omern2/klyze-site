@@ -132,11 +132,14 @@
       return 30 + (Math.abs(x) % 82);
     }
     els.forEach(function (el) {
-      el.innerHTML = '<span class="sup-dot" aria-hidden="true"></span><b>0</b>&nbsp;kullanıcı aktif';
+      el.innerHTML = '<span class="live-dot" aria-hidden="true"></span><b>0</b>&nbsp;oyuncu çevrimiçi';
     });
     var nEls = els.map(function (el) { return el.querySelector("b"); });
+    function fmt(n) {
+      try { return n.toLocaleString("tr-TR"); } catch (e) { return String(n); }
+    }
     function yaz(n) {
-      nEls.forEach(function (b) { if (b) b.textContent = n; });
+      nEls.forEach(function (b) { if (b) b.textContent = fmt(n); });
     }
     var gosterilen = 0, hedef = 0, anim = null;
     function animasyon(bitir) {
