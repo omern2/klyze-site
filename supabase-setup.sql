@@ -563,6 +563,20 @@ create trigger trg_mesaj_updated_at
   for each row execute function public.dokun_talep_updated_at();
 
 -- ============================================================
+-- 13) TAM GUVENLIK: kullanici yazmalari yalnizca verify-captcha
+-- edge fonksiyonu (service_role) yapar. Bot direkt tabloya
+-- yazamaz; RLS insert politikalari kaldirildi.
+-- SIRA ONEMLI: once fonksiyon deploy + on yuz yayinda olsun,
+-- SONRA bunu calistir (yoksa eski istemciler yazamaz).
+-- ============================================================
+
+drop policy if exists "destek_insert_own" on public.destek_talepleri;
+drop policy if exists "site_reviews_insert_all" on public.site_reviews;
+drop policy if exists "site_review_replies_insert_all" on public.site_review_replies;
+drop policy if exists "destek_mesaj_insert_kullanici" on public.destek_mesajlari;
+drop policy if exists "destek_puan_insert_own" on public.destek_puan;
+
+-- ============================================================
 -- 12) ROL SISTEMI V2: 6 rol
 -- Roller ve yetkiler:
 --   sahip    : hersey (roller, davet, tum talepler, devret, silme)
@@ -755,3 +769,17 @@ begin
   return found;
 end;
 $$;
+
+-- ============================================================
+-- 13) TAM GUVENLIK: kullanici yazmalari yalnizca verify-captcha
+-- edge fonksiyonu (service_role) yapar. Bot direkt tabloya
+-- yazamaz; RLS insert politikalari kaldirildi.
+-- SIRA ONEMLI: once fonksiyon deploy + on yuz yayinda olsun,
+-- SONRA bunu calistir (yoksa eski istemciler yazamaz).
+-- ============================================================
+
+drop policy if exists "destek_insert_own" on public.destek_talepleri;
+drop policy if exists "site_reviews_insert_all" on public.site_reviews;
+drop policy if exists "site_review_replies_insert_all" on public.site_review_replies;
+drop policy if exists "destek_mesaj_insert_kullanici" on public.destek_mesajlari;
+drop policy if exists "destek_puan_insert_own" on public.destek_puan;

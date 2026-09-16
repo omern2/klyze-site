@@ -58,17 +58,65 @@ serve(async (req: Request) => {
       Deno.env.get("SUPABASE_URL") || "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") || "",
     );
+    const kisiAdi = String(user.user_metadata?.full_name || user.user_metadata?.name || "Oyuncu").slice(0, 24);
+    const kisiAv = String(user.user_metadata?.avatar_url || user.user_metadata?.picture || "").slice(0, 500) || null;
     if (govde.tip === "yorum") {
       const { data, error } = await supa.from("site_reviews").insert({
-        name: String(user.user_metadata?.full_name || user.user_metadata?.name || "Oyuncu").slice(0, 24),
+        name: kisiAdi,
         stars: Math.min(5, Math.max(1, Number(govde.stars) || 5)),
         text: String(govde.text || "").slice(0, 400),
-        avatar_url: String(user.user_metadata?.avatar_url || user.user_metadata?.picture || "").slice(0, 500) || null,
+        avatar_url: kisiAv,
         rol: "user",
         lang: govde.lang === "en" ? "en" : "tr",
       }).select("id").single();
       if (error) throw error;
       return new Response(JSON.stringify({ id: data.id }), { headers: KORS });
+    }
+    if (govde.tip === "yorum-yanit") {
+      const rid = Number(govde.review_id) || 0;
+      if (!rid) throw new Error("gecersiz yorum");
+      const { error } = await supa.from("site_review_replies").insert({
+        review_id: rid,
+        name: kisiAdi,
+        text: String(govde.text || "").slice(0, 200),
+        avatar_url: kisiAv,
+        lang: govde.lang === "en" ? "en" : "tr",
+      });
+      if (error) throw error;
+      return new Response(JSON.stringify({ ok: true }), { headers: KORS });
+    }
+    // Asagidakiler icin talep SAHIBI olma sarti (service_role RLS'yi asar, burada zorunlu)
+    const talepId = Number(govde.talep_id) || 0;
+    if ((govde.tip === "yanit" || govde.tip === "puan") && talepId) {
+      const { data: t } = await supa.from("destek_talepleri")
+        .select("user_id").eq("id", talepId).maybeSingle();
+      if (!t || t.user_id !== user.id) {
+        return new Response(JSON.stringify({ error: "bu talebe yazamazsin" }), { status: 403, headers: KORS });
+      }
+    }
+    if (govde.tip === "yanit") {
+      if (!talepId) throw new Error("gecersiz talep");
+      const { error } = await supa.from("destek_mesajlari").insert({
+        talep_id: talepId,
+        kim: "kullanici",
+        ad: kisiAdi,
+        avatar_url: kisiAv,
+        metin: String(govde.metin || "").slice(0, 1000),
+      });
+      if (error) throw error;
+      return new Response(JSON.stringify({ ok: true }), { headers: KORS });
+    }
+    if (govde.tip === "puan") {
+      if (!talepId) throw new Error("gecersiz talep");
+      const p = Math.min(5, Math.max(1, Number(govde.puan) || 0));
+      if (!p) throw new Error("puan secilmedi");
+      const { error } = await supa.from("destek_puan").upsert({
+        talep_id: talepId,
+        puan: p,
+        yorum: String(govde.yorum || "").slice(0, 500) || null,
+      }, { onConflict: "talep_id" });
+      if (error) throw error;
+      return new Response(JSON.stringify({ ok: true }), { headers: KORS });
     }
     // Varsayilan: destek talebi
     const { data, error } = await supa.from("destek_talepleri").insert({

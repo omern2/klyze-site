@@ -130,32 +130,30 @@
         });
         waitBridge(function (bridge) {
           bridge.setDbReviews(list);
-          // Promise doner: basarida DB id, hatada reject. Sessiz kayip yok.
+          // Tum yazmalar guvenli hattan (verify-captcha): gorunmez dogrulama + sunucu kaydi.
+          // Promise doner: basarida DB id / true, hatada reject. Sessiz kayip yok.
+          function guvenliYaz(govde) {
+            if (!window.KlyzeCaptcha) return Promise.reject(new Error("dogrulama yuklenemedi"));
+            return window.KlyzeCaptcha.yaz(govde);
+          }
           bridge.onSubmit = function (entry) {
-            var r = (window.KlyzeAuth && window.KlyzeAuth.rol) || "user";
-            return withTimeout(sb.from("site_reviews").insert({
-              name: entry.name,
+            return guvenliYaz({
+              tip: "yorum",
               stars: entry.stars,
               text: entry.tr,
-              avatar_url: entry.avatar ? String(entry.avatar).slice(0, 500) : null,
-              rol: ROLLER.indexOf(r) !== -1 ? r : "user",
               lang: document.documentElement.lang === "en" ? "en" : "tr"
-            }).select("id").single()).then(function (res) {
-              if (!res || res.error) throw new Error((res && res.error && res.error.message) || "kaydedilemedi");
-              return res.data.id;
+            }).then(function (res) {
+              if (!res || !res.id) throw new Error("kaydedilemedi");
+              return res.id;
             });
           };
           bridge.onReplySubmit = function (payload) {
-            return withTimeout(sb.from("site_review_replies").insert({
+            return guvenliYaz({
+              tip: "yorum-yanit",
               review_id: payload.reviewId,
-              name: payload.entry.name,
               text: payload.entry.tr,
-              avatar_url: payload.entry.avatar ? String(payload.entry.avatar).slice(0, 500) : null,
               lang: document.documentElement.lang === "en" ? "en" : "tr"
-            })).then(function (res) {
-              if (!res || res.error) throw new Error((res && res.error && res.error.message) || "kaydedilemedi");
-              return true;
-            });
+            }).then(function () { return true; });
           };
           bridge.refreshReviews = function () { wireReviews(sb); };
         });

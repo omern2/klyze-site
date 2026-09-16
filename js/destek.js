@@ -239,12 +239,10 @@
     var yorum = ((ta && ta.value) || "").trim().slice(0, 500);
     var b = card.querySelector("[data-csat-gonder]");
     b.disabled = true;
-    sb.from("destek_puan").insert({ talep_id: id, puan: v, yorum: yorum === "" ? null : yorum })
-      .then(function (res) {
-        b.disabled = false;
-        if (res && res.error) { showErr("Kaydedilemedi: " + res.error.message); return; }
-        yukle(sb);
-      });
+    if (!window.KlyzeCaptcha) { b.disabled = false; showErr("Doğrulama yüklenemedi — sayfayı yenile."); return; }
+    window.KlyzeCaptcha.yaz({ tip: "puan", talep_id: id, puan: v, yorum: yorum })
+      .then(function () { b.disabled = false; yukle(sb); })
+      .catch(function (e) { b.disabled = false; showErr("Kaydedilemedi: " + (e && e.message ? e.message : "hata")); });
   }
 
   function baglanRealtime(sb) {
@@ -271,18 +269,10 @@
     var id = parseInt(card.getAttribute("data-id"), 10);
     var b = card.querySelector("[data-cevap-gonder]");
     b.disabled = true;
-    sb.from("destek_mesajlari").insert({
-        talep_id: id,
-        kim: "kullanici",
-        ad: String(u.name).slice(0, 24),
-        avatar_url: u.avatar ? String(u.avatar).slice(0, 500) : null,
-        metin: metin.slice(0, 1000)
-      })
-      .then(function (res) {
-        b.disabled = false;
-        if (res && res.error) { showErr("Gönderilemedi: " + res.error.message); return; }
-        yukle(sb);
-      });
+    if (!window.KlyzeCaptcha) { b.disabled = false; showErr("Doğrulama yüklenemedi — sayfayı yenile."); return; }
+    window.KlyzeCaptcha.yaz({ tip: "yanit", talep_id: id, metin: metin.slice(0, 1000) })
+      .then(function () { b.disabled = false; yukle(sb); })
+      .catch(function (e) { b.disabled = false; showErr("Gönderilemedi: " + (e && e.message ? e.message : "hata")); });
   }
 
   function temizAd(ad) {
@@ -478,22 +468,20 @@
             });
         });
         Promise.all(yuklemeler).then(function (urller) {
-          return sb.from("destek_talepleri").insert({
-            user_id: u.id,
-            name: u.name,
-            email: u.email,
-            avatar_url: u.avatar ? String(u.avatar).slice(0, 500) : null,
+          if (!window.KlyzeCaptcha) throw new Error("dogrulama yuklenemedi");
+          return window.KlyzeCaptcha.yaz({
+            tip: "talep",
             kategori: $("dKat").value,
-            oncelik: ["dusuk", "normal", "yuksek"].indexOf($("dOnc").value) !== -1 ? $("dOnc").value : "normal",
+            oncelik: $("dOnc").value,
             konu: konu.slice(0, 80),
             aciklama: acik.slice(0, 2000),
             dosyalar: urller
-          }).select("id").single();
+          });
         }).then(function (res) {
           gonder.disabled = false;
           gonder.innerHTML = gonderHTML;
-          if (res && res.error) { showErr("Kaydedilemedi: " + res.error.message); return; }
-          var yeniId = res && res.data ? res.data.id : null;
+          var yeniId = res && res.id ? res.id : null;
+          if (!yeniId) { showErr("Kaydedilemedi: boş yanıt."); return; }
           $("destekForm").reset();
           secili.length = 0;
           dosyaCiz();
