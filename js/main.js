@@ -118,10 +118,11 @@
   if (lbSearch) lbSearch.addEventListener("input", lbApply);
   if (lbFilter) lbFilter.addEventListener("change", lbApply);
 
-  // Aktif kullanici sayaci — 10 dk'lik dilimde sabit, 30-111 arasi rastgele
+  // Aktif kullanici sayaci — 10 dk'lik dilimde sabit, 30-111 arasi rastgele (hero + liderlik)
   (function () {
-    var el = document.getElementById("lbActive");
-    if (!el) return;
+    var els = [document.getElementById("lbActive"), document.getElementById("heroActive")]
+      .filter(function (e) { return !!e; });
+    if (!els.length) return;
     var DILIM = 10 * 60 * 1000;
     function slotSayi(slot) {
       var x = (Math.floor(slot) * 2654435761) % 4294967296;
@@ -130,18 +131,23 @@
       x = x ^ (x >>> 13);
       return 30 + (Math.abs(x) % 82);
     }
-    el.innerHTML = '<span class="sup-dot" aria-hidden="true"></span><b>0</b>&nbsp;kullanıcı aktif';
-    var nEl = el.querySelector("b");
+    els.forEach(function (el) {
+      el.innerHTML = '<span class="sup-dot" aria-hidden="true"></span><b>0</b>&nbsp;kullanıcı aktif';
+    });
+    var nEls = els.map(function (el) { return el.querySelector("b"); });
+    function yaz(n) {
+      nEls.forEach(function (b) { if (b) b.textContent = n; });
+    }
     var gosterilen = 0, hedef = 0, anim = null;
     function animasyon(bitir) {
       if (anim) clearInterval(anim);
-      if (reduceMotion) { gosterilen = bitir; nEl.textContent = bitir; return; }
+      if (reduceMotion) { gosterilen = bitir; yaz(bitir); return; }
       var bas = gosterilen, fark = bitir - bas, t0 = Date.now();
       anim = setInterval(function () {
         var p = Math.min((Date.now() - t0) / 900, 1);
         var e = 1 - Math.pow(1 - p, 3);
         gosterilen = Math.round(bas + fark * e);
-        nEl.textContent = gosterilen;
+        yaz(gosterilen);
         if (p >= 1) { clearInterval(anim); anim = null; }
       }, 40);
     }
