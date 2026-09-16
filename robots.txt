@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /talep
+Disallow: /rehber
+
+Sitemap: https://klyzegg.vercel.app/sitemap.xml
