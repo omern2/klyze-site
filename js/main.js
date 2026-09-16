@@ -118,6 +118,41 @@
   if (lbSearch) lbSearch.addEventListener("input", lbApply);
   if (lbFilter) lbFilter.addEventListener("change", lbApply);
 
+  // Aktif kullanici sayaci — 10 dk'lik dilimde sabit, 30-111 arasi rastgele
+  (function () {
+    var el = document.getElementById("lbActive");
+    if (!el) return;
+    var DILIM = 10 * 60 * 1000;
+    function slotSayi(slot) {
+      var x = (Math.floor(slot) * 2654435761) % 4294967296;
+      x = x ^ (x >>> 15);
+      x = (x * 2246822519) % 4294967296;
+      x = x ^ (x >>> 13);
+      return 30 + (Math.abs(x) % 82);
+    }
+    el.innerHTML = '<span class="sup-dot" aria-hidden="true"></span><b>0</b>&nbsp;kullanıcı aktif';
+    var nEl = el.querySelector("b");
+    var gosterilen = 0, hedef = 0, anim = null;
+    function animasyon(bitir) {
+      if (anim) clearInterval(anim);
+      if (reduceMotion) { gosterilen = bitir; nEl.textContent = bitir; return; }
+      var bas = gosterilen, fark = bitir - bas, t0 = Date.now();
+      anim = setInterval(function () {
+        var p = Math.min((Date.now() - t0) / 900, 1);
+        var e = 1 - Math.pow(1 - p, 3);
+        gosterilen = Math.round(bas + fark * e);
+        nEl.textContent = gosterilen;
+        if (p >= 1) { clearInterval(anim); anim = null; }
+      }, 40);
+    }
+    function kontrol() {
+      var h = slotSayi(Date.now() / DILIM);
+      if (h !== hedef) { hedef = h; animasyon(h); }
+    }
+    kontrol();
+    setInterval(kontrol, 30000);
+  })();
+
   // Yatay rank dağılım çubukları — kaydırınca uzama
   var hbars = document.getElementById("hbars");
   if (hbars) {

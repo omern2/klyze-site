@@ -766,7 +766,10 @@ select.input option { background: #141414; color: #fff; }
 .lb-head h2 { font-family: "Clash Display", "Inter", sans-serif; font-weight: 600; font-size: clamp(34px, 4vw, 52px); letter-spacing: -0.01em; color: #fff; margin: 0 0 12px; }
 .page-3 .feat-head .sec-desc { margin-left: 0; margin-right: 0; }
 .sec-desc { font-weight: 300; font-size: 17px; line-height: 1.6; color: #a6a6a6; margin: 14px auto 44px; max-width: 62ch; }
-.lb-count { font-size: 12px; color: #888; margin: 0 0 14px; }
+.lb-count { font-size: 12px; color: #888; margin: 0 0 6px; }
+.lb-active { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #bdbdbd; margin: 0 0 14px; }
+.lb-active:empty { display: none; }
+.lb-active b { color: #fff; font-variant-numeric: tabular-nums; }
 .lb-toolbar { display: flex; gap: 12px; margin-bottom: 18px; }
 .lb-search { flex: 1; display: flex; align-items: center; gap: 10px; border: 1px solid #2e2e2e; border-radius: 10px; padding: 0 14px; background: #1a1a1a; color: #888; }
 .lb-search input { flex: 1; border: none; outline: none; background: transparent; height: 44px; font-size: 14px; font-family: var(--font-body); color: #fff; }
