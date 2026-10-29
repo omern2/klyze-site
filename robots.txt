@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /indir
 
 Sitemap: https://klyzegg.vercel.app/sitemap.xml

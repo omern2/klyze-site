@@ -1,5 +1,8 @@
 {
   "cleanUrls": true,
+  "rewrites": [
+    { "source": "/indir", "destination": "/api/indir" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -7,6 +10,12 @@
         { "key": "X-Frame-Options", "value": "DENY" },
         { "key": "X-Content-Type-Options", "value": "nosniff" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/api/indir",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store, max-age=0" }
       ]
     }
   ]
