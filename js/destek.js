@@ -145,7 +145,7 @@
       ozet: "Windows 10 ve 11'in 64-bit sürümlerinde çalışır.",
       adimlar: [
         "İşletim sistemi: Windows 10 veya Windows 11 (64-bit).",
-        "İndirme boyutu yaklaşık 245,8 MB.",
+        "İndirme boyutu yaklaşık 121,6 MB.",
         "Uygulama ücretsiz; kart bilgisi istemez."
       ]
     }

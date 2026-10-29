@@ -23,7 +23,7 @@
   const isWindows = platform === "Windows" || /Windows/i.test(ua);
   if (isWindows && badge) badge.hidden = false;
   if (!isWindows && note) {
-    note.textContent = "Bu cihaz Windows değil. Klyze yalnızca Windows 10/11'de çalışır. İndirme dosyası yaklaşık 245,8 MB.";
+    note.textContent = "Bu cihaz Windows değil. Klyze yalnızca Windows 10/11'de çalışır. İndirme dosyası yaklaşık 121,6 MB.";
   }
 
   /* --- pop-up --- */
