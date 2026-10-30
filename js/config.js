@@ -8,9 +8,10 @@
   const url = "https://wshbwkgujaspnflnwnwx.supabase.co";
   const key = "sb_publishable_1_eY31wnWDkYY6DQ6masNw_IQZpm5Gi";
 
-  /* Site verisi `site` semasinda: görünen ad, avatar, üye no, yorum, destek.
-     Kimlik ve güvenlik kayıtları `guvenlik`'te kalır; tarayıcıya kapalıdır.
-     PostgREST: pgrst.db_schemas = public, graphql_public, guvenlik, site */
+  /* Site verisi `site` semasinda: görünen ad, avatar, üye no, liderlik köprüsü.
+     `kullanicilar`, `depolama` ve `guvenlik` şemaları tarayıcıya kapalıdır;
+     buralara yalnız `site` içindeki security definer fonksiyonlarla erişilir.
+     PostgREST: pgrst.db_schemas = public, graphql_public, site */
   const schema = "site";
 
   if (!/^https:\/\/[a-z0-9-]{10,}\.supabase\.co$/.test(url)) {

@@ -1,14 +1,12 @@
-/* Liderlik tablosu — yalnizca public active_users alanlarini okur. */
+/* Liderlik tablosu — tek kaynak: site.liderlik_listele RPC'si.
+   Veri kullanicilar.liderlik tablosunda durur; o sema API'ye kapalidir,
+   tarayici yalniz bu fonksiyonu cagirabilir. */
 (() => {
   "use strict";
 
   const SUPABASE_URL = "https://wshbwkgujaspnflnwnwx.supabase.co";
   const SUPABASE_KEY = "sb_publishable_1_eY31wnWDkYY6DQ6masNw_IQZpm5Gi";
-  const QUERY = [
-    "select=oyuncu_adi,tag,elo,last_seen,current_tier,card_small_url,rutbe_puani,durum,aktivite",
-    "order=elo.desc",
-    "limit=1000"
-  ].join("&");
+  const LIMIT = 1000;
   const ONLINE_WINDOW_MS = 150000;
   const PAGE_SIZE = 25;
   const RANKS = [
@@ -228,7 +226,8 @@
   function renderPodium() {
     if (!el.podium) return;
     if (!state.rows.length) {
-      el.podium.innerHTML = '<p class="lb-podium-empty">Zirve verisi yükleniyor…</p>';
+      const metin = state.loaded ? "Zirve verisi henüz yok." : "Zirve verisi yükleniyor…";
+      el.podium.innerHTML = `<p class="lb-podium-empty">${metin}</p>`;
       return;
     }
     el.podium.innerHTML = state.rows.slice(0, 3).map((row, index) => podiumCard(row, index + 1)).join("");
@@ -292,7 +291,7 @@
       el.table.hidden = true;
       el.empty.hidden = false;
       el.emptyTitle.textContent = "Sıralamada henüz oyuncu yok";
-      el.emptyText.textContent = "Klyze'e giriş yapan oyuncular burada listelenir.";
+      el.emptyText.textContent = "Klyze kullanan oyuncular burada listelenir.";
       el.emptyReset.hidden = true;
       el.count.textContent = "Henüz oyuncu yok";
       el.more.hidden = true;
@@ -372,11 +371,16 @@
     setBusy(true);
     renderLoading();
     try {
-      const response = await fetch(`${SUPABASE_URL}/rest/v1/active_users?${QUERY}`, {
+      const response = await fetch(`${SUPABASE_URL}/rest/v1/rpc/liderlik_listele`, {
+        method: "POST",
         headers: {
           apikey: SUPABASE_KEY,
-          Authorization: `Bearer ${SUPABASE_KEY}`
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          "Content-Type": "application/json",
+          "Accept-Profile": "site",
+          "Content-Profile": "site"
         },
+        body: JSON.stringify({ p_limit: LIMIT }),
         cache: "no-store"
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
