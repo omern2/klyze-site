@@ -13,6 +13,8 @@
    Bekleme:
      Halka en az EN_AZ_MS kadar doner (flash olmasin).
      Sayfa acilirken bir kez sorulur; sonraki tiklama aninda iner.
+     Onayli cevap 15 sn, digerleri 5 sn hafizada tutulur: "red"
+     karari en gec 5 sn icinde yeni sekmede de gecerli olur.
 
    Hata durumu:
      Sunucuya ulasilamazsa statik baglantiya duser; site calismaya
@@ -26,7 +28,8 @@
   const SECICI = 'a[href*="/releases/download/"]';
   const SURUM_KALIBI = /\/download\/v([^/]+)\//;
   const ZAMAN_ASIMI = 6000;
-  const ONBELLEK_MS = 60000;
+  const ONBELLEK_ONAYLI_MS = 15000;
+  const ONBELLEK_DIGER_MS = 5000;
   const EN_AZ_MS = 900;
   const GERI_DON_MS = 800;
 
@@ -74,17 +77,30 @@
     }
   }
 
-  /* 60 sn hafizada tut; ayni anda gelen ikinci tik ayni istegi bekler */
+  /* Onayli cevap 15 sn, digerleri 5 sn hafizada kalir.
+     Ayni anda gelen ikinci tik ayni istegi bekler. */
   function kayitSor(surum) {
     const anahtar = surum || "*";
     const kayit = onbellek.get(anahtar);
-    if (kayit && Date.now() - kayit.zaman < ONBELLEK_MS) return kayit.vaat;
+    if (kayit) {
+      const omur = kayit.guvenli === true ? ONBELLEK_ONAYLI_MS : ONBELLEK_DIGER_MS;
+      if (Date.now() - kayit.zaman < omur) return kayit.vaat;
+    }
 
-    const vaat = sor(surum).catch((hata) => {
-      onbellek.delete(anahtar); /* hata hafizada kalmasin, sonraki tik yeniden dener */
-      throw hata;
-    });
-    onbellek.set(anahtar, { zaman: Date.now(), vaat });
+    const vaat = sor(surum)
+      .then((satir) => {
+        const mevcut = onbellek.get(anahtar);
+        if (mevcut && mevcut.vaat === vaat) {
+          mevcut.guvenli = satir?.guvenli === true;
+          mevcut.durum = satir?.durum ?? null;
+        }
+        return satir;
+      })
+      .catch((hata) => {
+        onbellek.delete(anahtar); /* hata hafizada kalmasin, sonraki tik yeniden dener */
+        throw hata;
+      });
+    onbellek.set(anahtar, { zaman: Date.now(), vaat, guvenli: false, durum: null });
     return vaat;
   }
 
