@@ -1,5 +1,17 @@
 {
   "cleanUrls": true,
+  "redirects": [
+    { "source": "/login", "destination": "/giris", "permanent": true },
+    { "source": "/destek", "destination": "/?sayfa=destek", "permanent": true },
+    { "source": "/sss", "destination": "/?sayfa=destek", "permanent": true },
+    { "source": "/ozellik", "destination": "/?sayfa=ozellikler", "permanent": true },
+    { "source": "/hakkinda", "destination": "/", "permanent": true },
+    { "source": "/gizlilik", "destination": "/", "permanent": true },
+    { "source": "/kullanim-sartlari", "destination": "/", "permanent": true },
+    { "source": "/admin", "destination": "/ekip", "permanent": true },
+    { "source": "/rehber", "destination": "/?sayfa=destek", "permanent": true },
+    { "source": "/talep", "destination": "/bilet", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",
