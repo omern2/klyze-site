@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0F0F0F" />
+<title>Destek ekibi — Klyze.gg</title>
+<meta name="description" content="Klyze destek ekibi gelen kutusu. Biletleri filtrele, yanıtla ve durum değiştir." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/png" href="assets/klyze-logo-icon.png" />
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/500.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/600.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/700.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css?v=188" />
+<link rel="stylesheet" href="css/ekip.css?v=4" />
+</head>
+<body class="ekip-page">
+<div class="site-frame">
+  <header class="ekip-bar" aria-label="Destek ekibi üst barı">
+    <a class="ekip-mark" href="index.html" translate="no" aria-label="Klyze ana sayfa">KLYZE <span>destek</span></a>
+    <nav class="ekip-bar-nav" aria-label="Ekip gezinmesi">
+      <a href="bilet.html">Biletlerim</a>
+      <a href="index.html">Site</a>
+    </nav>
+    <div class="ekip-hesap">
+      <span class="ekip-hesap-ad" id="ekipHesap">—</span>
+      <span class="demo-etiket" id="demoEtiket" hidden>Demo</span>
+      <button class="ekip-cikis" id="ekipCikis" type="button">Çıkış</button>
+    </div>
+  </header>
+
+  <main class="ekip" id="ekipPage">
+    <div class="ekip-uygulama" id="ekipUygulama" hidden>
+      <div class="ekip-ic" id="ekipIc">
+        <aside class="ekip-liste-panel" id="ekipListePanel" aria-label="Bilet listesi">
+          <div class="ekip-liste-ust">
+            <div>
+              <p class="ekip-kicker">Klyze destek</p>
+              <h1 class="ekip-baslik">Gelen kutusu</h1>
+            </div>
+            <button class="ekip-yenile" id="ekipYenile" type="button" title="Listeyi yenile">Yenile</button>
+          </div>
+
+          <div class="ekip-filtreler" id="ekipFiltreler" role="group" aria-label="Duruma göre filtrele">
+            <button class="ekip-filtre is-active" type="button" data-durum="" aria-pressed="true">
+              Tümü <span id="ekipSayiTumu">0</span>
+            </button>
+            <button class="ekip-filtre" type="button" data-durum="acik" aria-pressed="false">
+              Açık <span id="ekipSayiAcik">0</span>
+            </button>
+            <button class="ekip-filtre" type="button" data-durum="beklemede" aria-pressed="false">
+              Beklemede <span id="ekipSayiBeklemede">0</span>
+            </button>
+            <button class="ekip-filtre" type="button" data-durum="kapali" aria-pressed="false">
+              Kapalı <span id="ekipSayiKapali">0</span>
+            </button>
+          </div>
+
+          <label class="sr-only" for="ekipArama">Bilet ara</label>
+          <input class="ekip-arama" id="ekipArama" type="search" placeholder="Bilet no, konu veya üye ara" autocomplete="off" spellcheck="false" />
+
+          <p class="ekip-hata" id="ekipListeHata" role="alert" hidden></p>
+          <p class="ekip-bilgi" id="ekipListeBilgi" role="status" hidden></p>
+
+          <ul class="ekip-liste" id="ekipListe"></ul>
+
+          <div class="ekip-bos" id="ekipListeBos" hidden>
+            <p class="ekip-bos-baslik">Bilet bulunamadı</p>
+            <p class="ekip-bos-metin">Filtreyi temizleyip yeniden dene.</p>
+          </div>
+
+          <button class="ekip-daha" id="ekipDaha" type="button" hidden>Daha fazla yükle</button>
+        </aside>
+
+        <section class="ekip-detay-panel" id="ekipDetayPanel" aria-labelledby="ekipKonu" hidden>
+          <button class="ekip-geri" id="ekipGeri" type="button">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H6M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Gelen kutusu
+          </button>
+
+          <header class="ekip-detay-ust">
+            <p class="ekip-kicker" id="ekipKicker">BİLET · KLY-XXXXXX</p>
+            <h2 class="ekip-konu" id="ekipKonu" tabindex="-1">Bilet yükleniyor…</h2>
+            <p class="ekip-uye" id="ekipUye">—</p>
+          </header>
+
+          <div class="ekip-meta">
+            <div>
+              <span>Bilet no</span>
+              <strong id="ekipBiletNo">—</strong>
+            </div>
+            <div>
+              <span>Gönderen</span>
+              <strong id="ekipGonderen">—</strong>
+            </div>
+            <div>
+              <span>Ürün</span>
+              <strong id="ekipUrun">—</strong>
+            </div>
+            <div>
+              <span>Kategori</span>
+              <strong id="ekipKategori">—</strong>
+            </div>
+            <div>
+              <span>Oluşturuldu</span>
+              <strong id="ekipOlusturma">—</strong>
+            </div>
+            <div>
+              <span>Son etkinlik</span>
+              <strong id="ekipEtkinlik">—</strong>
+            </div>
+            <div class="ekip-durum-alan">
+              <label for="ekipDurum">Durum</label>
+              <select id="ekipDurum">
+                <option value="acik">Açık</option>
+                <option value="beklemede">Beklemede</option>
+                <option value="kapali">Kapalı</option>
+              </select>
+              <button class="ekip-durum-kaydet" id="ekipDurumKaydet" type="button">Kaydet</button>
+            </div>
+          </div>
+
+          <p class="ekip-hata" id="ekipDetayHata" role="alert" hidden></p>
+          <p class="ekip-uyari" id="ekipKendiNotu" hidden>Bu bilet senin kendi hesabına ait. Buradan yazdığın yanıt kullanıcı mesajı olarak iletilir.</p>
+
+          <div class="ekip-akis" id="ekipAkis" aria-label="Bilet yazışması"></div>
+
+          <form class="ekip-mesaj-form" id="ekipMesajForm" novalidate>
+            <input class="ekip-ek-girdi" id="ekipEkGirdi" type="file" accept="image/jpeg,image/png,image/webp,.pdf,.txt,.log,.zip" multiple hidden />
+            <div class="ekip-ek-onizleme" id="ekipEkOnizleme" hidden></div>
+            <div class="ekip-mesaj-kutu">
+              <button class="ekip-ek-btn" id="ekipEkBtn" type="button" aria-label="Dosya ekle" title="Dosya ekle">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </button>
+              <label class="sr-only" for="ekipMesaj">Yanıt</label>
+              <textarea id="ekipMesaj" rows="2" maxlength="4000" placeholder="Yanıt yaz…" aria-describedby="ekipMesajHata ekipKapaliNot ekipMesajNot"></textarea>
+              <button class="ekip-gonder" id="ekipGonder" type="submit" aria-label="Yanıtı gönder" title="Gönder" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V6M6 12l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="ekip-hata" id="ekipMesajHata" role="alert" hidden></p>
+            <p class="ekip-bilgi" id="ekipBilgi" role="status" hidden></p>
+            <p class="ekip-not" id="ekipMesajNot">Yanıt gönderince bilet <b>Beklemede</b> olur; kullanıcı yanıtlayınca yeniden <b>Açık</b> durumuna döner.</p>
+            <p class="ekip-not ekip-kapali-not" id="ekipKapaliNot" hidden>Bilet kapalı. Yanıt göndermek için durumu <b>Açık</b> yapıp kaydet.</p>
+          </form>
+        </section>
+
+        <section class="ekip-detay-bos" id="ekipDetayBos" aria-label="Bilet seçilmedi">
+          <span class="ekip-detay-bos-ikon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4Z"/><path d="M9 9.5h6M9 14.5h4"/></svg>
+          </span>
+          <p class="ekip-detay-bos-baslik">Bir bilet seç</p>
+          <p class="ekip-detay-bos-metin">Soldaki listeden bileti açtığında yazışma, ekler ve durum burada görünür.</p>
+        </section>
+      </div>
+    </div>
+
+    <div class="ekip-yukleniyor" id="ekipYukleniyor" role="status">
+      <span class="ekip-yukleniyor-halka" aria-hidden="true"></span>
+      <p>Oturum ve ekip yetkisi kontrol ediliyor…</p>
+    </div>
+
+    <section class="ekip-kapi" id="ekipDurumKutu" hidden aria-labelledby="ekipDurumBaslik">
+      <div class="ekip-kapi-kart">
+        <p class="ekip-kapi-kicker">Klyze destek</p>
+        <h1 class="ekip-kapi-baslik" id="ekipDurumBaslik" tabindex="-1">Ekip girişi gerekiyor</h1>
+        <p class="ekip-kapi-metin" id="ekipDurumMetin">Bu sayfa yalnız destek ekibi içindir. Devam etmek için Klyze hesabınla giriş yap.</p>
+        <div class="ekip-kapi-eylem">
+          <a class="ekip-kapi-birincil" id="ekipDurumGiris" href="giris.html?donus=ekip.html">Google ile giriş yap</a>
+          <button class="ekip-kapi-ikincil" id="ekipDurumTekrar" type="button" hidden>Tekrar dene</button>
+          <a class="ekip-kapi-ikincil" id="ekipDurumSite" href="index.html">Siteye dön</a>
+        </div>
+        <p class="ekip-kapi-not">Erişim, Supabase'deki <b>destek</b> rolüne bağlıdır.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<p class="sr-only" id="ekipLive" aria-live="polite"></p>
+<noscript><p class="ekip-noscript">Ekip paneli için tarayıcında JavaScript'i açman gerekiyor.</p></noscript>
+
+<script src="js/config.js?v=2" defer></script>
+<script src="js/vendor/supabase-2.118.0.js" defer></script>
+<script src="js/klyze-auth.js?v=1" defer></script>
+<script src="js/destek-api.js?v=2" defer></script>
+<script src="js/ekip.js?v=5" defer></script>
+</body>
+</html>

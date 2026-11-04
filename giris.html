@@ -4,18 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="theme-color" content="#0F0F0F" />
-<title>Giriş geçici olarak kapalı — Klyze.gg</title>
-<meta name="description" content="Klyze.gg hesap girişi kısa süreliğine kapalı. Klyze'yi uygulama içinden kullanmaya devam edebilirsin." />
-<meta name="robots" content="noindex, follow" />
-<link rel="icon" type="image/png" href="assets/favicon.png" />
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
+<title>Giriş Yap — Klyze.gg</title>
+<meta name="description" content="Klyze.gg hesabına Google ile giriş yap. Destek bileti aç, ekip yanıtlarını ve bilet geçmişini gör." />
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" type="image/png" href="assets/klyze-logo-icon.png" />
 <link rel="preconnect" href="https://api.fontshare.com" />
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/500.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/600.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/700.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css?v=147" />
+<link rel="stylesheet" href="css/style.css?v=188" />
 </head>
 <body class="auth-page">
 <div class="site-frame">
@@ -31,21 +29,59 @@
 
   <main class="auth-main">
     <div class="auth-stack">
-      <section class="auth-card" aria-labelledby="authTitle">
+      <section class="auth-card" id="authCard" aria-labelledby="authTitle">
         <div class="auth-logo" aria-hidden="true"><span>K</span></div>
-        <p class="auth-kicker">Klyze hesabı</p>
-        <h1 class="auth-title" id="authTitle">Giriş kısa süreliğine kapalı</h1>
-        <p class="auth-lead">Hesap girişini yeniden açana kadar Klyze'yi uygulama içinden kullanabilirsin. Açıldığında bu sayfadan Google ile giriş yapabileceksin.</p>
+        <p class="auth-kicker" id="authKicker">Klyze hesabı</p>
+        <h1 class="auth-title" id="authTitle" tabindex="-1">Tekrar hoş geldin</h1>
+        <p class="auth-lead" id="authLead">Destek bileti açmak ve ekip yanıtlarını görmek için Klyze hesabına giriş yap.</p>
 
-        <div class="auth-panel">
+        <div class="auth-panel" id="panelLoading" hidden>
+          <div class="auth-loader" aria-hidden="true"><span></span></div>
+          <p class="auth-status">Oturum kontrol ediliyor…</p>
+        </div>
+
+        <div class="auth-panel" id="panelSignedOut">
           <div class="auth-actions">
-            <a class="auth-primary" href="https://github.com/omern2/klyze-releases/releases/download/v5.28.3/Klyze-Setup-5.28.3.exe">Uygulamayı indir</a>
-            <a class="auth-secondary" href="index.html">Ana sayfaya dön</a>
+            <button class="auth-google" id="googleBtn" type="button">
+              <svg class="auth-google-icon" viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+                <path fill="#4285F4" d="M17.64 9.205c0-.638-.057-1.252-.164-1.841H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615Z"/>
+                <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18Z"/>
+                <path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332Z"/>
+                <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 7.29C4.672 5.163 6.656 3.58 9 3.58Z"/>
+              </svg>
+              <span id="googleBtnLabel">Google ile devam et</span>
+            </button>
+          </div>
+          <p class="auth-status" id="authStatus"><span id="authStatusText">Google ile giriş · şifre saklanmaz</span></p>
+        </div>
+
+        <div class="auth-panel" id="panelSignedIn" hidden>
+          <div class="auth-user">
+            <span class="auth-avatar" aria-hidden="true">
+              <img id="userAvatarImg" alt="" width="46" height="46" hidden />
+              <span id="userAvatarText">K</span>
+            </span>
+            <span class="auth-user-meta">
+              <span class="auth-user-name" id="userName">Klyze kullanıcısı</span>
+              <span class="auth-user-no" id="userNo">Klyze üyesi</span>
+            </span>
+          </div>
+          <div class="auth-actions">
+            <a class="auth-primary" id="continueBtn" href="bilet.html" hidden>Biletlerime dön</a>
+            <button class="auth-secondary" id="logoutBtn" type="button">Çıkış yap</button>
           </div>
         </div>
 
-        <div class="auth-card-foot">
-          <p class="auth-note">Riot ID bağlantısı uygulama içinde yapılır.</p>
+        <div class="auth-panel" id="panelError" hidden>
+          <p class="auth-error" id="errorText" role="alert">Giriş tamamlanamadı. Tekrar dene.</p>
+          <div class="auth-actions">
+            <button class="auth-secondary" id="retryBtn" type="button">Tekrar dene</button>
+          </div>
+        </div>
+
+        <div class="auth-card-foot" id="authTerms">
+          <p class="auth-note">Google hesabın yalnız kimlik doğrulaması için kullanılır; şifren Klyze'ye gelmez.</p>
+          <p class="auth-terms">Devam ederek <a class="auth-legal" href="index.html?sayfa=kurulum">Klyze kurulumunu</a> ve <a class="auth-legal" href="index.html?sayfa=destek">destek sayfasını</a> kullanabilirsin.</p>
         </div>
       </section>
 
@@ -53,6 +89,14 @@
     </div>
   </main>
 </div>
-<script src="js/indirme.js?v=2" defer></script>
+
+<noscript>
+  <p class="auth-noscript">Giriş yapmak için tarayıcında JavaScript'i açman gerekiyor.</p>
+</noscript>
+
+<script src="js/config.js?v=2" defer></script>
+<script src="js/vendor/supabase-2.118.0.js" defer></script>
+<script src="js/klyze-auth.js?v=1" defer></script>
+<script src="js/giris.js?v=4" defer></script>
 </body>
 </html>

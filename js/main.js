@@ -48,7 +48,7 @@ if(rotEl){
     },350);
   },5000);
 }
-const pageHome=document.getElementById("page-home"),pageOzel=document.getElementById("page-ozel"),pageLiderlik=document.getElementById("page-liderlik"),pageYorumlar=document.getElementById("page-yorumlar"),pageDestek=document.getElementById("page-destek"),pageKurulum=document.getElementById("page-kurulum"),pageAc=document.getElementById("page-ac");
+const pageHome=document.getElementById("page-home"),pageOzel=document.getElementById("page-ozel"),pageLiderlik=document.getElementById("page-liderlik"),pageYenilikler=document.getElementById("page-yenilikler"),pageDestek=document.getElementById("page-destek"),pageKurulum=document.getElementById("page-kurulum"),pageAc=document.getElementById("page-ac");
 const dockEl=document.getElementById("dlDock");
 const dockFrame=document.querySelector(".site-frame");
 function dockCutoff(){
@@ -58,11 +58,11 @@ function dockCutoff(){
 function updateDock(){
   if(!dockEl) return;
   const onHome=!!pageHome&&!pageHome.hidden;
-  const onReviews=!!pageYorumlar&&!pageYorumlar.hidden;
+  const onYenilikler=!!pageYenilikler&&!pageYenilikler.hidden;
   const onDestek=!!pageDestek&&!pageDestek.hidden;
   const onKurulum=!!pageKurulum&&!pageKurulum.hidden;
   const onAc=!!pageAc&&!pageAc.hidden;
-  let show=!onReviews&&!onDestek&&!onKurulum&&!onAc;
+  let show=!onYenilikler&&!onDestek&&!onKurulum&&!onAc;
   if(onHome){
     const y=dockFrame?dockFrame.scrollTop:window.scrollY;
     show=y>dockCutoff();
@@ -74,7 +74,7 @@ function dockKick(){
   updateDock();
 }
 function showPage(which){
-  const pages={home:pageHome,ozel:pageOzel,liderlik:pageLiderlik,yorumlar:pageYorumlar,destek:pageDestek,kurulum:pageKurulum,ac:pageAc};
+  const pages={home:pageHome,ozel:pageOzel,liderlik:pageLiderlik,yenilikler:pageYenilikler,destek:pageDestek,kurulum:pageKurulum,ac:pageAc};
   if(!pages[which]) which="home";
   let changed=false;
   Object.keys(pages).forEach(key=>{
@@ -98,13 +98,10 @@ function setActive(id,doScroll=true){
     b.classList.toggle("active",on);
     b.setAttribute("aria-selected",on);
   });
-  const t=document.getElementById("mTrigger");
-  const label=document.querySelector(`.ni[data-id="${id}"]`)?.textContent||id;
-  if(t) t.textContent=label+" ▾";
   if(id==="ozellikler"){ showPage("ozel"); return; }
   if(id==="ac"){ showPage("ac"); return; }
   if(id==="liderlik"){ showPage("liderlik"); return; }
-  if(id==="yorumlar"){ showPage("yorumlar"); return; }
+  if(id==="yenilikler"){ showPage("yenilikler"); return; }
   if(id==="destek"){ showPage("destek"); return; }
   if(id==="kurulum"){ showPage("kurulum"); return; }
   showPage("home");
@@ -117,7 +114,6 @@ const blogo=document.querySelector(".blogo");
 blogo?.addEventListener("click",()=>{
   showPage("home");
   items.forEach(b=>{const on=b.dataset.id==="ozellikler";b.classList.toggle("active",on);b.setAttribute("aria-selected",""+on)});
-  const t=document.getElementById("mTrigger"); if(t) t.textContent="Home ▾";
 });
 // kart hero'dan tasinca ozellikler bolumune yer ac (kutu yuksekligine gore)
 const featSec=document.getElementById("ozellikler");
@@ -208,6 +204,7 @@ if(tunnel){
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{tunnelMeasure();tunnelKick()});
 }
 items.forEach(b=>b.addEventListener("click",()=>setActive(b.dataset.id)));
+document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>setActive(b.dataset.goto)));
 const trg=document.getElementById("mTrigger"),drop=document.getElementById("mDrop");
 trg?.addEventListener("click",()=>{
   const open=drop.hasAttribute("hidden");
@@ -264,3 +261,8 @@ if(dockFrame) dockFrame.addEventListener("scroll",dockKick,{passive:true});
 window.addEventListener("scroll",dockKick,{passive:true});
 window.addEventListener("resize",dockKick);
 updateDock();
+
+/* Ayri sayfadan donus: index.html?sayfa=destek */
+const ilkSayfa=new URLSearchParams(location.search).get("sayfa");
+const ilkDugme=Array.from(items).find(b=>b.dataset.id===ilkSayfa);
+if(ilkDugme) setActive(ilkDugme.dataset.id,false);

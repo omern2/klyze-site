@@ -5,6 +5,7 @@
   "use strict";
 
   const A = window.KLYZE_AUTH;
+  const DEMO = window.KLYZE_DEMO;
   const SEMA = (window.KLYZE_SUPABASE && window.KLYZE_SUPABASE.schema) || "site";
   const $ = (id) => document.getElementById(id);
 
@@ -21,6 +22,7 @@
     googleBtnLabel: $("googleBtnLabel"),
     logoutBtn: $("logoutBtn"),
     retryBtn: $("retryBtn"),
+    continueBtn: $("continueBtn"),
     statusBox: $("authStatus"),
     statusText: $("authStatusText"),
     errorText: $("errorText"),
@@ -46,13 +48,13 @@
     signedOut: {
       kicker: "Klyze hesabı",
       title: "Tekrar hoş geldin",
-      lead: "Klyze hesabına giriş yap. Maçların, serin ve analizlerin seni bekliyor.",
+      lead: "Destek bileti açmak ve ekip yanıtlarını görmek için Klyze hesabına giriş yap.",
       status: "Google ile giriş · şifre saklanmaz"
     },
     signedIn: {
       kicker: "Giriş yapıldı",
       title: "Hesabın hazır",
-      lead: "Profilini aç, adını düzenle ya da uygulamayı indir.",
+      lead: "Biletlerine dönebilir, çıkış yapabilir veya ana sayfaya geçebilirsin.",
       status: "Oturum açık · bu tarayıcıda"
     },
     error: {
@@ -70,6 +72,31 @@
   let profileUser = null;
   let profile = null;
   let redirectWatch = 0;
+  let donusZaman = 0;
+
+  const donus = donusAdresi();
+
+  /* Yalnızca site içi sayfalara dönüşe izin ver; dış adres açık yönlendirme olur. */
+  function donusAdresi() {
+    const ham = new URLSearchParams(location.search).get("donus");
+    if (!ham) return null;
+    try {
+      const url = new URL(ham, location.origin);
+      if (url.origin !== location.origin) return null;
+      const dosya = (url.pathname.split("/").pop() || "").toLowerCase();
+      if (dosya !== "bilet.html" && dosya !== "ekip.html" && dosya !== "index.html") return null;
+      return dosya + url.search + url.hash;
+    } catch (hata) {
+      return null;
+    }
+  }
+
+  function donusBasligi() {
+    if (!donus) return "Biletlerime git";
+    if (donus.indexOf("ekip.html") === 0) return "Destek paneline dön";
+    if (donus.indexOf("bilet.html") === 0) return "Biletlerime dön";
+    return "Geldiğin sayfaya dön";
+  }
 
   function setView(name, opts) {
     const view = VIEWS[name] || VIEWS.loading;
@@ -86,6 +113,11 @@
     el.card.setAttribute("aria-busy", name === "loading" ? "true" : "false");
     status(view.status, "");
     if (el.terms) el.terms.hidden = name === "signedIn";
+    if (el.continueBtn) {
+      el.continueBtn.hidden = name !== "signedIn";
+      el.continueBtn.href = donus || "bilet.html";
+      el.continueBtn.textContent = donusBasligi();
+    }
     if (name !== "signedIn") document.title = "Giriş Yap — Klyze.gg";
 
     if (focus) {
@@ -174,6 +206,7 @@
     if (profileUser === user.id && profile) {
       renderUser(profile);
       setView("signedIn", opts);
+      otomatikDon();
       return;
     }
 
@@ -183,6 +216,7 @@
     profile = data;
     renderUser(data);
     setView("signedIn", opts);
+    otomatikDon();
   }
 
   function readUrlError() {
@@ -200,13 +234,65 @@
   }
 
   function cleanUrl() {
-    if (!location.search && !location.hash) return;
-    try { history.replaceState(null, "", location.pathname); } catch (e) { /* yoksay */ }
+    const url = new URL(location.href);
+    ["code", "error", "error_code", "error_description", "error_reason", "state"].forEach((anahtar) => {
+      url.searchParams.delete(anahtar);
+    });
+    const temiz = url.pathname + (url.search || "");
+    if (temiz === location.pathname + location.search && !location.hash) return;
+    try { history.replaceState(null, "", temiz); } catch (e) { /* yoksay */ }
+  }
+
+  function otomatikDon() {
+    if (!donus || donusZaman) return;
+    status("Giriş tamamlandı, yönlendiriliyorsun…", "ok");
+    donusZaman = window.setTimeout(() => {
+      location.replace(donus);
+    }, 700);
+  }
+
+  /* ---------- geçici demo oturum ---------- */
+  function demoAktif() {
+    return Boolean(DEMO && DEMO.aktif === true);
+  }
+
+  function demoNotu() {
+    const not = document.querySelector("#authTerms .auth-note");
+    if (not) {
+      not.textContent = "Demo oturum: gerçek Google hesabına bağlanılmaz; veriler yalnızca bu tarayıcıda tutulur.";
+    }
+  }
+
+  function demoBoot() {
+    const acik = DEMO.oturumVar();
+
+    if (acik) {
+      setView("signedIn", { focus: true });
+      renderUser(DEMO.profil);
+      if (el.userNo) el.userNo.textContent = "Demo oturum · gerçek Google girişi değil";
+      if (el.lead) el.lead.textContent = "Demo oturum açık. Biletler ve ekip paneli bu tarayıcıdaki demo verilerle çalışıyor.";
+      status("Demo verileri · sunucuya yazılmaz", "ok");
+    } else {
+      setView("signedOut", { focus: true });
+      if (el.lead) el.lead.textContent = "Demo oturumu yeniden açmak için devam et. Bu ekran gerçek Google girişi değildir.";
+      el.googleBtnLabel.textContent = "Demo girişi yap";
+      status("Demo oturum kapalı · veriler bu tarayıcıda", "");
+    }
+
+    demoNotu();
+    booted = true;
+    if (acik) otomatikDon();
   }
 
   async function boot() {
     clearTimeout(redirectWatch);
     setBusy(false);
+
+    if (demoAktif()) {
+      demoBoot();
+      return;
+    }
+
     setView("loading");
 
     if (!sb) {
@@ -256,14 +342,25 @@
 
   async function signIn() {
     if (busy) return;
+
+    if (demoAktif()) {
+      setBusy(true, "Demo oturumu açılıyor…");
+      DEMO.girisYap();
+      await boot();
+      return;
+    }
+
     setBusy(true, "Google'a yönlendiriliyor…");
     status("Google'a bağlanılıyor…");
+
+    const hedef = new URL(location.origin + location.pathname);
+    if (donus) hedef.searchParams.set("donus", donus);
 
     try {
       const result = await sb.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: location.origin + location.pathname,
+          redirectTo: hedef.toString(),
           queryParams: { prompt: "select_account" }
         }
       });
@@ -281,6 +378,16 @@
 
   async function signOut() {
     if (busy) return;
+    window.clearTimeout(donusZaman);
+    donusZaman = 0;
+
+    if (demoAktif()) {
+      setBusy(true, "Çıkış yapılıyor…");
+      await DEMO.cikisYap();
+      await boot();
+      return;
+    }
+
     setBusy(true, "Çıkış yapılıyor…");
 
     try {
@@ -296,19 +403,11 @@
     status("Çıkış yapıldı.", "ok");
   }
 
-  sb = A.createClient();
-  if (!sb) {
-    fail("Giriş altyapısı yüklenemedi. Sayfayı yenileyip tekrar dene.");
-    return;
-  }
-
-  el.googleBtn.addEventListener("click", signIn);
-  if (el.logoutBtn) el.logoutBtn.addEventListener("click", signOut);
-  if (el.retryBtn) el.retryBtn.addEventListener("click", boot);
-
-  sb.auth.onAuthStateChange((event, session) => {
+  function oturumDinleyicisi(event, session) {
     if (!booted) return;
     if (event === "SIGNED_OUT" || (event === "TOKEN_REFRESHED" && !session)) {
+      window.clearTimeout(donusZaman);
+      donusZaman = 0;
       profileUser = null;
       profile = null;
       setView("signedOut", { focus: true });
@@ -318,11 +417,30 @@
     if (event === "SIGNED_IN" && session) {
       showUser(session, { focus: false });
     }
-  });
+  }
 
-  window.addEventListener("pagehide", () => clearTimeout(redirectWatch));
-  window.addEventListener("offline", () => status("Bağlantı kesildi.", "error"));
+  el.googleBtn.addEventListener("click", signIn);
+  if (el.logoutBtn) el.logoutBtn.addEventListener("click", signOut);
+  if (el.retryBtn) el.retryBtn.addEventListener("click", boot);
+
+  if (!demoAktif()) {
+    sb = A.createClient();
+    if (!sb) {
+      fail("Giriş altyapısı yüklenemedi. Sayfayı yenileyip tekrar dene.");
+      return;
+    }
+    sb.auth.onAuthStateChange(oturumDinleyicisi);
+  }
+
+  window.addEventListener("pagehide", () => {
+    clearTimeout(redirectWatch);
+    clearTimeout(donusZaman);
+  });
+  window.addEventListener("offline", () => {
+    if (!demoAktif()) status("Bağlantı kesildi.", "error");
+  });
   window.addEventListener("online", () => {
+    if (demoAktif()) return;
     if (el.panelSignedOut.hidden && el.panelSignedIn.hidden) {
       status("Bağlantı geri geldi. Tekrar dene.", "");
     }

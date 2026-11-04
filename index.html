@@ -4,14 +4,15 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="theme-color" content="#0F0F0F" />
-<title>Klyze.gg — Valorant Analiz Platformu</title>
+<title>Klyze</title>
+<link rel="icon" type="image/png" href="assets/klyze-logo-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://api.fontshare.com" />
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/500.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/600.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/700.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css?v=147" />
+<link rel="stylesheet" href="css/style.css?v=188" />
 </head>
 <body>
 <div class="site-frame">
@@ -22,25 +23,30 @@
         <button class="ni active" data-id="ozellikler" role="tab" aria-selected="true">Özellikler</button>
         <button class="ni" data-id="ac" role="tab" aria-selected="false">Klyze AC</button>
         <button class="ni" data-id="liderlik" role="tab" aria-selected="false">Liderlik</button>
-        <button class="ni" data-id="yorumlar" role="tab" aria-selected="false">Yorumlar</button>
+        <button class="ni" data-id="yenilikler" role="tab" aria-selected="false">Yenilikler</button>
         <button class="ni" data-id="destek" role="tab" aria-selected="false">Destek</button>
         <button class="ni" data-id="kurulum" role="tab" aria-selected="false">Kurulum</button>
       </nav>
-      <span class="bact"><span class="lang-wrap"><button class="lang" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">TR</button><span class="lang-drop" id="langDrop" role="listbox" aria-label="Dil seç" hidden><button role="option" aria-selected="true" data-lang="TR">TR — Türkçe</button><button role="option" aria-selected="false" data-lang="EN">EN — English</button><button role="option" aria-selected="false" data-lang="DE">DE — Deutsch</button><button role="option" aria-selected="false" data-lang="FR">FR — Français</button><button role="option" aria-selected="false" data-lang="ES">ES — Español</button><button role="option" aria-selected="false" data-lang="PT">PT — Português</button><button role="option" aria-selected="false" data-lang="IT">IT — Italiano</button><button role="option" aria-selected="false" data-lang="RU">RU — Русский</button><button role="option" aria-selected="false" data-lang="AR">AR — العربية</button><button role="option" aria-selected="false" data-lang="JA">JA — 日本語</button></span></span></span>
+      <span class="bact"><a class="login" href="giris.html">Giriş</a><span class="lang-wrap"><button class="lang" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">TR</button><span class="lang-drop" id="langDrop" role="listbox" aria-label="Dil seç" hidden><button role="option" aria-selected="true" data-lang="TR">TR — Türkçe</button><button role="option" aria-selected="false" data-lang="EN">EN — English</button><button role="option" aria-selected="false" data-lang="DE">DE — Deutsch</button><button role="option" aria-selected="false" data-lang="FR">FR — Français</button><button role="option" aria-selected="false" data-lang="ES">ES — Español</button><button role="option" aria-selected="false" data-lang="PT">PT — Português</button><button role="option" aria-selected="false" data-lang="IT">IT — Italiano</button><button role="option" aria-selected="false" data-lang="RU">RU — Русский</button><button role="option" aria-selected="false" data-lang="AR">AR — العربية</button><button role="option" aria-selected="false" data-lang="JA">JA — 日本語</button></span></span></span>
   </header>
 
-  <!-- MOBİL TEK ADA -->
-  <div class="notch-mobile" id="mNotch">
-    <svg class="wing wing-l" viewBox="0 0 20 20" aria-hidden="true"><path d="M 0 0 C 11.046 0 20 8.954 20 20 H 21 V -1 H 0 Z" fill="currentColor"/></svg>
-    <button class="m-trigger" id="mTrigger" aria-expanded="false">Home ▾</button>
-    <svg class="wing wing-r" viewBox="0 0 20 20" aria-hidden="true"><path d="M 20 0 C 8.954 0 0 8.954 0 20 H -1 V -1 H 20 Z" fill="currentColor"/></svg>
+  <!-- MOBİL ÜST BAR: logo + Klyze.gg + hamburger -->
+  <div class="mbar" id="mNotch">
+    <a class="mbar-marka" href="index.html" aria-label="Klyze.gg ana sayfa">
+      <img src="assets/klyze-logo-white.png" alt="" width="16" height="24" />
+      <span class="mbar-ad">Klyze.gg</span>
+    </a>
+    <button class="mbar-menu" id="mTrigger" type="button" aria-expanded="false" aria-controls="mDrop" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
     <div class="m-drop" id="mDrop" hidden>
       <button data-id="ozellikler">Özellikler</button>
       <button data-id="ac">Klyze AC</button>
       <button data-id="liderlik">Liderlik</button>
-      <button data-id="yorumlar">Yorumlar</button>
+      <button data-id="yenilikler">Yenilikler</button>
       <button data-id="destek">Destek</button>
       <button data-id="kurulum">Kurulum</button>
+      <a class="m-login" href="giris.html">Google ile giriş</a>
     </div>
   </div>
 
@@ -431,124 +437,19 @@
     </div>
   </section>
 
-  <!-- YORUMLAR SAYFASI -->
-  <section class="yorumlar" id="page-yorumlar" hidden aria-labelledby="yrTitle">
-    <div class="yr-hero" id="yrHero">
-      <div class="yr-band" id="yrBand" aria-hidden="true"></div>
-
-      <div class="yr-content">
-        <div class="yr-head">
-          <p class="yr-kicker"><span class="yr-kicker-dot" aria-hidden="true"></span>Klyze topluluğu</p>
-          <h2 class="yr-title" id="yrTitle">Yorumlar</h2>
-          <p class="yr-lead">Oyuncuların Klyze deneyimine dair notları.</p>
-        </div>
-
-        <div class="yr-rating">
-          <svg class="yr-star-sprite" aria-hidden="true" focusable="false" width="0" height="0">
-            <symbol id="yrStar" viewBox="0 0 24 24">
-              <path d="m12 2.6 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5-4.7-4.6 6.5-.9L12 2.6Z" fill="currentColor"/>
-            </symbol>
-            <symbol id="yrStarHalf" viewBox="0 0 24 24">
-              <path d="m12 2.6 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5-4.7-4.6 6.5-.9L12 2.6Z" fill="#C9C9CE"/>
-              <path d="m12 2.6 2.9 5.9 6.5.9-4.7 4.6 1.1 6.5-5.8-3-5.8 3 1.1-6.5-4.7-4.6 6.5-.9L12 2.6Z" fill="#0F0F0F" clip-path="url(#yrStarHalfClip)"/>
-              <clipPath id="yrStarHalfClip"><rect x="0" y="0" width="12" height="24"/></clipPath>
-            </symbol>
-          </svg>
-          <span class="yr-stars" id="yrStars" role="img" aria-label="Örnek ortalama: 5 üzerinden 4,5">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#yrStar"/></svg>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#yrStar"/></svg>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#yrStar"/></svg>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#yrStar"/></svg>
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#yrStarHalf"/></svg>
-          </span>
-          <p class="yr-score"><strong>4,5</strong><span>/ 5</span></p>
-          <p class="yr-count"><span id="yrCountText">12 değerlendirme</span> <span class="yr-sample">örnek veri</span></p>
-        </div>
+  <!-- YENILIKLER SAYFASI -->
+  <section class="yenilikler" id="page-yenilikler" hidden aria-labelledby="jmTitle">
+    <div class="jm-hero">
+      <img class="jm-bg" src="assets/spooky-2400.webp" srcset="assets/spooky-1200.webp 1200w, assets/spooky-2400.webp 2400w, assets/spooky-3360.webp 3360w" sizes="(max-width: 900px) 2400px, 100vw" width="3360" height="1440" alt="" aria-hidden="true" decoding="async" loading="lazy" />
+      <span class="jm-shade" aria-hidden="true"></span>
+      <div class="jm-copy">
+        <p class="jm-kicker">Klyze AC</p>
+        <h2 class="jm-title" id="jmTitle">Jaws Mode</h2>
+        <p class="jm-sub">Yeni <span class="jm-grad">AC filtresi</span></p>
+        <p class="jm-actions">
+          <button class="jm-cta" type="button" data-goto="ac">Klyze AC'yi keşfet</button>
+        </p>
       </div>
-    </div>
-
-    <div class="yr-body">
-      <!-- YORUM LISTESI -->
-      <section class="yr-list" aria-labelledby="yrListTitle">
-        <div class="yr-list-head">
-          <div>
-            <p class="yr-list-kicker">Topluluk</p>
-            <h3 class="yr-list-title" id="yrListTitle">Oyuncu yorumları</h3>
-          </div>
-          <p class="yr-list-count" id="yrListCount">12 yorum</p>
-        </div>
-        <div class="yr-grid" id="yrGrid"></div>
-        <noscript><p class="yr-noscript">Yorumları görmek için tarayıcında JavaScript'i aç.</p></noscript>
-        <button class="yr-more" id="yrMore" type="button" aria-controls="yrGrid" hidden>
-          <span>Daha fazla gör</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <p class="yr-list-end" id="yrEnd" role="status" tabindex="-1" hidden>Tüm yorumlar gösterildi.</p>
-      </section>
-
-      <!-- YORUM YAZ -->
-      <section class="yr-write" aria-labelledby="yrWriteTitle">
-        <div class="yr-write-head">
-          <p class="yr-write-kicker">Sen de anlat</p>
-          <h3 class="yr-write-title" id="yrWriteTitle">Deneyimini yaz</h3>
-          <p class="yr-write-lead">Klyze'yi kullandıysan birkaç cümle bırak; diğer oyunculara yol göster.</p>
-        </div>
-        <form class="yr-form" id="yrForm" novalidate>
-          <fieldset class="yr-field" id="yrStarsField">
-            <legend class="yr-label">Puanın</legend>
-            <div class="yr-star-pick" id="yrStarPick">
-              <input class="yr-radio" type="radio" name="yrStars" id="yrStar1" value="1" /><label class="yr-star-btn" for="yrStar1" aria-label="1 yıldız"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#yrStar"/></svg></label>
-              <input class="yr-radio" type="radio" name="yrStars" id="yrStar2" value="2" /><label class="yr-star-btn" for="yrStar2" aria-label="2 yıldız"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#yrStar"/></svg></label>
-              <input class="yr-radio" type="radio" name="yrStars" id="yrStar3" value="3" /><label class="yr-star-btn" for="yrStar3" aria-label="3 yıldız"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#yrStar"/></svg></label>
-              <input class="yr-radio" type="radio" name="yrStars" id="yrStar4" value="4" /><label class="yr-star-btn" for="yrStar4" aria-label="4 yıldız"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#yrStar"/></svg></label>
-              <input class="yr-radio" type="radio" name="yrStars" id="yrStar5" value="5" checked /><label class="yr-star-btn" for="yrStar5" aria-label="5 yıldız"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#yrStar"/></svg></label>
-            </div>
-            <p class="yr-field-err" id="yrStarsErr" hidden></p>
-          </fieldset>
-          <div class="yr-field">
-            <label class="yr-label" for="yrName">Adın</label>
-            <input class="yr-input" id="yrName" name="name" type="text" maxlength="24" autocomplete="nickname" placeholder="Riot ID veya adın" aria-describedby="yrNameErr" />
-            <p class="yr-field-err" id="yrNameErr" hidden></p>
-          </div>
-          <div class="yr-field">
-            <label class="yr-label" for="yrText">Yorumun</label>
-            <textarea class="yr-input yr-textarea" id="yrText" name="text" maxlength="400" rows="4" placeholder="Neyi sevdin, neyi geliştirebiliriz?" aria-describedby="yrTextErr yrCounter"></textarea>
-            <div class="yr-field-foot">
-              <p class="yr-field-err" id="yrTextErr" hidden></p>
-              <span class="yr-counter" id="yrCounter">0 / 400</span>
-            </div>
-          </div>
-          <div class="yr-hp" aria-hidden="true">
-            <label for="yrWebsite">Website</label>
-            <input id="yrWebsite" name="website" type="text" tabindex="-1" autocomplete="off" />
-          </div>
-          <div class="yr-form-foot">
-            <button class="yr-submit" type="submit">
-              <span>Yorumu gönder</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </button>
-            <p class="yr-form-msg" id="yrFormMsg" role="status" aria-live="polite"></p>
-          </div>
-          <p class="yr-form-note">Önizleme modu: yorumlar yalnızca bu sayfada görünür.</p>
-        </form>
-      </section>
-
-      <!-- INDIRME CTA -->
-      <section class="yr-cta" aria-labelledby="yrCtaTitle">
-        <div class="yr-cta-copy">
-          <p class="yr-cta-kicker">Klyze · Windows</p>
-          <h3 class="yr-cta-title" id="yrCtaTitle">Rakiplerini tanımaya hazır mısın?</h3>
-          <p class="yr-cta-text">Rank takibi, maç analizi ve canlı overlay tek uygulamada. İndir, Riot ID'ni bağla, ilk maçını analiz et.</p>
-        </div>
-        <div class="yr-cta-action">
-          <a class="yr-cta-btn" href="https://github.com/omern2/klyze-releases/releases/download/v5.28.3/Klyze-Setup-5.28.3.exe">
-            <svg class="yr-cta-win" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5.6 10.4 4.6v6.9H3V5.6Zm8.5-1.2L21 3.1v8.4h-9.5V4.4ZM3 12.6h7.4v6.9L3 18.4v-5.8Zm8.5 0H21v8.3l-9.5-1.3v-7Z" fill="currentColor"/></svg>
-            <span>Windows için İndir</span>
-            <svg class="yr-cta-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <p class="yr-cta-meta">Ücretsiz · Windows 10/11 64-bit · v5.28.3 · 121,6 MB</p>
-        </div>
-      </section>
     </div>
   </section>
 
@@ -556,42 +457,92 @@
   <section class="destek" id="page-destek" hidden aria-labelledby="dsTitle">
     <div class="ds-hero">
       <div class="ds-hero-in">
-        <p class="ds-kicker"><span class="ds-kicker-dot" aria-hidden="true"></span>Yardım merkezi</p>
+        <img class="ds-mark" src="assets/destek-icon-240.png" alt="" width="96" height="96" decoding="async" />
         <h2 class="ds-title" id="dsTitle">Destek</h2>
-        <p class="ds-lead">Önce aradığın cevabı bul. Bulamazsan talep oluştur; konuyu net anlat, birlikte çözelim.</p>
+        <p class="ds-lead">Takıldığın yerde buradayız. Bir konuya dokun, sıkıntını ara; çözülmezse destek oluştur.</p>
 
-        <div class="ds-search">
-          <label class="ds-search-label" for="dsAra">Sorununu ara</label>
-          <div class="ds-search-box">
-            <svg class="ds-search-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16.4 16.4 4.1 4.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            <input class="ds-search-input" id="dsAra" type="search" placeholder="overlay, kurulum, giriş…" autocomplete="off" spellcheck="false" aria-describedby="dsAraHint" aria-controls="dsSssList" />
-            <button class="ds-search-clear" id="dsAraTemizle" type="button" aria-label="Aramayı temizle" hidden>
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 6 6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </button>
-          </div>
-          <p class="ds-search-hint" id="dsAraHint">Örnek: “overlay görünmüyor”, “kurulum”, “rank güncellenmiyor”</p>
+        <div class="ds-actions">
+          <a class="ds-act ds-act-primary" href="bilet.html">
+            Destek oluştur
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <button class="ds-act ds-act-ghost" id="dsAppBtn" type="button" aria-expanded="false" aria-controls="dsAppNote">
+            Klyze Destek
+            <span class="ds-soon">Yakında</span>
+          </button>
+        </div>
+
+        <div class="ds-app-note" id="dsAppNote" hidden>
+          <p><b>Klyze Destek uygulaması yolda.</b> İndirdiğinde sorunları otomatik tarayıp düzeltecek. O zamana kadar sık sorulan sorulara buradan bakabilirsin.</p>
         </div>
       </div>
     </div>
 
     <div class="ds-body">
+      <div class="ds-topics" role="group" aria-label="Sık karşılaşılan sorunlar">
+        <button class="ds-topic" type="button" data-konu="overlay">
+          <span class="ds-topic-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="m12 3 9 4.5-9 4.5L3 7.5 12 3Z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg>
+          </span>
+          <span class="ds-topic-title">Overlay</span>
+        </button>
+
+        <button class="ds-topic" type="button" data-konu="kasma">
+          <span class="ds-topic-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M3 12h4l2.5-7 4 14 2.5-7h5"/></svg>
+          </span>
+          <span class="ds-topic-title">Kasma / donma</span>
+        </button>
+
+        <button class="ds-topic" type="button" data-konu="rank">
+          <span class="ds-topic-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+          </span>
+          <span class="ds-topic-title">Rank / maç</span>
+        </button>
+
+        <button class="ds-topic" type="button" data-konu="kurulum">
+          <span class="ds-topic-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3v10"/><path d="m8 9 4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          </span>
+          <span class="ds-topic-title">Kurulum</span>
+        </button>
+
+        <button class="ds-topic" type="button" data-konu="ac">
+          <span class="ds-topic-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3l7 3v5c0 4.4-2.9 7.8-7 10-4.1-2.2-7-5.6-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+          </span>
+          <span class="ds-topic-title">Klyze AC</span>
+        </button>
+
+        <button class="ds-topic" type="button" data-konu="hesap">
+          <span class="ds-topic-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.6 3.4-5.5 7-5.5s6.2 1.9 7 5.5"/></svg>
+          </span>
+          <span class="ds-topic-title">Hesap</span>
+        </button>
+      </div>
+
       <!-- SSS -->
       <section class="ds-faq" aria-labelledby="dsFaqTitle">
+        <div class="ds-search">
+          <label class="ds-search-label" for="dsAra">Sıkıntını ara</label>
+          <div class="ds-search-box">
+            <svg class="ds-search-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16.4 16.4 4.1 4.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <input class="ds-search-input" id="dsAra" type="search" placeholder="overlay, kasma, rank…" autocomplete="off" spellcheck="false" aria-describedby="dsAraHint" aria-controls="dsSssList" />
+            <button class="ds-search-clear" id="dsAraTemizle" type="button" aria-label="Aramayı temizle" hidden>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 6 6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </button>
+          </div>
+          <p class="ds-search-hint" id="dsAraHint">Örnek: “overlay görünmüyor”, “kasma”, “rank güncellenmiyor”</p>
+        </div>
+
         <div class="ds-sec-head">
           <div>
             <p class="ds-sec-kicker">Sık sorulanlar</p>
-            <h3 class="ds-sec-title" id="dsFaqTitle">Cevabı burada olabilir</h3>
+            <h3 class="ds-sec-title is-grad" id="dsFaqTitle">Cevabını burada bulursun</h3>
           </div>
-          <p class="ds-sec-count" id="dsFaqCount">11 soru</p>
-        </div>
-
-        <div class="ds-chips" role="group" aria-label="Kategoriye göre filtrele">
-          <button class="ds-chip is-on" type="button" data-kat="hepsi" aria-pressed="true">Tümü</button>
-          <button class="ds-chip" type="button" data-kat="teknik" aria-pressed="false">Teknik</button>
-          <button class="ds-chip" type="button" data-kat="kurulum" aria-pressed="false">Kurulum</button>
-          <button class="ds-chip" type="button" data-kat="hesap" aria-pressed="false">Hesap</button>
-          <button class="ds-chip" type="button" data-kat="guvenlik" aria-pressed="false">Güvenlik</button>
-          <button class="ds-chip" type="button" data-kat="topluluk" aria-pressed="false">Topluluk</button>
+          <p class="ds-sec-count" id="dsFaqCount">10 soru</p>
         </div>
 
         <div class="ds-list" id="dsSssList" role="list"></div>
@@ -599,108 +550,30 @@
 
         <div class="ds-empty" id="dsEmpty" hidden>
           <p class="ds-empty-title">Aradığın cevabı bulamadık</p>
-          <p class="ds-empty-text">Soru farklı yazılmış olabilir. Aşağıdan talep oluştur ya da Discord'da sor.</p>
-          <div class="ds-empty-actions">
-            <button class="ds-empty-btn" id="dsEmptyTalep" type="button">Talep oluştur</button>
-            <a class="ds-empty-link" href="https://discord.gg/klyze" target="_blank" rel="noopener">Discord'u aç</a>
-          </div>
+          <p class="ds-empty-text">Soru farklı yazılmış olabilir. Daha kısa bir kelime dene ya da yukarıdaki konu kartlarından birine dokun.</p>
         </div>
         <p class="ds-list-status" id="dsListStatus" role="status" aria-live="polite"></p>
       </section>
-
-      <!-- TALEP -->
-      <section class="ds-ticket" aria-labelledby="dsTicketTitle">
-        <div class="ds-ticket-copy">
-          <p class="ds-ticket-kicker">Cevabını bulamadın mı?</p>
-          <h3 class="ds-ticket-title" id="dsTicketTitle">Talep oluştur</h3>
-          <p class="ds-ticket-lead">Kategoriyi seç, konuyu ve ne olduğunu yaz. Talebin için bir numara üretilir; metni Discord'daki destek kanalına gönderirsin.</p>
-          <ul class="ds-points">
-            <li><b>01</b>Talep numarası konuşmayı takip etmeyi kolaylaştırır.</li>
-            <li><b>02</b>Ekran görüntüsünü Discord'da aynı mesaja ekle.</li>
-            <li><b>03</b>Şifre, ödeme veya kimlik bilgisi yazma.</li>
-          </ul>
-          <p class="ds-ticket-alt">Acil değilse <a href="https://discord.gg/klyze" target="_blank" rel="noopener">Discord topluluğuna</a> da bakabilirsin.</p>
-        </div>
-
-        <div class="ds-ticket-main">
-          <form class="ds-form" id="dsForm" novalidate>
-            <div class="ds-field">
-              <label class="ds-label" for="dsKat">Kategori</label>
-              <div class="ds-select-wrap">
-                <select class="ds-input ds-select" id="dsKat" name="kategori">
-                  <option value="teknik">Teknik sorun</option>
-                  <option value="kurulum">Kurulum</option>
-                  <option value="hesap">Hesap</option>
-                  <option value="oneri">Öneri</option>
-                </select>
-                <svg class="ds-select-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-            </div>
-
-            <div class="ds-field">
-              <label class="ds-label" for="dsKonu">Konu</label>
-              <input class="ds-input" id="dsKonu" name="konu" type="text" maxlength="80" placeholder="Örn. Overlay ALT+X ile açılmıyor" aria-describedby="dsKonuErr" />
-              <p class="ds-err" id="dsKonuErr" hidden></p>
-            </div>
-
-            <div class="ds-field">
-              <label class="ds-label" for="dsAciklama">Ne oldu?</label>
-              <textarea class="ds-input ds-textarea" id="dsAciklama" name="aciklama" rows="5" maxlength="1500" placeholder="Sorunu, ne zaman başladığını ve ne denediğini yaz." aria-describedby="dsAciklamaErr dsSayac"></textarea>
-              <div class="ds-field-foot">
-                <p class="ds-err" id="dsAciklamaErr" hidden></p>
-                <span class="ds-counter" id="dsSayac">0 / 1500</span>
-              </div>
-            </div>
-
-            <label class="ds-check">
-              <input type="checkbox" id="dsSistem" name="sistem" />
-              <span>Tarayıcı ve ekran bilgisini talebe ekle</span>
-            </label>
-
-            <div class="ds-hp" aria-hidden="true">
-              <label for="dsWebsite">Website</label>
-              <input id="dsWebsite" name="website" type="text" tabindex="-1" autocomplete="off" />
-            </div>
-
-            <div class="ds-form-foot">
-              <button class="ds-submit" id="dsGonder" type="submit">
-                <span>Talep numarası oluştur</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-              <p class="ds-msg" id="dsMsg" role="status" aria-live="polite"></p>
-            </div>
-            <p class="ds-note">Önizleme: talep sunucuya gönderilmez, numara bu tarayıcıda saklanır. Ekibe ulaşması için metni Discord'a yapıştır.</p>
-          </form>
-
-          <div class="ds-result" id="dsResult" hidden aria-labelledby="dsResultId">
-            <p class="ds-result-kicker">Talep hazır</p>
-            <p class="ds-result-id" id="dsResultId">KLY-000000</p>
-            <p class="ds-result-lead">Metni kopyalayıp Discord'daki <b>#destek</b> kanalına yapıştır. Ekran görüntüsünü de aynı mesaja ekleyebilirsin.</p>
-            <label class="ds-label" for="dsMetin">Talep metni</label>
-            <textarea class="ds-input ds-result-text" id="dsMetin" rows="7" readonly></textarea>
-            <div class="ds-result-foot">
-              <button class="ds-copy" id="dsKopyala" type="button">Metni kopyala</button>
-              <a class="ds-discord" href="https://discord.gg/klyze" target="_blank" rel="noopener">Discord'u aç</a>
-            </div>
-            <p class="ds-msg" id="dsCopyMsg" role="status" aria-live="polite"></p>
-          </div>
-        </div>
-      </section>
-
-      <!-- TALEPLERIM -->
-      <section class="ds-mine" aria-labelledby="dsMineTitle">
-        <div class="ds-sec-head">
-          <div>
-            <p class="ds-sec-kicker">Bu tarayıcı</p>
-            <h3 class="ds-sec-title" id="dsMineTitle">Taleplerim</h3>
-          </div>
-          <button class="ds-mine-clear" id="dsTemizle" type="button" hidden>Tümünü sil</button>
-        </div>
-        <p class="ds-mine-empty" id="dsMineEmpty">Henüz talep oluşturmadın.</p>
-        <ul class="ds-mine-list" id="dsMineList"></ul>
-        <p class="ds-list-status" id="dsMineStatus" role="status" aria-live="polite"></p>
-      </section>
     </div>
+
+    <!-- DESTEK KONU SAYFASI -->
+    <section class="ds-detail" id="dsDetail" hidden aria-labelledby="dsDetailTitle">
+      <div class="ds-detail-in">
+        <button class="ds-back" id="dsBack" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H6M12 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Destek
+        </button>
+
+        <div class="ds-detail-head">
+          <span class="ds-detail-ico" id="dsDetailIco" aria-hidden="true"></span>
+          <p class="ds-detail-kicker">Destek konusu</p>
+          <h2 class="ds-detail-title" id="dsDetailTitle" tabindex="-1">Overlay</h2>
+          <p class="ds-detail-lead" id="dsDetailLead"></p>
+        </div>
+
+        <div class="ds-list ds-detail-list" id="dsDetailList"></div>
+      </div>
+    </section>
   </section>
 
   <!-- KURULUM SAYFASI -->
@@ -848,7 +721,7 @@
         <div class="kr-help-copy">
           <p class="ds-sec-kicker">Takıldın mı?</p>
           <h3 class="kr-help-title" id="krHelpTitle">Kurulumda bir yerde tıkandıysan</h3>
-          <p class="kr-help-text">Önce sık sorulanlara bak. Cevap yoksa talep oluştur; hangi adımda takıldığını ve ekranda ne yazdığını yaz.</p>
+          <p class="kr-help-text">Önce sık sorulanlara bak. Cevabı bulamazsan destek sayfasına geç ve konu kartlarından birini seç.</p>
         </div>
         <div class="kr-help-actions">
           <button class="kr-help-btn" id="krDestek" type="button">Destek sayfasına git</button>
@@ -927,11 +800,11 @@
   </a>
 </nav>
 
+<script src="js/config.js?v=2" defer></script>
 <script src="js/liderlik.js?v=3" defer></script>
-<script src="js/yorumlar.js?v=6" defer></script>
-<script src="js/destek.js?v=4" defer></script>
+<script src="js/destek.js?v=9" defer></script>
 <script src="js/kurulum.js?v=5" defer></script>
 <script src="js/indirme.js?v=2" defer></script>
-<script src="js/main.js?v=37" defer></script>
+<script src="js/main.js?v=41" defer></script>
 </body>
 </html>

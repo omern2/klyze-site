@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0F0F0F" />
+<title>Bilet Gönder — Klyze.gg</title>
+<meta name="description" content="Klyze.gg için destek bileti oluştur. İçerik ve kategoriyi seç, sorununu kısa bir açıklamayla yaz." />
+<link rel="canonical" href="https://klyzegg.vercel.app/bilet" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Bilet Gönder — Klyze.gg" />
+<meta property="og:description" content="İçerik ve kategoriyi seç; kalan alanlar kendiliğinden açılır." />
+<meta property="og:url" content="https://klyzegg.vercel.app/bilet" />
+<link rel="icon" type="image/png" href="assets/klyze-logo-icon.png" />
+<link rel="preconnect" href="https://api.fontshare.com" />
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/500.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/600.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/700.css" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css?v=188" />
+<link rel="stylesheet" href="css/bilet.css?v=27" />
+</head>
+<body>
+<a class="skip" href="#ticketForm">Bilet formuna geç</a>
+
+<div class="site-frame">
+  <!-- AYNI HAP BAR: ana sayfadaki bileşenin birebir kopyası -->
+  <header class="topbar" aria-label="Üst bar">
+    <a class="blogo" href="index.html" translate="no" aria-label="Ana sayfaya dön">KLYZE</a>
+    <nav class="notch-nav" aria-label="Ana gezinme">
+      <a class="ni" href="index.html?sayfa=ozellikler">Özellikler</a>
+      <a class="ni" href="index.html?sayfa=ac">Klyze AC</a>
+      <a class="ni" href="index.html?sayfa=liderlik">Liderlik</a>
+      <a class="ni" href="index.html?sayfa=yenilikler">Yenilikler</a>
+      <a class="ni active" href="index.html?sayfa=destek">Destek</a>
+      <a class="ni" href="index.html?sayfa=kurulum">Kurulum</a>
+    </nav>
+    <span class="bact"><span class="lang-wrap"><button class="lang" id="langBtn" type="button" aria-haspopup="listbox" aria-expanded="false">TR</button><span class="lang-drop" id="langDrop" role="listbox" aria-label="Dil seç" hidden><button role="option" aria-selected="true" data-lang="TR">TR — Türkçe</button><button role="option" aria-selected="false" data-lang="EN">EN — English</button><button role="option" aria-selected="false" data-lang="DE">DE — Deutsch</button><button role="option" aria-selected="false" data-lang="FR">FR — Français</button><button role="option" aria-selected="false" data-lang="ES">ES — Español</button><button role="option" aria-selected="false" data-lang="PT">PT — Português</button><button role="option" aria-selected="false" data-lang="IT">IT — Italiano</button><button role="option" aria-selected="false" data-lang="RU">RU — Русский</button><button role="option" aria-selected="false" data-lang="AR">AR — العربية</button><button role="option" aria-selected="false" data-lang="JA">JA — 日本語</button></span></span></span>
+  </header>
+
+  <!-- MOBİL ÜST BAR: logo + Klyze.gg + hamburger -->
+  <div class="mbar" id="mNotch">
+    <a class="mbar-marka" href="index.html" aria-label="Klyze.gg ana sayfa">
+      <img src="assets/klyze-logo-white.png" alt="" width="16" height="24" />
+      <span class="mbar-ad">Klyze.gg</span>
+    </a>
+    <button class="mbar-menu" id="mTrigger" type="button" aria-expanded="false" aria-controls="mDrop" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="m-drop" id="mDrop" hidden>
+      <button type="button" data-sayfa="ozellikler">Özellikler</button>
+      <button type="button" data-sayfa="ac">Klyze AC</button>
+      <button type="button" data-sayfa="liderlik">Liderlik</button>
+      <button type="button" data-sayfa="yenilikler">Yenilikler</button>
+      <button type="button" data-sayfa="destek">Destek</button>
+      <button type="button" data-sayfa="kurulum">Kurulum</button>
+    </div>
+  </div>
+
+  <main class="bilet" id="page-bilet">
+    <div id="biletUygulama" hidden>
+    <!-- ÜST BARIN ALTINDAKI İKİ METİN -->
+    <div class="bilet-ust">
+      <div class="bilet-ust-satir">
+        <nav class="bilet-sekmeler" aria-label="Bilet görünümü">
+          <button class="bilet-sekme is-active" id="sekmeForm" type="button" aria-current="page">Bilet Oluştur</button>
+          <button class="bilet-sekme" id="sekmeListe" type="button">Biletlerim</button>
+          <a class="bilet-sekme" id="sekmeDestek" href="ekip.html" hidden>Destek paneli</a>
+        </nav>
+        <div class="bilet-hesap" id="biletHesap" hidden>
+          <img class="bilet-hesap-pp" id="hesapPp" alt="" width="24" height="24" hidden />
+          <span class="bilet-hesap-ad" id="hesapAd">—</span>
+          <span class="demo-etiket" id="demoEtiket" hidden>Demo</span>
+          <button class="link-btn" id="hesapCikis" type="button">Çıkış</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="ds-hero" id="hero">
+      <div class="ds-hero-in">
+        <p class="ds-kicker"><span class="ds-kicker-dot" aria-hidden="true"></span>Destek</p>
+        <h1 class="ds-title" id="sayfaBaslik">Bilet Gönder</h1>
+        <p class="ds-lead bilet-lead" id="sayfaAlt">
+          <span id="formAlt">İçerik ve <span class="vurgu">kategoriyi seç</span>; kalan alanlar kendiliğinden açılır.</span>
+          <span id="listeAlt" hidden>Hesabına bağlı biletlerini ve ekip yanıtlarını görüntüle.</span>
+        </p>
+        <p class="bilet-meta" id="sayfaMeta">3 adım · yaklaşık 1 dakika</p>
+      </div>
+    </div>
+
+    <!-- BİLET OLUŞTUR -->
+    <div class="bilet-view" id="viewForm">
+      <div class="bilet-body">
+        <section class="card" id="card" aria-labelledby="cardTitle">
+          <div class="card-head">
+            <div>
+              <p class="kicker">Yeni bilet</p>
+              <h2 id="cardTitle">Nasıl yardımcı olabiliriz?</h2>
+            </div>
+            <span class="step" id="step" aria-hidden="true">1 / 3</span>
+          </div>
+
+          <form id="ticketForm" novalidate tabindex="-1">
+            <fieldset class="alan" id="icerikField">
+              <legend>İçerik</legend>
+              <div class="secenekler" id="icerikGrid">
+                <label class="opt">
+                  <input type="radio" name="icerik" value="valorant" required />
+                  <span class="opt-ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+                  </span>
+                  <span class="opt-govde">
+                    <span class="opt-ad">VALORANT</span>
+                    <span class="opt-alt">Rank, maç ve analiz</span>
+                  </span>
+                  <span class="opt-check" aria-hidden="true"></span>
+                </label>
+
+                <label class="opt">
+                  <input type="radio" name="icerik" value="ac" />
+                  <span class="opt-ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3l7 3v5c0 4.4-2.9 7.8-7 10-4.1-2.2-7-5.6-7-10V6l7-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+                  </span>
+                  <span class="opt-govde">
+                    <span class="opt-ad">Klyze AC</span>
+                    <span class="opt-alt">Tarama ve işaretleme</span>
+                  </span>
+                  <span class="opt-check" aria-hidden="true"></span>
+                </label>
+
+                <label class="opt">
+                  <input type="radio" name="icerik" value="overlay" />
+                  <span class="opt-ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="m12 3 9 4.5-9 4.5L3 7.5 12 3Z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg>
+                  </span>
+                  <span class="opt-govde">
+                    <span class="opt-ad">Overlay</span>
+                    <span class="opt-alt">Oyun içi panel</span>
+                  </span>
+                  <span class="opt-check" aria-hidden="true"></span>
+                </label>
+
+                <label class="opt">
+                  <input type="radio" name="icerik" value="site" />
+                  <span class="opt-ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3Z"/></svg>
+                  </span>
+                  <span class="opt-govde">
+                    <span class="opt-ad">Web Sitesi</span>
+                    <span class="opt-alt">İndirme ve hesap</span>
+                  </span>
+                  <span class="opt-check" aria-hidden="true"></span>
+                </label>
+
+                <label class="opt">
+                  <input type="radio" name="icerik" value="diger" />
+                  <span class="opt-ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9.7 9.4a2.5 2.5 0 1 1 3.7 2.2c-.9.5-1.4 1.1-1.4 2.1"/><path d="M12 17v.2"/></svg>
+                  </span>
+                  <span class="opt-govde">
+                    <span class="opt-ad">Diğer</span>
+                    <span class="opt-alt">Başka bir konu</span>
+                  </span>
+                  <span class="opt-check" aria-hidden="true"></span>
+                </label>
+              </div>
+              <p class="hint" id="icerikHint">Bir içerik seç; kategori kutusu açılır.</p>
+              <p class="error" id="icerikErr" hidden></p>
+            </fieldset>
+
+            <fieldset class="alan" id="kategoriField" hidden>
+              <legend>Kategori</legend>
+              <div class="secenekler secenekler-kat" id="kategoriGrid"></div>
+              <p class="error" id="kategoriErr" hidden></p>
+            </fieldset>
+
+            <div class="details" id="details" hidden>
+              <div class="details-head">
+                <p class="details-title">Sorunun detayı</p>
+                <p class="details-sub" id="secim">—</p>
+              </div>
+
+              <div class="field" id="konuField">
+                <label for="konu">Konu</label>
+                <input id="konu" name="konu" type="text" maxlength="80" placeholder="Kısa bir başlık yaz" autocomplete="off" required aria-describedby="konuErr konuCount" />
+                <div class="meta-row">
+                  <p class="error" id="konuErr" hidden></p>
+                  <span class="count" id="konuCount" aria-hidden="true">0 / 80</span>
+                </div>
+              </div>
+
+              <div class="field" id="aciklamaField">
+                <label for="aciklama">Açıklama</label>
+                <textarea id="aciklama" name="aciklama" rows="5" maxlength="2000" placeholder="Sorunu kısaca anlat" required aria-describedby="aciklamaErr aciklamaCount"></textarea>
+                <div class="meta-row">
+                  <p class="error" id="aciklamaErr" hidden></p>
+                  <span class="count" id="aciklamaCount" aria-hidden="true">0 / 2000</span>
+                </div>
+              </div>
+
+              <p class="form-error" id="formError" role="alert" hidden></p>
+
+              <div class="submit-row">
+                <button class="btn-primary" id="gonder" type="submit">
+                  <span id="gonderEtiket">Bilet oluştur</span>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <button class="btn-ghost" id="temizle" type="button">Temizle</button>
+              </div>
+
+              <p class="local-note">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v5M12 7.6v.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                Biletin destek ekibine iletilir. Yanıtları bu sayfadaki “Biletlerim” bölümünden takip edebilirsin.
+              </p>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+
+    <!-- BİLETLERİM -->
+    <div class="bilet-view" id="viewListe" hidden>
+      <div class="bilet-body">
+        <section class="liste" aria-label="Kayıtlı biletler">
+          <div class="liste-ust" id="listeUst" hidden>
+            <p class="liste-sayi" id="listeSayi">0 bilet</p>
+            <button class="link-btn" id="listeYenile" type="button">Yenile</button>
+          </div>
+          <p class="error" id="listeHata" role="alert" hidden></p>
+          <p class="liste-bilgi" id="listeBilgi" role="status" hidden></p>
+          <ul class="liste-list" id="listeList"></ul>
+
+          <div class="liste-bos" id="listeBos" hidden>
+            <span class="liste-bos-ikon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4Z"/><path d="M9 9.5h6M9 14.5h4"/></svg>
+            </span>
+            <h2>Henüz bilet yok</h2>
+            <p>Oluşturduğun biletler hesabında listelenir; ekip yanıtları burada görünür.</p>
+            <button class="btn-primary" id="bosYeni" type="button">Bilet oluştur</button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- BİLET DETAYI -->
+    <div class="bilet-view" id="viewBilet" hidden>
+      <div class="bilet-body bilet-body-detail">
+        <button class="geri" id="biletGeri" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H6M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Biletlerim
+        </button>
+
+        <section class="bilet-detay" aria-labelledby="detayBaslik">
+          <header class="detay-ust">
+            <p class="detay-kicker" id="detayKicker">BİLET · KLY-XXXXXX</p>
+            <h1 class="detay-baslik" id="detayBaslik" tabindex="-1">—</h1>
+          </header>
+
+          <div class="detay-grid">
+            <aside class="detay-yan" aria-label="Bilet bilgileri">
+              <dl class="detay-meta">
+                <div>
+                  <dt>Ürün</dt>
+                  <dd id="metaUrun">—</dd>
+                </div>
+                <div>
+                  <dt>Kategori</dt>
+                  <dd id="metaKategori">—</dd>
+                </div>
+                <div>
+                  <dt>Gönderen</dt>
+                  <dd id="metaGonderen">—</dd>
+                </div>
+                <div class="meta-id-block">
+                  <dt>Bilet no</dt>
+                  <dd class="meta-id">
+                    <span id="metaId">—</span>
+                    <button class="kopya-btn" id="kopyaBtn" type="button" aria-label="Bilet numarasını kopyala" title="Numarayı kopyala">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 15V5a2 2 0 0 1 2-2h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    </button>
+                    <span class="kopya-ok" id="kopyaOk" hidden>Kopyalandı</span>
+                  </dd>
+                </div>
+                <div>
+                  <dt>Oluşturuldu</dt>
+                  <dd id="metaTarih">—</dd>
+                </div>
+                <div>
+                  <dt>Son etkinlik</dt>
+                  <dd id="metaEtkinlik">—</dd>
+                </div>
+                <div>
+                  <dt>Durum</dt>
+                  <dd class="meta-durum">
+                    <span class="durum-pill" id="metaDurum" data-durum="acik">Açık</span>
+                    <button class="durum-degistir" id="durumDegistir" type="button">Bileti kapat</button>
+                  </dd>
+                </div>
+              </dl>
+              <p class="error detay-hata" id="detayHata" role="alert" hidden></p>
+            </aside>
+
+            <div class="detay-akis" aria-label="Bilet yazışması">
+              <div class="akis" id="akis"></div>
+
+              <div class="mesaj-alan">
+                <form class="mesaj-form" id="mesajForm" novalidate>
+                  <input class="ekle-girdi" id="ekleGirdi" type="file" accept="image/jpeg,image/png,image/webp,.pdf,.txt,.log,.zip" multiple hidden />
+                  <div class="ek-onizleme" id="ekOnizleme" hidden></div>
+                  <div class="mesaj-kutu">
+                    <button class="ekle-btn" id="ekleBtn" type="button" aria-label="Dosya veya resim ekle" title="Dosya ekle">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                    </button>
+                    <label class="sr-only" for="mesaj">Mesaj</label>
+                    <textarea id="mesaj" name="mesaj" rows="1" maxlength="1000" placeholder="Mesaj yaz…" aria-describedby="mesajHata mesajNot"></textarea>
+                    <button class="mesaj-gonder" id="mesajGonder" type="submit" aria-label="Mesajı gönder" title="Gönder" disabled>
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V6M6 12l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                  </div>
+                  <p class="error" id="mesajHata" role="alert" hidden></p>
+                  <p class="gonder-bilgi" id="gonderBilgi" role="status" hidden></p>
+                </form>
+
+                <div class="mesaj-kapali" id="mesajKapali" hidden>
+                  <p>Bu bilet kapalı. Yeni mesaj yazmak için yeniden açabilirsin.</p>
+                  <button class="btn-ghost" id="yenidenAc" type="button">Yeniden aç</button>
+                </div>
+
+                <p class="mesaj-not" id="mesajNot">
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 11v5M12 7.6v.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                  Mesajlar ve ekler ekibe iletilir. Yalnızca sen ve destek ekibi görebilir.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    </div><!-- /biletUygulama -->
+
+    <div class="bilet-yukleniyor" id="biletYukleniyor" role="status">
+      <span class="bilet-yukleniyor-halka" aria-hidden="true"></span>
+      <p>Oturum kontrol ediliyor…</p>
+    </div>
+
+    <section class="bilet-durum" id="biletDurum" hidden aria-labelledby="durumBaslik">
+      <div class="bilet-durum-kart">
+        <p class="kicker" id="durumKicker">Klyze hesabı</p>
+        <h1 class="bilet-durum-baslik" id="durumBaslik" tabindex="-1">Bilet açmak için giriş yap</h1>
+        <p class="bilet-durum-metin" id="durumMetin">Destek taleplerin hesabına bağlanır; ekip yanıtlarını her cihazda görebilirsin.</p>
+        <div class="bilet-durum-eylem">
+          <a class="btn-primary" id="durumGiris" href="giris.html?donus=bilet.html">Google ile giriş yap</a>
+          <button class="btn-ghost" id="durumTekrar" type="button" hidden>Tekrar dene</button>
+        </div>
+        <p class="error" id="durumHata" role="alert" hidden></p>
+        <p class="bilet-durum-not">Giriş yaptığında eski tarayıcı biletleri temizlenir; yeni biletler sunucuda tutulur.</p>
+      </div>
+    </section>
+  </main>
+</div>
+
+<p class="sr-only" id="live" aria-live="polite"></p>
+<noscript><p class="noscript">Bilet oluşturmak için tarayıcında JavaScript'i açman gerekiyor.</p></noscript>
+
+<script src="js/config.js?v=2" defer></script>
+<script src="js/vendor/supabase-2.118.0.js" defer></script>
+<script src="js/klyze-auth.js?v=1" defer></script>
+<script src="js/destek-api.js?v=2" defer></script>
+<script src="js/bilet.js?v=27" defer></script>
+</body>
+</html>

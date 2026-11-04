@@ -1,6 +1,4 @@
-/* Klyze destek: SSS arama/filtre + talep formu.
-   Not: talep sunucuya gönderilmez; numara üretilir, metin panoya alınır
-   ve Discord'da paylaşılır. Backend bağlanınca sadece submitTicket() değişir. */
+/* Klyze destek: SSS arama/filtre + konu sayfaları. */
 (() => {
   "use strict";
 
@@ -8,9 +6,7 @@
     teknik: "Teknik",
     kurulum: "Kurulum",
     hesap: "Hesap",
-    guvenlik: "Güvenlik",
-    topluluk: "Topluluk",
-    destek: "Destek"
+    guvenlik: "Güvenlik"
   };
 
   const SSS = [
@@ -23,8 +19,19 @@
       adimlar: [
         "Oyun içinde ALT + X tuşlarına bas. Overlay bu kısayolla açılıp kapanır.",
         "Valorant'ı tam ekran yerine Tam Ekran Pencereli (borderless) modda çalıştır.",
-        "Klyze'yi kapatıp sağ tık → Yönetici olarak çalıştır ile aç.",
-        "Sorun sürerse aşağıdaki formdan ekran görüntüsüyle talep oluştur."
+        "Klyze'yi kapatıp sağ tık → Yönetici olarak çalıştır ile aç."
+      ]
+    },
+    {
+      id: "oyun-kasma",
+      kat: "teknik",
+      etiket: "kasma donma takılma fps performans yavaş overlay oyun",
+      baslik: "Oyun kasıyor veya donuyor",
+      ozet: "Önce overlay'i kapatıp farkı gör; sürücüyü ve arka plan uygulamalarını kontrol et.",
+      adimlar: [
+        "Oyun içinde ALT + X ile overlay'i kapat; kasma devam ediyor mu bak.",
+        "Ekran kartı sürücünü güncelle ve oyunu tam ekran pencereli modda dene.",
+        "Arka planda çalışan ağır uygulamaları kapat."
       ]
     },
     {
@@ -48,8 +55,7 @@
       ozet: "Riot verisi birkaç dakikaya kadar gecikebilir.",
       adimlar: [
         "Riot ID ve tag bilginin doğru yazıldığından emin ol.",
-        "Birkaç dakika bekleyip analiz ekranını yenile.",
-        "10 dakikadan uzun sürerse hangi maçın eksik olduğunu yazarak talep oluştur."
+        "Birkaç dakika bekleyip analiz ekranını yenile."
       ]
     },
     {
@@ -60,8 +66,7 @@
       ozet: "Maç başlangıcında 1-2 dakikalık gecikme normaldir.",
       adimlar: [
         "Maçın ilk dakikalarında verinin oturmasını bekle.",
-        "İnternet bağlantını kontrol et.",
-        "5 dakikadan uzun sürerse talep oluştur."
+        "İnternet bağlantını kontrol et."
       ]
     },
     {
@@ -96,8 +101,7 @@
       ozet: "Başlat menüsünden veya Windows Ayarlar üzerinden kaldırabilirsin.",
       adimlar: [
         "Başlat menüsünde Klyze'yi bulup “Kaldır”a tıkla.",
-        "Alternatif: Ayarlar → Uygulamalar → Klyze → Kaldır.",
-        "Kaldırma sonrası sorun yaşarsan talep oluştur."
+        "Alternatif: Ayarlar → Uygulamalar → Klyze → Kaldır."
       ]
     },
     {
@@ -108,33 +112,7 @@
       ozet: "Uygulama Riot ID ile çalışır; site üzerinden Google girişi henüz aktif değil.",
       adimlar: [
         "Uygulamayı aç, Riot ID ve tag bilgini gir. Şifre gerekmez.",
-        "Sitedeki “Giriş Yap” düğmesi şu an yalnızca bilgilendirme gösterir.",
-        "Hesabınla ilgili bir sorun varsa talep oluştur."
-      ]
-    },
-    {
-      id: "yorum-gorunmuyor",
-      kat: "topluluk",
-      etiket: "yorum görünmüyor yayınlanmadı beğeni yanıt topluluk",
-      baslik: "Yorumum neden görünmüyor?",
-      ozet: "Yorumlar önizleme modunda çalışır; sayfa yenilenince liste başlangıca döner.",
-      adimlar: [
-        "Yorumlar sayfasındaki yorumlar örnek veridir.",
-        "Yazdığın yorum yalnızca o anki sayfada görünür.",
-        "Kalıcı yorumlar için topluluk girişi henüz açık değil."
-      ]
-    },
-    {
-      id: "talep-nasil",
-      kat: "destek",
-      etiket: "destek talebi açma numara takip discord form nasıl",
-      baslik: "Destek talebi nasıl açılır?",
-      ozet: "Formu doldur, talep numarası oluşur, metni Discord'a gönder.",
-      adimlar: [
-        "Aşağıdaki formda kategori, konu ve açıklamayı doldur.",
-        "“Talep numarası oluştur”a bas; KLY- ile başlayan bir numara üretilir.",
-        "Metni kopyalayıp Discord'daki destek kanalına yapıştır.",
-        "Ekran görüntüsünü aynı mesaja eklemeyi unutma."
+        "Sitedeki “Giriş Yap” düğmesi şu an yalnızca bilgilendirme gösterir."
       ]
     },
     {
@@ -151,8 +129,38 @@
     }
   ];
 
-  const STORE = "klyze-destek-talepleri-v1";
-  const MAX_TICKET = 10;
+  const KONULAR = {
+    overlay: {
+      ad: "Overlay",
+      aciklama: "Oyun içi panel, kısayollar ve tam ekran ayarları.",
+      sorular: ["overlay-gorunmuyor", "oyunu-etkiler-mi", "klyze-ac-nedir"]
+    },
+    kasma: {
+      ad: "Kasma / donma",
+      aciklama: "FPS düşüşü, donma ve performans kontrolü.",
+      sorular: ["oyun-kasma", "canli-mac-yavas", "sistem-gereksinimleri"]
+    },
+    rank: {
+      ad: "Rank / maç",
+      aciklama: "Riot ID, rank ve maç verisinin güncellenmesi.",
+      sorular: ["maclar-guncellenmiyor", "canli-mac-yavas"]
+    },
+    kurulum: {
+      ad: "Kurulum",
+      aciklama: "İndirme, SmartScreen uyarısı ve kaldırma.",
+      sorular: ["smartscreen-uyarisi", "kaldirma", "sistem-gereksinimleri"]
+    },
+    ac: {
+      ad: "Klyze AC",
+      aciklama: "Tarama, güvenlik ve oyun dosyaları.",
+      sorular: ["klyze-ac-nedir", "oyunu-etkiler-mi"]
+    },
+    hesap: {
+      ad: "Hesap",
+      aciklama: "Riot ID ile giriş ve oturum.",
+      sorular: ["hesap-giris"]
+    }
+  };
 
   const byId = (id) => document.getElementById(id);
 
@@ -160,35 +168,14 @@
   if (!list) return;
 
   const emptyBox = byId("dsEmpty");
-  const emptyBtn = byId("dsEmptyTalep");
   const countEl = byId("dsFaqCount");
   const statusEl = byId("dsListStatus");
   const searchEl = byId("dsAra");
   const clearEl = byId("dsAraTemizle");
-  const chips = Array.from(document.querySelectorAll(".ds-chip"));
-  const form = byId("dsForm");
-  const konuEl = byId("dsKonu");
-  const aciklamaEl = byId("dsAciklama");
-  const konuErr = byId("dsKonuErr");
-  const aciklamaErr = byId("dsAciklamaErr");
-  const katEl = byId("dsKat");
-  const sayacEl = byId("dsSayac");
-  const msgEl = byId("dsMsg");
-  const resultEl = byId("dsResult");
-  const resultIdEl = byId("dsResultId");
-  const metinEl = byId("dsMetin");
-  const copyMsgEl = byId("dsCopyMsg");
-  const copyBtn = byId("dsKopyala");
-  const mineList = byId("dsMineList");
-  const mineEmpty = byId("dsMineEmpty");
-  const mineStatus = byId("dsMineStatus");
-  const clearAllBtn = byId("dsTemizle");
-  const honeypot = byId("dsWebsite");
-  const sistemEl = byId("dsSistem");
 
   const NS = "http://www.w3.org/2000/svg";
   const acik = new Set();
-  let kat = "hepsi";
+  const detayAcik = new Set();
   let dokunuldu = false;
 
   const norm = (value) => String(value == null ? "" : value)
@@ -227,25 +214,25 @@
     return svg;
   };
 
-  function sssItem(item) {
+  function sssItem(item, onek = "sss", acikSet = acik) {
     const article = el("article", "ds-item");
-    article.id = "sss-" + item.id;
+    article.id = onek + "-" + item.id;
     article.setAttribute("role", "listitem");
-    const open = acik.has(item.id);
+    const open = acikSet.has(item.id);
     article.classList.toggle("is-open", open);
 
     const btn = el("button", "ds-q");
     btn.type = "button";
-    btn.id = "sss-b-" + item.id;
+    btn.id = onek + "-b-" + item.id;
     btn.setAttribute("aria-expanded", String(open));
-    btn.setAttribute("aria-controls", "sss-p-" + item.id);
+    btn.setAttribute("aria-controls", onek + "-p-" + item.id);
 
     btn.appendChild(el("span", "ds-tag", KAT_AD[item.kat] || item.kat));
     btn.appendChild(el("span", "ds-q-text", item.baslik));
     btn.appendChild(chevron());
 
     const panel = el("div", "ds-a");
-    panel.id = "sss-p-" + item.id;
+    panel.id = onek + "-p-" + item.id;
     panel.setAttribute("role", "region");
     panel.setAttribute("aria-labelledby", btn.id);
     panel.appendChild(el("p", "ds-a-ozet", item.ozet));
@@ -258,8 +245,8 @@
       const willOpen = !article.classList.contains("is-open");
       article.classList.toggle("is-open", willOpen);
       btn.setAttribute("aria-expanded", String(willOpen));
-      if (willOpen) acik.add(item.id);
-      else acik.delete(item.id);
+      if (willOpen) acikSet.add(item.id);
+      else acikSet.delete(item.id);
     });
 
     article.appendChild(btn);
@@ -275,7 +262,7 @@
 
   function renderSss() {
     const kelimeler = norm(searchEl.value).split(" ").filter(Boolean);
-    const hits = SSS.filter((item) => (kat === "hepsi" || item.kat === kat) && eslesme(item, kelimeler));
+    const hits = SSS.filter((item) => eslesme(item, kelimeler));
 
     list.textContent = "";
     hits.forEach((item) => list.appendChild(sssItem(item)));
@@ -287,7 +274,7 @@
     if (dokunuldu) {
       statusEl.textContent = hits.length
         ? hits.length + " soru bulundu."
-        : "Sonuç yok. Talep oluşturabilir veya Discord'da sorabilirsin.";
+        : "Sonuç yok. Daha kısa bir kelime dene.";
     }
   }
 
@@ -303,257 +290,79 @@
     searchEl.focus();
   });
 
-  chips.forEach((chip) => chip.addEventListener("click", () => {
-    kat = chip.dataset.kat || "hepsi";
-    chips.forEach((item) => {
-      const on = item === chip;
-      item.classList.toggle("is-on", on);
-      item.setAttribute("aria-pressed", String(on));
+  /* ---- konu sayfasi ---- */
+  const frameEl = document.querySelector(".site-frame");
+  const pageEl = byId("page-destek");
+  const heroEl = document.querySelector(".ds-hero");
+  const bodyEl = document.querySelector(".ds-body");
+  const detailEl = byId("dsDetail");
+  const detailList = byId("dsDetailList");
+  const detailTitle = byId("dsDetailTitle");
+  const detailLead = byId("dsDetailLead");
+  const detailIco = byId("dsDetailIco");
+  let geriScroll = 0;
+  let sonKart = null;
+
+  function konuAc(key, kart) {
+    const konu = KONULAR[key];
+    if (!konu) return;
+
+    geriScroll = frameEl ? frameEl.scrollTop : 0;
+    sonKart = kart;
+
+    detailTitle.textContent = konu.ad;
+    detailLead.textContent = konu.aciklama;
+
+    detailIco.textContent = "";
+    const kaynakIkon = kart.querySelector(".ds-topic-ico");
+    const svg = kaynakIkon ? kaynakIkon.querySelector("svg") : null;
+    if (svg) detailIco.appendChild(svg.cloneNode(true));
+    if (kaynakIkon) detailIco.style.color = getComputedStyle(kaynakIkon).color;
+
+    detailList.textContent = "";
+    detayAcik.clear();
+    konu.sorular.forEach((id, index) => {
+      const item = SSS.find((kayit) => kayit.id === id);
+      if (!item) return;
+      if (index === 0) detayAcik.add(item.id);
+      detailList.appendChild(sssItem(item, "dd", detayAcik));
     });
-    dokunuldu = true;
-    renderSss();
-  }));
 
-  function talebeGit() {
-    form.scrollIntoView({ behavior: "smooth", block: "center" });
-    window.setTimeout(() => konuEl.focus({ preventScroll: true }), 420);
+    heroEl.hidden = true;
+    bodyEl.hidden = true;
+    detailEl.hidden = false;
+    pageEl.setAttribute("aria-labelledby", "dsDetailTitle");
+    if (frameEl) frameEl.scrollTo({ top: 0, behavior: "auto" });
+    detailTitle.focus({ preventScroll: true });
   }
 
-  emptyBtn?.addEventListener("click", talebeGit);
-
-  /* ---- talep formu ---- */
-
-  function tarihMetni(iso) {
-    const d = iso ? new Date(iso) : new Date();
-    if (Number.isNaN(d.getTime())) return "";
-    try {
-      return d.toLocaleString("tr-TR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
-    } catch {
-      return d.toISOString().slice(0, 16).replace("T", " ");
-    }
+  function konuKapat(geriYukle = true) {
+    detailEl.hidden = true;
+    heroEl.hidden = false;
+    bodyEl.hidden = false;
+    pageEl.setAttribute("aria-labelledby", "dsTitle");
+    if (!geriYukle) return;
+    if (frameEl) frameEl.scrollTo({ top: geriScroll, behavior: "auto" });
+    sonKart?.focus({ preventScroll: true });
   }
 
-  function ticketNo() {
-    const harf = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    const buf = new Uint8Array(6);
-    if (window.crypto && window.crypto.getRandomValues) window.crypto.getRandomValues(buf);
-    else for (let i = 0; i < buf.length; i += 1) buf[i] = Math.floor(Math.random() * 256);
-    let out = "";
-    for (let i = 0; i < buf.length; i += 1) out += harf[buf[i] % harf.length];
-    return "KLY-" + out;
-  }
+  const topics = Array.from(document.querySelectorAll(".ds-topic"));
+  topics.forEach((kart) => kart.addEventListener("click", () => konuAc(kart.dataset.konu, kart)));
 
-  function sistemBilgisi() {
-    const parca = [];
-    if (navigator.userAgent) parca.push(navigator.userAgent);
-    if (window.screen) parca.push(window.screen.width + "×" + window.screen.height);
-    if (window.devicePixelRatio) parca.push(window.devicePixelRatio + "x DPR");
-    return parca.join(" · ");
-  }
+  byId("dsBack")?.addEventListener("click", () => konuKapat());
 
-  function metinOlustur(ticket) {
-    const satir = [
-      "KLYZE DESTEK TALEBİ",
-      "No: " + ticket.id,
-      "Tarih: " + tarihMetni(ticket.ts),
-      "Kategori: " + (KAT_AD[ticket.kat] || ticket.kat),
-      "Konu: " + ticket.konu,
-      "",
-      "Açıklama:",
-      ticket.aciklama
-    ];
-    if (ticket.sistem) {
-      satir.push("", "Sistem: " + ticket.sistem);
-    }
-    return satir.join("\n");
-  }
-
-  function mesaj(text, tur) {
-    msgEl.textContent = text;
-    msgEl.classList.toggle("is-ok", tur === "ok");
-    msgEl.classList.toggle("is-bad", tur === "bad");
-  }
-
-  function alanHatasi(input, hedef, text) {
-    hedef.textContent = text;
-    hedef.hidden = !text;
-    if (text) input.setAttribute("aria-invalid", "true");
-    else input.removeAttribute("aria-invalid");
-  }
-
-  function talepleriOku() {
-    try {
-      const raw = window.localStorage.getItem(STORE);
-      const data = JSON.parse(raw || "[]");
-      if (!Array.isArray(data)) return [];
-      return data.filter((item) => item && typeof item.id === "string" && typeof item.konu === "string").slice(0, MAX_TICKET);
-    } catch {
-      return [];
-    }
-  }
-
-  function talepleriYaz(items) {
-    try {
-      window.localStorage.setItem(STORE, JSON.stringify(items.slice(0, MAX_TICKET)));
-      return true;
-    } catch {
-      return false;
-    }
-  }
-
-  function sonucGoster(ticket) {
-    resultIdEl.textContent = ticket.id;
-    metinEl.value = metinOlustur(ticket);
-    resultEl.hidden = false;
-    copyMsgEl.textContent = "";
-    copyMsgEl.classList.remove("is-ok", "is-bad");
-    resultEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  }
-
-  async function kopyala(text) {
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-        return true;
-      }
-    } catch {
-      /* pano izni yok; execCommand'a dus */
-    }
-    try {
-      metinEl.focus();
-      metinEl.select();
-      return document.execCommand("copy");
-    } catch {
-      return false;
-    }
-  }
-
-  function talebeEkle(ticket) {
-    const items = talepleriOku().filter((item) => item.id !== ticket.id);
-    items.unshift(ticket);
-    return talepleriYaz(items);
-  }
-
-  function satirOlustur(ticket) {
-    const li = el("li", "ds-mine-item");
-
-    li.appendChild(el("span", "ds-mine-id", ticket.id));
-
-    const body = el("div", "ds-mine-body");
-    body.appendChild(el("p", "ds-mine-konu", ticket.konu));
-    body.appendChild(el("p", "ds-mine-meta", (KAT_AD[ticket.kat] || ticket.kat) + " · " + tarihMetni(ticket.ts)));
-    li.appendChild(body);
-
-    const actions = el("div", "ds-mine-actions");
-
-    const acBtn = el("button", "ds-mine-btn", "Metni aç");
-    acBtn.type = "button";
-    acBtn.addEventListener("click", () => sonucGoster(ticket));
-    actions.appendChild(acBtn);
-
-    const silBtn = el("button", "ds-mine-btn is-danger", "Sil");
-    silBtn.type = "button";
-    silBtn.addEventListener("click", () => {
-      const kalan = talepleriOku().filter((item) => item.id !== ticket.id);
-      talepleriYaz(kalan);
-      if (!resultEl.hidden && resultIdEl.textContent === ticket.id) resultEl.hidden = true;
-      renderTalepler();
-      mineStatus.textContent = ticket.id + " silindi.";
+  document.querySelectorAll('[data-id="destek"]').forEach((btn) => {
+    btn.addEventListener("click", () => {
+      if (!detailEl.hidden) konuKapat(false);
     });
-    actions.appendChild(silBtn);
-
-    li.appendChild(actions);
-    return li;
-  }
-
-  function renderTalepler() {
-    const items = talepleriOku();
-    mineList.textContent = "";
-    mineStatus.textContent = "";
-    items.forEach((ticket) => mineList.appendChild(satirOlustur(ticket)));
-    mineEmpty.hidden = items.length > 0;
-    clearAllBtn.hidden = items.length === 0;
-  }
-
-  clearAllBtn?.addEventListener("click", () => {
-    if (!talepleriOku().length) return;
-    if (!window.confirm("Bu tarayıcıdaki tüm talep kayıtları silinsin mi?")) return;
-    talepleriYaz([]);
-    resultEl.hidden = true;
-    renderTalepler();
-    mineStatus.textContent = "Tüm talep kayıtları silindi.";
   });
 
-  aciklamaEl.addEventListener("input", () => {
-    sayacEl.textContent = aciklamaEl.value.length + " / 1500";
-  });
-
-  copyBtn?.addEventListener("click", async () => {
-    const ok = await kopyala(metinEl.value);
-    copyMsgEl.textContent = ok
-      ? "Metin panoya kopyalandı. Discord'daki destek kanalına yapıştır."
-      : "Kopyalanamadı. Metni seçip Ctrl + C ile kopyala.";
-    copyMsgEl.classList.toggle("is-ok", ok);
-    copyMsgEl.classList.toggle("is-bad", !ok);
-  });
-
-  form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-    if (form.dataset.busy === "1") return;
-
-    if (honeypot && honeypot.value.trim()) {
-      mesaj("Talep oluşturulamadı.", "bad");
-      return;
-    }
-
-    const konu = konuEl.value.trim().replace(/\s+/g, " ");
-    const aciklama = aciklamaEl.value.trim();
-
-    alanHatasi(konuEl, konuErr, "");
-    alanHatasi(aciklamaEl, aciklamaErr, "");
-
-    let ilkHatali = null;
-    if (konu.length < 3) {
-      alanHatasi(konuEl, konuErr, "En az 3 karakterlik bir konu yaz.");
-      ilkHatali = konuEl;
-    }
-    if (aciklama.length < 10) {
-      alanHatasi(aciklamaEl, aciklamaErr, "En az 10 karakter yaz; ne olduğunu anlat.");
-      ilkHatali = ilkHatali || aciklamaEl;
-    }
-    if (ilkHatali) {
-      mesaj("Formda eksik alan var.", "bad");
-      ilkHatali.focus();
-      return;
-    }
-
-    const ticket = {
-      id: ticketNo(),
-      kat: katEl.value || "teknik",
-      konu,
-      aciklama,
-      sistem: sistemEl && sistemEl.checked ? sistemBilgisi() : "",
-      ts: new Date().toISOString()
-    };
-
-    form.dataset.busy = "1";
-    sonucGoster(ticket);
-
-    const kaydedildi = talebeEkle(ticket);
-    renderTalepler();
-
-    const ok = await kopyala(metinEl.value);
-    mesaj(
-      ok
-        ? ticket.id + " hazır. Metin panoya kopyalandı; Discord'da destek kanalına yapıştır."
-        : ticket.id + " hazır. Metni aşağıdan kopyalayıp Discord'a yapıştır.",
-      ok ? "ok" : null
-    );
-    if (!kaydedildi) {
-      mesaj(ticket.id + " hazır ama bu tarayıcıya kaydedilemedi (gizli mod olabilir).", "bad");
-    }
-
-    form.dataset.busy = "";
+  const appBtn = byId("dsAppBtn");
+  const appNote = byId("dsAppNote");
+  appBtn?.addEventListener("click", () => {
+    const willOpen = appNote.hidden;
+    appNote.hidden = !willOpen;
+    appBtn.setAttribute("aria-expanded", String(willOpen));
   });
 
   byId("krDestek")?.addEventListener("click", () => {
@@ -561,5 +370,4 @@
   });
 
   renderSss();
-  renderTalepler();
 })();

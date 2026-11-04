@@ -9,10 +9,12 @@
   const key = "sb_publishable_1_eY31wnWDkYY6DQ6masNw_IQZpm5Gi";
 
   /* Site verisi `site` semasinda: görünen ad, avatar, üye no, liderlik köprüsü.
+     Destek sistemi ayrı `destek` şemasında: biletler, mesajlar, ekler.
      `kullanicilar`, `depolama` ve `guvenlik` şemaları tarayıcıya kapalıdır;
-     buralara yalnız `site` içindeki security definer fonksiyonlarla erişilir.
-     PostgREST: pgrst.db_schemas = public, graphql_public, site */
+     buralara yalnız security definer fonksiyonlarla erişilir.
+     PostgREST: pgrst.db_schemas = public, graphql_public, site, destek */
   const schema = "site";
+  const destekSemasi = "destek";
 
   if (!/^https:\/\/[a-z0-9-]{10,}\.supabase\.co$/.test(url)) {
     throw new Error("Klyze: Supabase URL gecersiz.");
@@ -24,5 +26,5 @@
     throw new Error("Klyze: publishable anahtar formati gecersiz.");
   }
 
-  window.KLYZE_SUPABASE = Object.freeze({ url, key, schema });
+  window.KLYZE_SUPABASE = Object.freeze({ url, key, schema, destekSemasi });
 })();
