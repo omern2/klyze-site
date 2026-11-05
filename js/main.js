@@ -135,48 +135,78 @@ window.addEventListener("resize",layoutFeat);
 window.addEventListener("load",layoutFeat);
 layoutFeat();
 
-/* Ozellikler sayfasi: sabit marka + 3B donen urun adi */
+/* Ozellikler sayfasi: sabit marka + tek tur donen urun adi, sonunda CTA */
 const ecoRot=document.getElementById("ecoRot");
 const ecoHero=document.querySelector(".eco-hero");
 const ecoReduce=window.matchMedia("(prefers-reduced-motion: reduce)");
 if(ecoRot&&ecoHero){
   const ecoWords=[...ecoRot.querySelectorAll(".eco-rot-word")];
-  let ecoI=0,ecoTimer=0,ecoSwap=0,ecoWidthTimer=0;
+  const ecoStep=1700;
+  const ecoLast=ecoWords.length-1;
+  let ecoI=0,ecoTimer=0,ecoSwap=0,ecoRevealTimer=0,ecoWidthTimer=0,ecoDone=false;
   const ecoMeasure=(instant)=>{
     const word=ecoWords[ecoI];
     if(!word) return;
+    const w=Math.ceil(word.getBoundingClientRect().width);
+    if(!w) return;
     if(instant) ecoRot.style.transition="none";
-    ecoRot.style.width=Math.ceil(word.getBoundingClientRect().width)+"px";
+    ecoRot.style.width=w+"px";
     if(instant){void ecoRot.offsetWidth;ecoRot.style.transition=""}
   };
+  const ecoReveal=()=>{
+    if(ecoDone) return;
+    ecoDone=true;
+    clearTimeout(ecoRevealTimer);ecoRevealTimer=0;
+    ecoI=ecoLast;
+    ecoWords.forEach((w,i)=>{
+      w.classList.remove("is-out");
+      w.classList.toggle("is-current",i===ecoLast);
+    });
+    ecoMeasure(true);
+    ecoHero.classList.add("is-ready");
+    ecoRot.classList.add("is-done");
+  };
   const ecoTick=()=>{
+    ecoTimer=0;
+    if(ecoDone) return;
     ecoWords.forEach((w)=>w.classList.remove("is-out"));
     const cur=ecoWords[ecoI];
-    ecoI=(ecoI+1)%ecoWords.length;
-    const next=ecoWords[ecoI];
-    void ecoRot.offsetWidth;
+    const next=ecoWords[ecoI+1];
+    if(!cur||!next) return;
     const curWidth=Math.ceil(cur.getBoundingClientRect().width);
     const nextWidth=Math.ceil(next.getBoundingClientRect().width);
+    ecoI+=1;
     cur.classList.add("is-out");
     next.classList.add("is-current");
-    ecoSwap=setTimeout(()=>{
-      cur.classList.remove("is-current","is-out");
-    },500);
+    clearTimeout(ecoSwap);
+    ecoSwap=setTimeout(()=>{cur.classList.remove("is-current","is-out")},500);
     clearTimeout(ecoWidthTimer);
     if(nextWidth>=curWidth){
       ecoMeasure(false);
     }else{
       ecoWidthTimer=setTimeout(()=>ecoMeasure(false),300);
     }
+    if(ecoI===ecoLast){
+      ecoRevealTimer=setTimeout(ecoReveal,560);
+    }else{
+      ecoTimer=setTimeout(ecoTick,ecoStep);
+    }
   };
   const ecoStart=()=>{
-    ecoMeasure(true);
-    if(ecoTimer||ecoReduce.matches) return;
-    ecoTimer=setInterval(ecoTick,2600);
+    if(ecoDone) return;
+    if(ecoReduce.matches){ecoReveal();return;}
+    if(ecoI===ecoLast){
+      if(!ecoRevealTimer) ecoRevealTimer=setTimeout(ecoReveal,560);
+      return;
+    }
+    if(ecoTimer) return;
+    ecoTimer=setTimeout(ecoTick,ecoStep);
   };
   const ecoStop=()=>{
-    clearInterval(ecoTimer);ecoTimer=0;
-    clearTimeout(ecoSwap);clearTimeout(ecoWidthTimer);
+    clearTimeout(ecoTimer);ecoTimer=0;
+    clearTimeout(ecoSwap);ecoSwap=0;
+    clearTimeout(ecoRevealTimer);ecoRevealTimer=0;
+    clearTimeout(ecoWidthTimer);ecoWidthTimer=0;
     ecoWords.forEach((w,i)=>{
       w.classList.remove("is-out");
       if(i!==ecoI) w.classList.remove("is-current");
@@ -191,9 +221,10 @@ if(ecoRot&&ecoHero){
   }else{
     ecoStart();
   }
-  ecoReduce.addEventListener?.("change",()=>{ecoReduce.matches?ecoStop():ecoStart()});
+  ecoReduce.addEventListener?.("change",()=>{ecoReduce.matches?ecoReveal():ecoStart()});
   window.addEventListener("resize",()=>ecoMeasure(true));
   if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>ecoMeasure(true));
+  if(ecoReduce.matches) ecoReveal();
 }
 items.forEach(b=>b.addEventListener("click",()=>setActive(b.dataset.id)));
 document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>setActive(b.dataset.goto)));
