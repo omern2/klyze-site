@@ -55,6 +55,12 @@ function dockCutoff(){
   const h=dockFrame?dockFrame.clientHeight:window.innerHeight;
   return Math.max(200,Math.min(340,Math.round(h*0.3)));
 }
+const footEl=document.querySelector(".site-footer");
+function footerInView(){
+  if(!footEl) return false;
+  const box=(dockFrame||document.documentElement).getBoundingClientRect();
+  return footEl.getBoundingClientRect().top < box.bottom-8;
+}
 function updateDock(){
   if(!dockEl) return;
   const onHome=!!pageHome&&!pageHome.hidden;
@@ -67,6 +73,7 @@ function updateDock(){
     const y=dockFrame?dockFrame.scrollTop:window.scrollY;
     show=y>dockCutoff();
   }
+  if(show&&footerInView()) show=false;
   dockEl.classList.toggle("is-on",show);
   dockEl.toggleAttribute("inert",!show);
 }
