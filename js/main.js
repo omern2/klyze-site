@@ -98,7 +98,7 @@ function showPage(which){
   }
   if(which==="liderlik") window.KlyzeLiderlik?.load();
   layoutFeat();
-  if(which==="ozel") resetTunnel();
+  if(which==="ozel") window.KlyzeEco?.measure();
   updateDock();
 }
 function setActive(id,doScroll=true){
@@ -135,82 +135,65 @@ window.addEventListener("resize",layoutFeat);
 window.addEventListener("load",layoutFeat);
 layoutFeat();
 
-/* Ozellikler: kaydirinca kartlar derinlikten gelip izgaraya oturur */
-const tunnel=document.getElementById("detayTunnel");
-const tunnelStage=document.getElementById("detayStage");
-const tunnelCards=tunnel?Array.from(tunnel.querySelectorAll(".detay-card")):[];
-const tunnelWide=window.matchMedia("(min-width: 1001px)");
-const tunnelReduce=window.matchMedia("(prefers-reduced-motion: reduce)");
-const tunnelDepth=[1650,2050,1450,1150,1750,1300];
-let tunnelCur=0,tunnelTarget=0,tunnelRaf=0;
-const tunnelActive=()=>tunnelWide.matches&&!tunnelReduce.matches;
-function tunnelMeasure(){
-  if(!tunnel||!tunnelStage||!pageOzel||pageOzel.hidden) return;
-  const f=document.querySelector(".site-frame");
-  const fh=f?f.clientHeight:window.innerHeight;
-  const ft=f?f.getBoundingClientRect().top:0;
-  const top=tunnel.getBoundingClientRect().top-ft;
-  const travel=Math.max(1,tunnel.offsetHeight-tunnelStage.offsetHeight);
-  // sahne %35 gorunur olunca basla, sabitlenmis alan bitince 1'e ulas
-  const start=fh*0.35;
-  tunnelTarget=Math.min(1,Math.max(0,(start-top)/(start+travel)));
-}
-function tunnelApply(p){
-  if(!tunnelStage) return;
-  tunnelStage.style.setProperty("--p",p.toFixed(3));
-  tunnelStage.classList.toggle("is-moving",p>0.4);
-  tunnelCards.forEach((card,i)=>{
-    const cp=Math.min(1,Math.max(0,(p-i*0.06)/0.62));
-    const e=cp*cp*(3-2*cp);
-    if(e>0.998){
-      card.style.transform="none";
-      card.style.opacity="1";
-      return;
+/* Ozellikler sayfasi: sabit marka + 3B donen urun adi */
+const ecoRot=document.getElementById("ecoRot");
+const ecoHero=document.querySelector(".eco-hero");
+const ecoReduce=window.matchMedia("(prefers-reduced-motion: reduce)");
+if(ecoRot&&ecoHero){
+  const ecoWords=[...ecoRot.querySelectorAll(".eco-rot-word")];
+  let ecoI=0,ecoTimer=0,ecoSwap=0,ecoWidthTimer=0;
+  const ecoMeasure=(instant)=>{
+    const word=ecoWords[ecoI];
+    if(!word) return;
+    if(instant) ecoRot.style.transition="none";
+    ecoRot.style.width=Math.ceil(word.getBoundingClientRect().width)+"px";
+    if(instant){void ecoRot.offsetWidth;ecoRot.style.transition=""}
+  };
+  const ecoTick=()=>{
+    ecoWords.forEach((w)=>w.classList.remove("is-out"));
+    const cur=ecoWords[ecoI];
+    ecoI=(ecoI+1)%ecoWords.length;
+    const next=ecoWords[ecoI];
+    void ecoRot.offsetWidth;
+    const curWidth=Math.ceil(cur.getBoundingClientRect().width);
+    const nextWidth=Math.ceil(next.getBoundingClientRect().width);
+    cur.classList.add("is-out");
+    next.classList.add("is-current");
+    ecoSwap=setTimeout(()=>{
+      cur.classList.remove("is-current","is-out");
+    },500);
+    clearTimeout(ecoWidthTimer);
+    if(nextWidth>=curWidth){
+      ecoMeasure(false);
+    }else{
+      ecoWidthTimer=setTimeout(()=>ecoMeasure(false),300);
     }
-    const inv=1-e;
-    const z=-tunnelDepth[i%tunnelDepth.length]*inv;
-    const rx=(i<3?-7:7)*inv;
-    const ry=(i%3===0?8:i%3===2?-8:0)*inv;
-    card.style.transform=`translate3d(0,0,${z.toFixed(0)}px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
-    card.style.opacity=e<0.004?"0":Math.min(1,e*1.5).toFixed(3);
-  });
-}
-function tunnelTick(){
-  tunnelRaf=0;
-  if(!tunnelActive()||!pageOzel||pageOzel.hidden) return;
-  tunnelCur+=(tunnelTarget-tunnelCur)*0.16;
-  if(Math.abs(tunnelTarget-tunnelCur)<0.0006) tunnelCur=tunnelTarget;
-  tunnelApply(tunnelCur);
-  if(tunnelCur!==tunnelTarget) tunnelRaf=requestAnimationFrame(tunnelTick);
-}
-function tunnelKick(){
-  if(!tunnelRaf&&tunnelActive()) tunnelRaf=requestAnimationFrame(tunnelTick);
-}
-function clearTunnel(){
-  tunnelCards.forEach(c=>{c.style.transform="";c.style.opacity=""});
-  if(tunnelStage){
-    tunnelStage.style.removeProperty("--p");
-    tunnelStage.classList.remove("is-moving");
-    tunnelStage.classList.add("is-static");
+  };
+  const ecoStart=()=>{
+    ecoMeasure(true);
+    if(ecoTimer||ecoReduce.matches) return;
+    ecoTimer=setInterval(ecoTick,2600);
+  };
+  const ecoStop=()=>{
+    clearInterval(ecoTimer);ecoTimer=0;
+    clearTimeout(ecoSwap);clearTimeout(ecoWidthTimer);
+    ecoWords.forEach((w,i)=>{
+      w.classList.remove("is-out");
+      if(i!==ecoI) w.classList.remove("is-current");
+    });
+    ecoMeasure(true);
+  };
+  window.KlyzeEco={measure:()=>ecoMeasure(true)};
+  if("IntersectionObserver" in window){
+    new IntersectionObserver((entries)=>{
+      (entries[0]&&entries[0].isIntersecting?ecoStart:ecoStop)();
+    },{root:dockFrame,threshold:0}).observe(ecoHero);
+  }else{
+    ecoStart();
   }
-}
-function resetTunnel(){
-  if(!tunnel||!tunnelStage) return;
-  if(!tunnelActive()){clearTunnel();return}
-  tunnelStage.classList.remove("is-static");
-  tunnelMeasure();
-  tunnelCur=tunnelTarget;
-  tunnelApply(tunnelCur);
-}
-if(tunnel){
-  resetTunnel();
-  const f=document.querySelector(".site-frame");
-  if(f) f.addEventListener("scroll",()=>{tunnelMeasure();tunnelKick()},{passive:true});
-  window.addEventListener("resize",()=>{tunnelMeasure();tunnelKick()});
-  tunnelWide.addEventListener("change",resetTunnel);
-  tunnelReduce.addEventListener("change",resetTunnel);
-  window.addEventListener("load",()=>{tunnelMeasure();tunnelKick()});
-  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>{tunnelMeasure();tunnelKick()});
+  ecoReduce.addEventListener?.("change",()=>{ecoReduce.matches?ecoStop():ecoStart()});
+  window.addEventListener("resize",()=>ecoMeasure(true));
+  if(document.fonts&&document.fonts.ready) document.fonts.ready.then(()=>ecoMeasure(true));
 }
 items.forEach(b=>b.addEventListener("click",()=>setActive(b.dataset.id)));
 document.querySelectorAll("[data-goto]").forEach(b=>b.addEventListener("click",()=>setActive(b.dataset.goto)));

@@ -32,7 +32,7 @@
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/500.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/600.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/700.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css?v=206" />
+<link rel="stylesheet" href="css/style.css?v=212" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -232,217 +232,165 @@
   </div><!-- /page-home -->
 
   <!-- OZELLIKLER SAYFASI -->
-  <section class="ozel" id="page-ozel" hidden>
-    <p class="ozel-kicker">Özellikler</p>
-    <h2 class="ozel-h2">Bu ekran ne işe yarar?</h2>
-    <p class="ozel-sub">Uygulamayı açtığında ilk göreceğin ana sayfa bu. Yanındaki notlara bak — her alanın işi farklı.</p>
-    <p class="ozel-tag">KLYZE ANA SAYFA</p>
-    <div class="ozel-tour">
-      <ol class="ozel-notes">
-        <li class="ozel-note ozel-note--l ozel-note--arama" tabindex="0"><b>Arama</b><span>Riot ID yaz, oyuncuyu bul</span></li>
-        <li class="ozel-note ozel-note--l ozel-note--menu" tabindex="0"><b>Sol menü</b><span>Sayfalar arası geçiş</span></li>
-        <li class="ozel-note ozel-note--l ozel-note--seri" tabindex="0"><b>Günlük seri</b><span>Haftalık hedef ve günler</span></li>
-        <li class="ozel-note ozel-note--r ozel-note--mac" tabindex="0"><b>Maç geçmişi</b><span>Son maçın skoru ve K/D</span></li>
-        <li class="ozel-note ozel-note--r ozel-note--rr" tabindex="0"><b>Eski sen / Yeni sen</b><span>Elo karşılaştırma grafiği</span></li>
-        <li class="ozel-note ozel-note--l ozel-note--ac" tabindex="0"><b>Klyze AC</b><span>Haftalık hileci raporu</span></li>
-      </ol>
-      <div class="ozel-box">
-        <img class="ozel-shot" src="assets/app-ekran.png" alt="Klyze ana sayfa — günlük seri, maç geçmişi, analiz grafiği ve Klyze AC paneli" width="1188" height="784" draggable="false" />
-        <svg class="ozel-lines" viewBox="0 0 1188 784" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-          <path d="M0 66H106" /><path class="ozel-head" d="M118 66L106 59.5V72.5Z" />
-          <path d="M0 203H88" /><path class="ozel-head" d="M100 203L88 196.5V209.5Z" />
-          <path d="M0 292H10" /><path class="ozel-head" d="M22 292L10 285.5V298.5Z" />
-          <path d="M0 564H131" /><path class="ozel-head" d="M143 564L131 557.5V570.5Z" />
-          <path d="M1188 173H1109" /><path class="ozel-head" d="M1097 173L1109 166.5V179.5Z" />
-          <path d="M1188 373H1106" /><path class="ozel-head" d="M1094 373L1106 366.5V379.5Z" />
-        </svg>
-      </div>
-    </div>
-    <section class="detay" aria-labelledby="detay-title">
-      <div class="detay-head">
-        <div>
-          <p class="detay-kicker">İçeride ne var?</p>
-          <h2 class="detay-title" id="detay-title">Detaylı özellikler</h2>
-        </div>
-        <p class="detay-lead">Ana sayfa turunda gördüğün panellerin arkasında ne var? Klyze’nin maçtan maça kullandığın altı parçası ve güvenlik notları.</p>
-      </div>
+  <section class="ozel eco-page" id="page-ozel" aria-labelledby="ecoTitle" hidden>
+    <header class="eco-hero">
+      <h2 class="eco-lockup" id="ecoTitle" aria-label="Klyze ürünleri: Analiz, Overlay, AC, AI, Seri ve Sosyal">
+        <span class="eco-brand" aria-hidden="true">Klyze</span>
+        <span class="eco-rot" id="ecoRot" aria-hidden="true">
+          <span class="eco-rot-sizer">&#8203;</span>
+          <span class="eco-rot-word is-current">Analiz</span>
+          <span class="eco-rot-word">Overlay</span>
+          <span class="eco-rot-word">AC</span>
+          <span class="eco-rot-word">AI</span>
+          <span class="eco-rot-word">Seri</span>
+          <span class="eco-rot-word">Sosyal</span>
+        </span>
+      </h2>
+    </header>
 
-      <div class="detay-tunnel" id="detayTunnel">
-        <div class="detay-stage" id="detayStage">
-          <p class="detay-stage-bar" aria-hidden="true"><span>Detaylı özellikler</span><span class="detay-stage-rule"></span><span>06 özellik</span></p>
-          <p class="detay-word" aria-hidden="true">ÖZELLİKLER</p>
-          <div class="detay-scene">
-            <div class="detay-cards">
-              <article class="detay-card">
-                <div class="detay-card-top">
-                  <span class="detay-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M4 4.5v15h16"/><path d="m7.5 15 3.6-4.6 3.1 2.6L20 7"/><path d="M20 7h-3.4M20 7v3.4"/></svg></span>
-                  <span class="detay-meter" aria-hidden="true">
-                    <span class="detay-num">01</span>
-                    <svg class="detay-mini" viewBox="0 0 120 40" fill="none" focusable="false">
-                      <path d="M2 34.5h116" stroke="currentColor" stroke-opacity=".16" stroke-width="1" vector-effect="non-scaling-stroke"/>
-                      <path d="M3 29 17 23.5 31 27 45 16.5 59 20 73 11 87 14.5 101 7 117 4" stroke="currentColor" stroke-opacity=".8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-                      <path d="M3 35v2.5M31 35v2.5M59 35v2.5M87 35v2.5M115 35v2.5" stroke="currentColor" stroke-opacity=".22" stroke-width="1" vector-effect="non-scaling-stroke"/>
-                      <circle cx="117" cy="4" r="2.4" fill="#E63946"/>
-                    </svg>
-                  </span>
-                </div>
-                <h3>Maç analizi</h3>
-                <p class="detay-desc">Son 20 maçın Elo grafiği, altı metrik ve maç detayı tek ekranda.</p>
-                <ul class="detay-list">
-                  <li><b>Elo &amp; RR</b><span>Son 20 maç</span></li>
-                  <li><b>6 metrik</b><span>K/D · ADR · HS% · ACS</span></li>
-                  <li><b>Koç notu</b><span>Maç sonrası özet</span></li>
-                </ul>
-              </article>
-
-              <article class="detay-card">
-                <div class="detay-card-top">
-                  <span class="detay-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><rect x="3" y="4.5" width="18" height="12" rx="2"/><path d="M8 20.5h8M12 16.5v4"/><path d="m7.5 11 2.4-2.2 2 1.8 2.1-2.3 2.5 2.2"/></svg></span>
-                  <span class="detay-meter" aria-hidden="true">
-                    <span class="detay-num">02</span>
-                    <svg class="detay-mini" viewBox="0 0 120 40" fill="none" focusable="false">
-                      <g fill="currentColor" fill-opacity=".85">
-                        <circle cx="5" cy="13" r="2.2"/><circle cx="17" cy="13" r="2.2"/><circle cx="29" cy="13" r="2.2"/><circle cx="41" cy="13" r="2.2"/><circle cx="53" cy="13" r="2.2"/>
-                      </g>
-                      <g fill="currentColor" fill-opacity=".38">
-                        <circle cx="5" cy="27" r="2.2"/><circle cx="17" cy="27" r="2.2"/><circle cx="29" cy="27" r="2.2"/><circle cx="41" cy="27" r="2.2"/><circle cx="53" cy="27" r="2.2"/>
-                      </g>
-                      <path d="M64 8v24" stroke="currentColor" stroke-opacity=".16" stroke-width="1"/>
-                      <rect x="70" y="11" width="46" height="4" rx="2" fill="currentColor" fill-opacity=".16"/>
-                      <rect x="70" y="11" width="27" height="4" rx="2" fill="#E63946"/>
-                      <rect x="70" y="25" width="46" height="4" rx="2" fill="currentColor" fill-opacity=".16"/>
-                      <rect x="70" y="25" width="35" height="4" rx="2" fill="currentColor" fill-opacity=".55"/>
-                    </svg>
-                  </span>
-                </div>
-                <h3>Canlı overlay</h3>
-                <p class="detay-desc">Takım ve rakip kadrosu, kazanma şansı ve AC etiketleri oyunun üstünde.</p>
-                <ul class="detay-list">
-                  <li><b>10 oyuncu</b><span>Rank · ajan · son 4 maç</span></li>
-                  <li><b>Canlı oran</b><span>Elo ortalaması</span></li>
-                  <li><b>ALT + X</b><span>Konum · boyut · tema</span></li>
-                </ul>
-              </article>
-
-              <article class="detay-card">
-                <div class="detay-card-top">
-                  <span class="detay-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M11 3.5 5 6v4.8c0 4.3 2.6 7.4 6 9.2 1.2-.6 2.3-1.4 3.2-2.4"/><circle cx="15.5" cy="13" r="3"/><path d="m17.7 15.2 2.8 2.8"/></svg></span>
-                  <span class="detay-meter" aria-hidden="true">
-                    <span class="detay-num">03</span>
-                    <svg class="detay-mini" viewBox="0 0 120 40" fill="none" focusable="false">
-                      <path d="M14 4.5 4.5 8.5v6.7c0 6 4 10.3 9.5 12.3 5.5-2 9.5-6.3 9.5-12.3V8.5L14 4.5Z" stroke="currentColor" stroke-opacity=".7" stroke-width="1.4" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-                      <path d="m10.5 16 2.5 2.5 5-5" stroke="#E63946" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>
-                      <circle cx="36" cy="10" r="1.8" fill="currentColor" fill-opacity=".8"/>
-                      <path d="M42 10h68" stroke="currentColor" stroke-opacity=".5" stroke-width="1" vector-effect="non-scaling-stroke"/>
-                      <circle cx="36" cy="21" r="1.8" fill="currentColor" fill-opacity=".4"/>
-                      <path d="M42 21h48" stroke="currentColor" stroke-opacity=".26" stroke-width="1" vector-effect="non-scaling-stroke"/>
-                      <circle cx="36" cy="32" r="1.8" fill="currentColor" fill-opacity=".4"/>
-                      <path d="M42 32h60" stroke="currentColor" stroke-opacity=".26" stroke-width="1" vector-effect="non-scaling-stroke"/>
-                    </svg>
-                  </span>
-                </div>
-                <h3>Klyze AC</h3>
-                <p class="detay-desc">Kadrodaki her oyuncuyu kurallar, makine öğrenmesi ve AI ile tarar.</p>
-                <ul class="detay-list">
-                  <li><b>Etiket</b><span>Temiz / Şüpheli / Hile</span></li>
-                  <li><b>Smurf tespiti</b><span>Ayrı işaretlenir</span></li>
-                  <li><b>Son 7 gün</b><span>Ana sayfa özeti</span></li>
-                </ul>
-              </article>
-
-              <article class="detay-card">
-                <div class="detay-card-top">
-                  <span class="detay-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/><path d="m18.4 15.4.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2Z"/></svg></span>
-                  <span class="detay-meter" aria-hidden="true">
-                    <span class="detay-num">04</span>
-                    <svg class="detay-mini" viewBox="0 0 120 40" fill="none" focusable="false">
-                      <rect x="3" y="3.5" width="62" height="15" rx="7.5" stroke="currentColor" stroke-opacity=".5" stroke-width="1.2"/>
-                      <path d="M13 11h33" stroke="currentColor" stroke-opacity=".4" stroke-width="1.2" stroke-linecap="round"/>
-                      <rect x="34" y="22" width="62" height="15" rx="7.5" fill="currentColor" fill-opacity=".07" stroke="currentColor" stroke-opacity=".55" stroke-width="1.2"/>
-                      <path d="M44 29.5h28" stroke="currentColor" stroke-opacity=".65" stroke-width="1.2" stroke-linecap="round"/>
-                      <circle cx="85" cy="29.5" r="2.1" fill="#E63946"/>
-                    </svg>
-                  </span>
-                </div>
-                <h3>Klyze AI</h3>
-                <p class="detay-desc">Valorant koçun: taktik, ajan, ekonomi ve strateji sorularını yanıtlar.</p>
-                <ul class="detay-list">
-                  <li><b>Sohbet</b><span>Maç · ajan · harita</span></li>
-                  <li><b>Oyuncu rehberi</b><span>Veriyle kişisel koçluk</span></li>
-                  <li><b>Kendi anahtarın</b><span>Gemini / OpenRouter</span></li>
-                </ul>
-              </article>
-
-              <article class="detay-card">
-                <div class="detay-card-top">
-                  <span class="detay-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4.1 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5Z"/></svg></span>
-                  <span class="detay-meter" aria-hidden="true">
-                    <span class="detay-num">05</span>
-                    <svg class="detay-mini" viewBox="0 0 120 40" fill="none" focusable="false">
-                      <rect x="3" y="12" width="12" height="12" rx="3" fill="currentColor" fill-opacity=".16"/>
-                      <rect x="19" y="12" width="12" height="12" rx="3" fill="currentColor" fill-opacity=".26"/>
-                      <rect x="35" y="12" width="12" height="12" rx="3" fill="currentColor" fill-opacity=".38"/>
-                      <rect x="51" y="12" width="12" height="12" rx="3" fill="currentColor" fill-opacity=".5"/>
-                      <rect x="67" y="12" width="12" height="12" rx="3" fill="currentColor" fill-opacity=".62"/>
-                      <rect x="83" y="12" width="12" height="12" rx="3" fill="#E63946"/>
-                      <rect x="99.6" y="12.6" width="10.8" height="10.8" rx="2.4" stroke="currentColor" stroke-opacity=".4" stroke-width="1.2" stroke-dasharray="2.4 2.4"/>
-                      <path d="M3 32h108" stroke="currentColor" stroke-opacity=".16" stroke-width="1" vector-effect="non-scaling-stroke"/>
-                    </svg>
-                  </span>
-                </div>
-                <h3>Günlük seri</h3>
-                <p class="detay-desc">Her gün oyna, seriyi büyüt; hedefini ve aktiviteni takip et.</p>
-                <ul class="detay-list">
-                  <li><b>Günlük seri</b><span>7 gün · haftalık hedef</span></li>
-                  <li><b>Son maç</b><span>Harita · ajan · K/D</span></li>
-                  <li><b>Aktivite</b><span>Aylık ısı haritası</span></li>
-                </ul>
-              </article>
-
-              <article class="detay-card">
-                <div class="detay-card-top">
-                  <span class="detay-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><path d="M15.5 5.5h5M15.5 9.5h5M15.5 13.5h3"/></svg></span>
-                  <span class="detay-meter" aria-hidden="true">
-                    <span class="detay-num">06</span>
-                    <svg class="detay-mini" viewBox="0 0 120 40" fill="none" focusable="false">
-                      <circle cx="13" cy="20" r="8" fill="currentColor" fill-opacity=".16"/>
-                      <circle cx="25" cy="20" r="8" fill="currentColor" fill-opacity=".24" stroke="#0F0F0F" stroke-width="1.6"/>
-                      <circle cx="37" cy="20" r="8" fill="#E63946" fill-opacity=".85" stroke="#0F0F0F" stroke-width="1.6"/>
-                      <path d="M54 13h44" stroke="currentColor" stroke-opacity=".6" stroke-width="1.4" stroke-linecap="round"/>
-                      <path d="M54 20h58" stroke="currentColor" stroke-opacity=".28" stroke-width="1.4" stroke-linecap="round"/>
-                      <path d="M54 27h32" stroke="currentColor" stroke-opacity=".28" stroke-width="1.4" stroke-linecap="round"/>
-                    </svg>
-                  </span>
-                </div>
-                <h3>Feed &amp; profil</h3>
-                <p class="detay-desc">Topluluk akışında paylaş; rank ve performansını profilde tut.</p>
-                <ul class="detay-list">
-                  <li><b>Feed</b><span>Gönderi · yorum · medya</span></li>
-                  <li><b>Profil</b><span>Rank · Elo · favori ajan</span></li>
-                  <li><b>Kullanıcılar</b><span>Çevrimiçi · ELO</span></li>
-                </ul>
-              </article>
-            </div>
-          </div>
-          <p class="detay-hint" aria-hidden="true"><span>Kaydır</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4v15M6 13l6 6 6-6"/></svg></p>
-        </div>
-      </div>
-
-      <div class="detay-trust">
-        <div class="detay-trust-copy">
-          <p class="detay-kicker">Güvende kal</p>
-          <h3>Oyunu değiştirmez, sadece okur.</h3>
-          <p>Klyze oyun dosyalarına yazmaz veya oyuna enjekte etmez. Overlay tıklamaları oyuna geçer; maç verisi okunur.</p>
-        </div>
-        <ul class="detay-trust-list">
-          <li><svg viewBox="0 0 24 24" focusable="false"><path d="M12 3 5 6v5.5c0 4.4 3 7.6 7 9.5 4-1.9 7-5.1 7-9.5V6l-7-3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Oyunu değiştirmez</b><small>Dosya yazmaz, enjekte etmez</small></span></li>
-          <li><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M5 20a7 7 0 0 1 14 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span><b>Riot ID / Google</b><small>Şifre gerekmez</small></span></li>
-          <li><svg viewBox="0 0 24 24" focusable="false"><rect x="3.5" y="4.5" width="17" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 20h8M12 16.5V20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span><b>Windows 10/11</b><small>Otomatik güncelleme</small></span></li>
-          <li><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.7 12h16.6M12 3.5c2.1 2.2 3.2 5.1 3.2 8.5s-1.1 6.3-3.2 8.5c-2.1-2.2-3.2-5.1-3.2-8.5S9.9 5.7 12 3.5Z" fill="none" stroke="currentColor" stroke-width="1.5"/></svg><span><b>TR / EN</b><small>Türkçe ve İngilizce</small></span></li>
+    <div class="eco-grid">
+      <article class="eco-card" id="urun-analiz" tabindex="-1">
+        <div class="eco-card-top"><span class="eco-no">01</span><span class="eco-badge">Ücretsiz</span></div>
+        <h3>Klyze Analiz</h3>
+        <p class="eco-tag">Maçın hikâyesini tek ekranda oku.</p>
+        <ul class="eco-points">
+          <li>Son 20 maç · Elo ve RR</li>
+          <li>K/D · ADR · HS% · ACS</li>
         </ul>
-        <a class="detay-cta" href="https://github.com/omern2/klyze-releases/releases/download/v5.28.3/Klyze-Setup-5.28.3.exe">Windows için indir <svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="eco-visual eco-shot">
+          <img src="assets/analiz.png" alt="Klyze Analiz ekranı: rank, Elo, performans metrikleri ve en iyi ajan" width="1187" height="785" loading="lazy" decoding="async" />
+        </div>
+      </article>
+
+      <article class="eco-card" id="urun-overlay" tabindex="-1">
+        <div class="eco-card-top"><span class="eco-no">02</span><span class="eco-badge">Ücretsiz</span></div>
+        <h3>Klyze Overlay</h3>
+        <p class="eco-tag">Oyunun üstünde, yolunun üstünde değil.</p>
+        <ul class="eco-points">
+          <li>Takım ve rakip kadrosu</li>
+          <li>ALT + X · tıklamaya kapalı</li>
+        </ul>
+        <div class="eco-visual eco-toast">
+          <img src="assets/overlay-bildirim.png" alt="Maç başladı bildirimi: overlay'i açmak için ALT + X" width="678" height="171" loading="lazy" decoding="async" />
+        </div>
+      </article>
+
+      <article class="eco-card" id="urun-ac" tabindex="-1">
+        <div class="eco-card-top"><span class="eco-no">03</span><span class="eco-badge">Ücretsiz</span></div>
+        <h3>Klyze AC</h3>
+        <p class="eco-tag">Lobideki belirsizliği kaldır.</p>
+        <ul class="eco-points">
+          <li>Son 7 günün taraması</li>
+          <li>Hileci ve smurf etiketi</li>
+        </ul>
+        <div class="eco-visual eco-ac" aria-hidden="true">
+          <p class="eco-ac-stat"><b>3</b><span>HİLECİ / SON 7 GÜN</span></p>
+          <svg viewBox="0 0 340 96" focusable="false"><defs><linearGradient id="ecoAcFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FF4655" stop-opacity=".5"/><stop offset="1" stop-color="#FF4655" stop-opacity="0"/></linearGradient></defs><g stroke="rgba(255,255,255,.09)" stroke-width="1"><line x1="0" y1="24" x2="340" y2="24"/><line x1="0" y1="50" x2="340" y2="50"/><line x1="0" y1="76" x2="340" y2="76"/></g><path d="M0,88 C20,88 28,60 45,30 C60,8 75,8 85,34 C95,60 105,88 130,88 C160,88 180,86 210,86 C240,86 250,80 270,70 C290,60 310,52 340,44 L340,96 L0,96 Z" fill="url(#ecoAcFill)"/><path d="M0,88 C20,88 28,60 45,30 C60,8 75,8 85,34 C95,60 105,88 130,88 C160,88 180,86 210,86 C240,86 250,80 270,70 C290,60 310,52 340,44" fill="none" stroke="#FF4655" stroke-width="2.2" stroke-linecap="round"/><g fill="#fff"><circle cx="45" cy="30" r="2.6"/><circle cx="270" cy="70" r="2.6"/><circle cx="340" cy="44" r="2.6"/></g><g fill="#8E8E93" font-size="8" font-family="Inter,system-ui,sans-serif" text-anchor="middle"><text x="10" y="94">Cmt</text><text x="58" y="94">Paz</text><text x="106" y="94">Pzt</text><text x="154" y="94">Sal</text><text x="202" y="94">Çar</text><text x="250" y="94">Per</text><text x="298" y="94">Cum</text></g></svg>
+        </div>
+      </article>
+
+      <article class="eco-card" id="urun-ai" tabindex="-1">
+        <div class="eco-card-top"><span class="eco-no">04</span><span class="eco-badge">Kendi anahtarın</span></div>
+        <h3>Klyze AI</h3>
+        <p class="eco-tag">Veriye dayalı Valorant koçun.</p>
+        <ul class="eco-points">
+          <li>Sohbet · ajan · harita</li>
+          <li>Kendi Gemini / OpenRouter anahtarın</li>
+        </ul>
+        <div class="eco-visual eco-ai" aria-hidden="true">
+          <span class="eco-ai-mark">
+            <svg viewBox="0 0 24 24" focusable="false"><path d="m12 3 1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3Z"/><path d="m18.5 15.5.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7.7-2Z"/></svg>
+          </span>
+          <div class="eco-ai-tags"><span>Sohbet</span><span>Koçluk</span><span>Kendi anahtarın</span></div>
+        </div>
+      </article>
+
+      <article class="eco-card" id="urun-seri" tabindex="-1">
+        <div class="eco-card-top"><span class="eco-no">05</span><span class="eco-badge">Ücretsiz</span></div>
+        <h3>Klyze Seri</h3>
+        <p class="eco-tag">Her gün bir maç, her hafta bir hedef.</p>
+        <ul class="eco-points">
+          <li>7 günlük seri</li>
+          <li>Haftalık hedef ve aktivite</li>
+        </ul>
+        <div class="eco-visual eco-streak">
+          <div class="streak-panel" aria-hidden="true">
+            <p class="streak-head"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>DAILY STREAK<span class="re"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 3v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></p>
+            <p class="streak-goal">WEEKLY GOAL</p>
+            <div class="streak-bar"><i></i></div>
+            <p class="streak-count">2/7</p>
+            <div class="streak-days"><span class="miss"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><small>Cmt</small></span><span class="miss"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><small>Paz</small></span><span class="miss"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><small>Pzt</small></span><span class="play"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><small>Sal</small></span><span class="play"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><small>Çar</small></span><span class="miss"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><small>Per</small></span><span class="today"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2.2"/></svg><small>Cum</small></span></div>
+            <p class="streak-foot"><b>2</b> matches · <b>2</b> days</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="eco-card" id="urun-sosyal" tabindex="-1">
+        <div class="eco-card-top"><span class="eco-no">06</span><span class="eco-badge">Ücretsiz</span></div>
+        <h3>Klyze Sosyal</h3>
+        <p class="eco-tag">Rank, profil ve topluluk aynı yerde.</p>
+        <ul class="eco-points">
+          <li>Feed · gönderi · yorum · medya</li>
+          <li>Profil · rank · favori ajan</li>
+        </ul>
+        <div class="eco-visual eco-social" aria-hidden="true">
+          <div class="eco-social-profile">
+            <span class="eco-avatar"><svg viewBox="0 0 24 24" focusable="false"><circle cx="12" cy="8.5" r="3.4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 20a6.5 6.5 0 0 1 13 0" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+            <div><b>Profil</b><small>Rank · Elo · favori ajan</small></div>
+          </div>
+          <div class="eco-social-rows">
+            <span><b>Feed</b><small>Gönderi · yorum · medya</small></span>
+            <span><b>Kullanıcılar</b><small>Çevrimiçi · ELO</small></span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <section class="eco-tour-sec" aria-labelledby="tourTitle">
+      <header class="eco-tour-head">
+        <div>
+          <p class="eco-kicker">Uygulamanın içinde</p>
+          <h2 class="eco-tour-title" id="tourTitle">Bu ekran ne işe yarar?</h2>
+        </div>
+        <p class="eco-tour-sub">Uygulamayı açtığında ilk göreceğin ana sayfa bu. Notlara bak — her alanın işi farklı.</p>
+      </header>
+      <p class="ozel-tag">KLYZE ANA SAYFA</p>
+      <div class="ozel-tour">
+        <ol class="ozel-notes">
+          <li class="ozel-note ozel-note--l ozel-note--arama" tabindex="0"><b>Arama</b><span>Riot ID yaz, oyuncuyu bul</span></li>
+          <li class="ozel-note ozel-note--l ozel-note--menu" tabindex="0"><b>Sol menü</b><span>Sayfalar arası geçiş</span></li>
+          <li class="ozel-note ozel-note--l ozel-note--seri" tabindex="0"><b>Günlük seri</b><span>Haftalık hedef ve günler</span></li>
+          <li class="ozel-note ozel-note--r ozel-note--mac" tabindex="0"><b>Maç geçmişi</b><span>Son maçın skoru ve K/D</span></li>
+          <li class="ozel-note ozel-note--r ozel-note--rr" tabindex="0"><b>Eski sen / Yeni sen</b><span>Elo karşılaştırma grafiği</span></li>
+          <li class="ozel-note ozel-note--l ozel-note--ac" tabindex="0"><b>Klyze AC</b><span>Haftalık hileci raporu</span></li>
+        </ol>
+        <div class="ozel-box">
+          <img class="ozel-shot" src="assets/app-ekran.png" alt="Klyze ana sayfa — günlük seri, maç geçmişi, analiz grafiği ve Klyze AC paneli" width="1188" height="784" loading="lazy" decoding="async" draggable="false" />
+          <svg class="ozel-lines" viewBox="0 0 1188 784" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M0 66H106" /><path class="ozel-head" d="M118 66L106 59.5V72.5Z" />
+            <path d="M0 203H88" /><path class="ozel-head" d="M100 203L88 196.5V209.5Z" />
+            <path d="M0 292H10" /><path class="ozel-head" d="M22 292L10 285.5V298.5Z" />
+            <path d="M0 564H131" /><path class="ozel-head" d="M143 564L131 557.5V570.5Z" />
+            <path d="M1188 173H1109" /><path class="ozel-head" d="M1097 173L1109 166.5V179.5Z" />
+            <path d="M1188 373H1106" /><path class="ozel-head" d="M1094 373L1106 366.5V379.5Z" />
+          </svg>
+        </div>
       </div>
     </section>
+
+    <div class="eco-trust">
+      <div class="eco-trust-copy">
+        <p class="eco-kicker">Güvende kal</p>
+        <h3>Oyunu değiştirmez, sadece okur.</h3>
+        <p>Klyze oyun dosyalarına yazmaz veya oyuna enjekte etmez. Overlay tıklamaları oyuna geçer; maç verisi okunur.</p>
+      </div>
+      <ul class="eco-trust-list">
+        <li><b>Oyunu değiştirmez</b><span>Dosya yazmaz, enjekte etmez</span></li>
+        <li><b>Şifre istemez</b><span>Riot ID veya Google ile giriş</span></li>
+        <li><b>Ücretsiz</b><span>Kart bilgisi gerekmez</span></li>
+      </ul>
+      <a class="eco-trust-cta" href="https://github.com/omern2/klyze-releases/releases/download/v5.28.3/Klyze-Setup-5.28.3.exe">Windows için indir</a>
+    </div>
   </section>
 
   <!-- LIDERLIK SAYFASI -->
@@ -1089,6 +1037,6 @@
 <script src="js/destek.js?v=9" defer></script>
 <script src="js/kurulum.js?v=5" defer></script>
 <script src="js/indirme.js?v=2" defer></script>
-<script src="js/main.js?v=46" defer></script>
+<script src="js/main.js?v=52" defer></script>
 </body>
 </html>
