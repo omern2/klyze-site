@@ -32,7 +32,7 @@
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/500.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/600.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/@fontsource/metropolis@5.1.0/700.css" rel="stylesheet" />
-<link rel="stylesheet" href="css/style.css?v=194" />
+<link rel="stylesheet" href="css/style.css?v=196" />
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -127,52 +127,70 @@
   </main>
 
   <section class="features" id="ozellikler" aria-labelledby="ekoTitle">
-  <header class="eko-head">
-    <p class="eko-kicker">Klyze ekosistemi</p>
-    <h2 class="eko-title" id="ekoTitle">Bir uygulama, büyüyen bir ekosistem.</h2>
-    <p class="eko-lead">Analizden AC'ye her modül aynı hesapta çalışır.</p>
-  </header>
+    <div class="eko-box">
+      <div class="eko-top">
+        <h2 class="eko-title" id="ekoTitle">Ekosistem</h2>
+        <p class="eko-hint">Modülün üzerine gel</p>
+      </div>
 
-  <ul class="eko-grid" aria-label="Klyze modülleri">
-    <li class="eko-item">
-      <svg class="eko-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20V11M10 20V4M16 20v-6M22 20H2"/></svg>
-      <span class="eko-name">Klyze Analiz</span>
-      <span class="eko-desc">Maç geçmişin ve rank gelişimin.</span>
-    </li>
-    <li class="eko-item">
-      <svg class="eko-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
-      <span class="eko-name">Klyze AC</span>
-      <span class="eko-desc">Maç öncesi güvenlik taraması.</span>
-    </li>
-    <li class="eko-item">
-      <svg class="eko-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 3l1.6 4.9L17.5 9.5l-4.9 1.6L11 16l-1.6-4.9L4.5 9.5l4.9-1.6z"/><path d="M18 15l.8 2.2L21 18l-2.2.8L18 21l-.8-2.2L15 18l2.2-.8z"/></svg>
-      <span class="eko-name">Klyze AI</span>
-      <span class="eko-desc">Kişisel Valorant koçun.</span>
-    </li>
-    <li class="eko-item">
-      <svg class="eko-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 3 9 4.5-9 4.5L3 7.5 12 3Z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg>
-      <span class="eko-name">Klyze Overlay</span>
-      <span class="eko-desc">Oyun içi canlı katman.</span>
-    </li>
-    <li class="eko-item">
-      <svg class="eko-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 5h12v8H8l-5 4V5Z"/><path d="M17 8h4v9l-4-3h-7"/></svg>
-      <span class="eko-name">Klyze Feed</span>
-      <span class="eko-desc">Topluluk akışı ve paylaşım.</span>
-    </li>
-    <li class="eko-item">
-      <svg class="eko-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20V10h4v10M10 20V4h4v16M16 20v-7h4v7"/></svg>
-      <span class="eko-name">Klyze Liderlik</span>
-      <span class="eko-desc">Rank bazlı oyuncu sıralaması.</span>
-    </li>
-    <li class="eko-item eko-item--soon">
-      <svg class="eko-ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg>
-      <span class="eko-name">Sırada</span>
-      <span class="eko-desc">Yeni modüller aynı uygulamaya ekleniyor.</span>
-      <span class="eko-state">Yolda</span>
-    </li>
-  </ul>
+      <ul class="eko-ring" aria-label="Klyze modülleri">
+        <li>
+          <button type="button" class="eko-btn is-active" data-desc="Maç geçmişin, Elo grafiği ve ajan kırılımı tek ekranda.">
+            <span class="eko-circle" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M4 20V11M10 20V4M16 20v-6M22 20H2"/></svg>
+            </span>
+            <span class="eko-name">Analiz</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="eko-btn" data-desc="Maç başlamadan lobiyi tarar; hileciyi ve smurf'ü etiketler.">
+            <span class="eko-circle" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <span class="eko-name">AC</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="eko-btn" data-desc="Oyun üstünde takım kadrosu, kazanma şansı ve etiketler.">
+            <span class="eko-circle" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="m12 3 9 4.5-9 4.5L3 7.5 12 3Z"/><path d="m3 12 9 4.5 9-4.5"/><path d="m3 16.5 9 4.5 9-4.5"/></svg>
+            </span>
+            <span class="eko-name">Overlay</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="eko-btn" data-desc="Topluluk akışında paylaş; gönderi, yorum ve medya.">
+            <span class="eko-circle" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M3 5h12v8H8l-5 4V5Z"/><path d="M17 8h4v9l-4-3h-7"/></svg>
+            </span>
+            <span class="eko-name">Feed</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="eko-btn" data-desc="Rank ve Elo'ya göre oyuncu sıralaması.">
+            <span class="eko-circle" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M8 4h8v5a4 4 0 0 1-8 0V4Z"/><path d="M8 6H5v2a3 3 0 0 0 3 3"/><path d="M16 6h3v2a3 3 0 0 1-3 3"/><path d="M12 13v4M9 21h6"/></svg>
+            </span>
+            <span class="eko-name">Liderlik</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" class="eko-btn eko-btn--soon" data-desc="Yeni modüller aynı uygulamaya ekleniyor.">
+            <span class="eko-circle" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false"><path d="M12 5v14M5 12h14"/></svg>
+            </span>
+            <span class="eko-name">Yakında</span>
+          </button>
+        </li>
+      </ul>
 
-  <div class="feat-grid">
+      <div class="eko-info" aria-live="polite">
+        <p class="eko-info-t">Analiz</p>
+        <p class="eko-info-d">Maç geçmişin, Elo grafiği ve ajan kırılımı tek ekranda.</p>
+      </div>
+    </div>
+
+    <div class="feat-grid">
       <article class="feat-card">
         <div class="feat-visual elo">
           <svg class="elo-plain" viewBox="0 0 300 110" aria-hidden="true"><defs><linearGradient id="wfill1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><linearGradient id="wfill2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".07"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><filter id="wglow" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><g stroke="rgba(255,255,255,.09)" stroke-width="1"><line x1="0" y1="28" x2="300" y2="28"/><line x1="0" y1="58" x2="300" y2="58"/><line x1="0" y1="88" x2="300" y2="88"/></g><path d="M0,46 C30,22 60,16 90,30 C120,44 140,56 170,42 C200,28 230,22 260,16 C280,12 290,10 300,8 L300,110 L0,110 Z" fill="url(#wfill2)"/><path d="M0,46 C30,22 60,16 90,30 C120,44 140,56 170,42 C200,28 230,22 260,16 C280,12 290,10 300,8" fill="none" stroke="rgba(255,255,255,.38)" stroke-width="1.6"/><path d="M0,72 C35,70 55,52 90,54 C125,56 145,72 180,64 C215,56 240,42 300,30 L300,110 L0,110 Z" fill="url(#wfill1)"/><path d="M0,72 C35,70 55,52 90,54 C125,56 145,72 180,64 C215,56 240,42 300,30" fill="none" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" filter="url(#wglow)"/></svg>
@@ -1021,6 +1039,6 @@
 <script src="js/destek.js?v=9" defer></script>
 <script src="js/kurulum.js?v=5" defer></script>
 <script src="js/indirme.js?v=2" defer></script>
-<script src="js/main.js?v=41" defer></script>
+<script src="js/main.js?v=42" defer></script>
 </body>
 </html>
