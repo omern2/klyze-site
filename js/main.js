@@ -56,10 +56,12 @@ function dockCutoff(){
   return Math.max(200,Math.min(340,Math.round(h*0.3)));
 }
 const footEl=document.querySelector(".site-footer");
-function footerInView(){
-  if(!footEl) return false;
+const faqEl=document.querySelector(".home-faq");
+function contentEndInView(){
   const box=(dockFrame||document.documentElement).getBoundingClientRect();
-  return footEl.getBoundingClientRect().top < box.bottom-8;
+  const limit=box.bottom-8;
+  if(footEl&&footEl.getBoundingClientRect().top<limit) return true;
+  return !!(pageHome&&!pageHome.hidden&&faqEl&&faqEl.getBoundingClientRect().top<limit);
 }
 function updateDock(){
   if(!dockEl) return;
@@ -73,7 +75,7 @@ function updateDock(){
     const y=dockFrame?dockFrame.scrollTop:window.scrollY;
     show=y>dockCutoff();
   }
-  if(show&&footerInView()) show=false;
+  if(show&&contentEndInView()) show=false;
   dockEl.classList.toggle("is-on",show);
   dockEl.toggleAttribute("inert",!show);
 }
