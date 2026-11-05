@@ -256,29 +256,6 @@ document.addEventListener("pointerdown",e=>{
   setTimeout(()=>fx.remove(),500);
 },{passive:true});
 
-/* ekosistem: yuvarlak modul butonlari */
-const ekoBtns=document.querySelectorAll(".eko-btn");
-const ekoInfo=document.querySelector(".eko-info");
-if(ekoBtns.length&&ekoInfo){
-  const ekoT=ekoInfo.querySelector(".eko-info-t"),ekoD=ekoInfo.querySelector(".eko-info-d");
-  let ekoAktif=ekoInfo.closest(".eko-box").querySelector(".eko-btn.is-active");
-  const ekoSec=btn=>{
-    if(btn===ekoAktif) return;
-    ekoAktif=btn;
-    ekoBtns.forEach(b=>b.classList.toggle("is-active",b===btn));
-    ekoT.textContent=btn.querySelector(".eko-name").textContent;
-    ekoD.textContent=btn.dataset.desc||"";
-    ekoInfo.classList.remove("is-swap");
-    void ekoInfo.offsetWidth;
-    ekoInfo.classList.add("is-swap");
-  };
-  ekoBtns.forEach(btn=>{
-    btn.addEventListener("mouseenter",()=>ekoSec(btn));
-    btn.addEventListener("focus",()=>ekoSec(btn));
-    btn.addEventListener("click",()=>ekoSec(btn));
-  });
-}
-
 /* alt indirme cubugu: kaydirma ve sayfa durumuna gore */
 if(dockFrame) dockFrame.addEventListener("scroll",dockKick,{passive:true});
 window.addEventListener("scroll",dockKick,{passive:true});
