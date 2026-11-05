@@ -82,10 +82,13 @@ body{background:var(--bg);font-family:var(--font-body);padding:12px;min-height:1
 .hero{position:relative;min-height:calc(100vh - 24px);color:#0F0F0F;padding:78px 24px 20px;text-align:center}
 .hero-texts{position:absolute;top:50%;left:24px;right:24px;transform:translateY(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center}
 .hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
   font-family:"Metropolis",Inter,system-ui,sans-serif;
-  background:#0F0F0F;color:#fff;font-size:12px;font-weight:600;letter-spacing:.06em;
-  padding:8px 18px;border-radius:999px;
+  background:#0F0F0F;color:#fff;font-size:11px;font-weight:600;letter-spacing:.08em;
+  padding:7px 13px;border-radius:8px;border:1px solid #292929;line-height:1;
+  box-shadow:0 4px 14px rgba(0,0,0,.16);
 }
+.hero-badge svg{width:14px;height:14px;flex:none;opacity:.9}
 .hero-title{
   font-family:"Clash Display",Inter,system-ui,sans-serif;
   font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.08;letter-spacing:.01em;
@@ -305,7 +308,7 @@ body{background:var(--bg);font-family:var(--font-body);padding:12px;min-height:1
 @media(max-width:768px),(max-height:600px){
   .hero{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:auto;padding:84px 20px 40px;gap:14px}
   .hero-texts{position:static;transform:none;display:flex;flex-direction:column;align-items:center;gap:14px}
-  .scroll-sec{position:relative;top:auto;left:auto;right:auto;width:100%;padding:8px 0 0}
+  .scroll-sec{position:relative;top:auto;left:auto;right:auto;width:100%;padding:24px 0 0}
   .scroll-card{height:auto}
 }
 
