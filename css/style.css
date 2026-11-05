@@ -84,11 +84,11 @@ body{background:var(--bg);font-family:var(--font-body);padding:12px;min-height:1
 .hero-badge{
   display:inline-flex;align-items:center;gap:7px;
   font-family:"Metropolis",Inter,system-ui,sans-serif;
-  background:#0F0F0F;color:#fff;font-size:11px;font-weight:600;letter-spacing:.08em;
-  padding:7px 13px;border-radius:8px;border:1px solid #292929;line-height:1;
+  background:#0F0F0F;color:#fff;font-size:12px;font-weight:600;letter-spacing:.01em;
+  padding:5px 14px 5px 11px;border-radius:999px;border:1px solid #292929;line-height:1;
   box-shadow:0 4px 14px rgba(0,0,0,.16);
 }
-.hero-badge svg{width:14px;height:14px;flex:none;opacity:.9}
+.hero-badge svg{width:14px;height:14px;flex:none;fill:currentColor}
 .hero-title{
   font-family:"Clash Display",Inter,system-ui,sans-serif;
   font-weight:600;font-size:clamp(40px,6vw,76px);line-height:1.08;letter-spacing:.01em;
