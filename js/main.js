@@ -122,7 +122,7 @@ function setActive(id,doScroll=true){
 const blogo=document.querySelector(".blogo");
 blogo?.addEventListener("click",()=>{
   showPage("home");
-  items.forEach(b=>{const on=b.dataset.id==="ozellikler";b.classList.toggle("active",on);b.setAttribute("aria-selected",""+on)});
+  items.forEach(b=>{b.classList.remove("active");b.setAttribute("aria-selected","false")});
 });
 // kart hero'dan tasinca ozellikler bolumune yer ac (kutu yuksekligine gore)
 const featSec=document.getElementById("ozellikler");
